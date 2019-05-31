@@ -13,3 +13,9 @@ Some design choices can be
 
 - Easy to export outcomes. We can provide settings for researchers to select their data collection. User profile metadata and content information can be collected. Data storage can be either a server or browser storage that will give a chance to export as json or CSV file.
 
+Some mockups below
+
+![user annotate](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/user-annotation.png)
+
+![tweet annotation](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/tweet-annotation.png)
+
