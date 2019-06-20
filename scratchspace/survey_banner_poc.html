@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+div.container{
+	width:100%;
+}
+
+form.flex-container {
+	display: flex;
+	background-color: powderblue;
+	position: fixed;
+    top=0;
+    left=0;
+	width:100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.flex-container > div {
+  background-color: pink;
+  margin: 10px;
+  padding: 20px;
+  flex-basis: 0;
+  min-width: 20%;
+  flex: 1 1 0;
+  <!-- min-width: 400px; -->
+  <!-- font-size: 30px; -->
+}
+
+  div.question {
+  border: 2px solid pink;
+  }
+  
+  .align-right{
+  text-align:right;
+  }
+  
+  .grow {
+	flex-grow: 1;
+	min-width: 300px;
+  }
+  
+  input.bigSubmit {
+    <!-- display: block; -->
+    margin: 10px 0;
+    width: 100%;
+	height: 100%;
+  }
+
+<!-- width: 300px; -->
+
+.switch-field {
+    display: flex;
+    margin-bottom: 36px;
+    overflow: hidden;
+}
+
+.switch-field input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+}
+
+.switch-field label {
+    background-color: #e4e4e4;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    padding: 8px 16px;
+    margin-right: -1px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+    cursor: pointer;
+}
+
+.switch-field input:checked + label {
+    background-color: #a5dc86;
+    box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+    border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+    border-radius: 0 4px 4px 0;
+}
+
+
+</style>
+
+<script type="text/javascript">
+
+function handleIt() {
+	alert("Attention! Military software detected, top secret clearance required.");
+}
+
+</script>
+
+</head>
+<body>
+
+
+<div class="container">
+<!-- twitter-annotate -->
+<!-- <hr /> -->
+	<!-- <div> -->
+		<form class="flex-container" action="javascript:handleIt()">
+			<div class="question">
+				<input type="radio" name="isBot" value="bot"> Bot <input type="radio" name="isBot" value="notBot"> NOT bot
+			</div>
+			
+			<div class="question">
+				<input type="radio" name="isBot" value="bot"> Bot <input type="radio" name="isBot" value="notBot"> NOT bot
+			</div>
+
+			<div class="question">
+				<input type="radio" name="isBot" value="bot"> Bot <input type="radio" name="isBot" value="notBot"> NOT bot
+			</div>
+
+			<div class="question">
+				<input type="radio" name="isBot" value="bot"> Bot <input type="radio" name="isBot" value="notBot"> NOT bot
+			</div>			
+
+			<div class="question">
+				<div class="switch-field">
+					<input type="radio" id="cool-pos" name="isCool" value="cool" />
+					<label for="cool-pos">COOL</label>
+					<input type="radio" id="cool-neg" name="isCool" value="notCool" />
+					<label for="cool-neg">NOTCOOL</label>
+				</div>
+			</div>
+			
+			<div class="bigSubmit">
+				<input type="submit" class="bigSubmit" value="Submit">
+			</div>	
+		</form>
+	<!-- </div> -->
+</div>
+
+
+<h2>TWITTTTTERR</h2>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa 
+<strong>strong</strong>. Cum sociis natoque penatibus 
+et magnis dis parturient montes, nascetur ridiculus 
+mus. Donec quam felis, ultricies nec, pellentesque 
+eu, pretium quis, sem. Nulla consequat massa quis 
+enim. Donec pede justo, fringilla vel, aliquet nec, 
+vulputate eget, arcu. In enim justo, rhoncus ut, 
+imperdiet a, venenatis vitae, justo. Nullam dictum 
+felis eu pede <a class="external ext" href="#">link</a> 
+mollis pretium. Integer tincidunt. Cras dapibus. 
+Vivamus elementum semper nisi. Aenean vulputate 
+eleifend tellus. Aenean leo ligula, porttitor eu, 
+consequat vitae, eleifend ac, enim. Aliquam lorem ante, 
+dapibus in, viverra quis, feugiat a, tellus. Phasellus 
+viverra nulla ut metus varius laoreet. Quisque rutrum. 
+Aenean imperdiet. Etiam ultricies nisi vel augue. 
+Curabitur ullamcorper ultricies nisi.</p>
+
+
+</body>
+</html>
