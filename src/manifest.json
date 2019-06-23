@@ -23,7 +23,7 @@
      "matches": ["https://twitter.com/*"],
 	 "css": [ "content-scripts/inject.css" ],
 	 "js": [ "content-scripts/inject.js" ]
-   },
+   }
   ],
   "icons": {
     "16": "images/get_started16.png",
