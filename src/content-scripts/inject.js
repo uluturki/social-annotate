@@ -33,12 +33,14 @@ formTemplate = {
 	"bot": {
 	  "type": "string",
 	  "title": "Do you believe this user to be a bot?",
-	  "enum": [ "bot", "NOTbot"]
+	  "enum": [ "bot", "NOTbot"],
+	  "required": true
 	},
 	"cool": {
 	  "type": "string",
 	  "title": "Is this user cool?",
-	  "enum": [ "cool", "NOTcool"]
+	  "enum": [ "cool", "NOTcool"],
+	  "required": true
 	}
   },
   onSubmit: submitAction,
