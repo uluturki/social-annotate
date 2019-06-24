@@ -1,0 +1,30 @@
+{
+  "schema": {
+    "bot": {
+      "type": "string",
+      "title": "Do you believe this user to be a bot?",
+      "enum": [ "Yes", "No"]
+    },
+    "cool": {
+      "type": "string",
+      "title": "Is this user cool?",
+      "enum": [ "Yes", "No"]
+    }
+  },
+  "form": [
+    {
+      "key": "bot",
+      "type": "radiobuttons",
+      "activeClass": "btn-success"
+    },
+    {
+      "key": "cool",
+      "type": "radiobuttons",
+      "activeClass": "btn-success"
+    },
+    {
+      "type": "submit",
+      "title": "Submit"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Getting started with JSON Form</title>
+	<link rel="stylesheet" type="text/css" href="deps/opt/bootstrap.css" />
+</head>
+
+<body>
+	<h1>Getting started with JSON Form</h1>
+	<form></form>
+	<div id="res" class="alert"></div>
+	<script type="text/javascript" src="deps/jquery.min.js"></script>
+	<script type="text/javascript" src="deps/underscore.js"></script>
+	<script type="text/javascript" src="deps/opt/jsv.js"></script>
+	<script type="text/javascript" src="lib/jsonform.js"></script>
+	<script type="text/javascript">
+	submitAction = function (errors, values) {
+		if (errors) {
+			$('#res').html('<p>I beg your pardon?</p>');
+		} else {
+			$('#res').html('<p>Hello ' + values.bot + '.' +
+				('<br/>I know that you are ' + values.cool + '.') +
+				'</p>');
+		}
+	}
+	
+	formTemplate = {
+	  "schema": {
+		"bot": {
+		  "type": "string",
+		  "title": "Do you believe this user to be a bot?",
+		  "enum": [ "bot", "NOTbot"]
+		},
+		"cool": {
+		  "type": "string",
+		  "title": "Is this user cool?",
+		  "enum": [ "cool", "NOTcool"]
+		}
+	  },
+	  onSubmit: submitAction,
+	  "form": [
+		{
+		  "key": "bot",
+		  "type": "radiobuttons",
+		  "activeClass": "btn-success"
+		},
+		{
+		  "key": "cool",
+		  "type": "radiobuttons",
+		  "activeClass": "btn-success"
+		},
+		{
+		  "type": "submit",
+		  "title": "Submit"
+		}
+	  ]
+	}
+
+	$('form').jsonForm(formTemplate);
+	</script>
+</body>
+
+</html>
