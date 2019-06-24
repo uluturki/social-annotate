@@ -4,6 +4,7 @@ var surveyContainer = document.createElement('div');
 surveyContainer.className = "survey-container";
 
 var survey = document.createElement('form');
+survey.setAttribute("id", "surveyForm");
 surveyContainer.appendChild(survey)
 
 // @TODO: Read where to append the survey from a config file.
@@ -59,4 +60,4 @@ formTemplate = {
   ]
 }
 
-$('form').jsonForm(formTemplate);
+$('#surveyForm').jsonForm(formTemplate);
