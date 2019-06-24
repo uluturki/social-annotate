@@ -5,7 +5,9 @@
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "options_page": "options/options.html",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+		"background/background.js"
+	],
     "persistent": false
   },
   "browser_action": {
@@ -22,7 +24,13 @@
    {
      "matches": ["https://twitter.com/*"],
 	 "css": [ "content-scripts/inject.css" ],
-	 "js": [ "content-scripts/inject.js" ]
+	 "js": [ 
+	 "dep/jsonform/deps/jquery.min.js",
+	 "dep/jsonform/deps/underscore.js",
+	 "dep/jsonform/deps/opt/jsv.js",
+	 "dep/jsonform/lib/jsonform.js",
+	 "content-scripts/inject.js" 
+	 ]
    }
   ],
   "icons": {

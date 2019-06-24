@@ -1,15 +1,62 @@
 document.body.style.backgroundColor="orange";
 
-var survey = document.createElement('div');
-survey.className = "survey-container";
-survey.innerHTML = "Attention! Military software detected. Top secret clearance required.";
+var surveyContainer = document.createElement('div');
+surveyContainer.className = "survey-container";
 
-var fixedBar = document.getElementsByClassName("global-nav-inner");
-// There is only one of these, if twitter adds another one, will have to reconsider.
-fixedBar[0].appendChild(survey);
+var survey = document.createElement('form');
+surveyContainer.appendChild(survey)
+
+// @TODO: Read where to append the survey from a config file.
+var barClassName = "global-nav-inner";
+var fixedBar = document.getElementsByClassName(barClassName);
+fixedBar[0].appendChild(surveyContainer);
 // var i;
 // for (i = 0; i < fixedBar.length; i++) {
 	// fixedBar[i].appendChild(survey);
 // }
 
 
+// @TODO: Store the received values. And maybe send them to an API endpoint.
+submitAction = function (errors, values) {
+	if (errors) {
+		alert('I beg your pardon?');
+	} else {
+		alert('Hello ' + values.bot + '.' +
+			 'I know that you are ' + values.cool + '.');
+	}
+}
+
+// @TODO: Read this form template from somewhere.
+formTemplate = {
+  "schema": {
+	"bot": {
+	  "type": "string",
+	  "title": "Do you believe this user to be a bot?",
+	  "enum": [ "bot", "NOTbot"]
+	},
+	"cool": {
+	  "type": "string",
+	  "title": "Is this user cool?",
+	  "enum": [ "cool", "NOTcool"]
+	}
+  },
+  onSubmit: submitAction,
+  "form": [
+	{
+	  "key": "bot",
+	  "type": "radiobuttons",
+	  "activeClass": "btn-success"
+	},
+	{
+	  "key": "cool",
+	  "type": "radiobuttons",
+	  "activeClass": "btn-success"
+	},
+	{
+	  "type": "submit",
+	  "title": "Submit"
+	}
+  ]
+}
+
+$('form').jsonForm(formTemplate);
