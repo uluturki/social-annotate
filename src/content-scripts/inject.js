@@ -1,3 +1,4 @@
+// Turn the background color to a godawful color so we know app is doing its thing.
 document.body.style.backgroundColor="orange";
 
 var surveyContainer = document.createElement('div');
@@ -16,20 +17,66 @@ fixedBar[0].appendChild(surveyContainer);
 	// fixedBar[i].appendChild(survey);
 // }
 
+function getCurrentScreenName() {
+	headerCardClass = 'ProfileHeaderCard-screenname';
+	screenNameClass = 'u-linkComplex-target';
+	headerCard = document.getElementsByClassName(headerCardClass);
+	screenNameContainer = headerCard[0].getElementsByClassName(screenNameClass);	
+	screenName = screenNameContainer[0].innerText;
+	
+	return screenName;
+}
 
 // @TODO: Store the received values. And maybe send them to an API endpoint.
-submitAction = function (errors, values) {
+function submitAction(errors, values) {
+	
+	//@TODO: Switch to userID grabbed from the API instead of screenName.
+	values.userID = getCurrentScreenName();
+	
 	if (errors) {
 		alert('I beg your pardon?');
 	} else {
-		alert('Hello ' + values.bot + '.' +
-			 'I know that you are ' + values.cool + '.');
+		alert('Hello ' + values.bot + '. ' +
+			 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
 	}
+	
+	storeResults(values);
+}
+
+
+var resultsArray = []
+// @TODO: Implement a caching mechanism so won't have to write every submit to storage.
+// Race conditions should not occur because events are called sequentially. 
+storeResults = function(surveyResults) {
+	// get annotated count and increment that too. Also annotatedUserIDs.
+	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs'], function(result) {
+		console.log('Number of recorded results: ' + result.resultsArray.length);
+		resultsArray = result.resultsArray;
+		annotatedUserIDs = result.annotatedUserIDs;
+		
+		// keeping a separate list of IDs for quick access, doesn't take much space.
+		resultsArray.push(surveyResults);
+		annotatedUserIDs.push(surveyResults.userID);
+		
+		chrome.storage.local.set({'resultsArray': resultsArray, 'annotatedUserIDs': annotatedUserIDs}, function() {
+			// Notify that we saved.
+			alert('Settings saved');
+		});
+	});
+      
+	
+	
+	
 }
 
 // @TODO: Read this form template from somewhere.
 formTemplate = {
   "schema": {
+	"userID": {
+      "type": "string",
+      "title": "Annotated User ID",
+      "default": "88888"
+    },
 	"bot": {
 	  "type": "string",
 	  "title": "Do you believe this user to be a bot?",
@@ -45,6 +92,10 @@ formTemplate = {
   },
   onSubmit: submitAction,
   "form": [
+	{
+      "key": "userID",
+      "type": "hidden"
+    },
 	{
 	  "key": "bot",
 	  "type": "radiobuttons",

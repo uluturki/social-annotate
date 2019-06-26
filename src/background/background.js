@@ -5,9 +5,11 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.local.set({annotationCount: 0}, function() {
-    console.log('Annotation count is started from 0.');
+  chrome.storage.local.set({"resultsArray": [], "annotatedUserIDs": []}, function() {
+    console.log('Storage arrays initialized.');
   });
+  
+  
   // chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     // chrome.declarativeContent.onPageChanged.addRules([{
       // conditions: [new chrome.declarativeContent.PageStateMatcher({
