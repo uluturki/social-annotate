@@ -51,6 +51,8 @@ storeResults = function(surveyResults) {
 	// get annotated count and increment that too. Also annotatedUserIDs.
 	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs'], function(result) {
 		console.log('Number of recorded results: ' + result.resultsArray.length);
+		// @TODO Check if the user record already exists, and overwrite if it does.
+		// @TODO Notify before overwriting though...
 		resultsArray = result.resultsArray;
 		annotatedUserIDs = result.annotatedUserIDs;
 		

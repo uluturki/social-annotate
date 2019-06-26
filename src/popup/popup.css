@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 160px;
+  /*min-height: 80px;*/
+  -webkit-font-smoothing: antialiased;
+}
+
+.header-container {
+	height: 30px;
+	outline: none;
+	text-align: center;
+
+}
+
+.header-container > h1 {
+	color: pink;
+	font-size: 1.25rem;
+	background-color: powderblue;
+}
