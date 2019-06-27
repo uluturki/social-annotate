@@ -24,12 +24,12 @@
    {
      "matches": ["https://twitter.com/*"],
 	 "css": [ "content-scripts/inject.css" ],
-	 "js": [ 
-	 "dep/jsonform/deps/jquery.min.js",
-	 "dep/jsonform/deps/underscore.js",
-	 "dep/jsonform/deps/opt/jsv.js",
-	 "dep/jsonform/lib/jsonform.js",
-	 "content-scripts/inject.js" 
+	 "js": [
+		 "dep/jsonform/deps/jquery.min.js",
+		 "dep/jsonform/deps/underscore.js",
+		 "dep/jsonform/deps/opt/jsv.js",
+		 "dep/jsonform/lib/jsonform.js",
+		 "content-scripts/inject.js" 
 	 ]
    }
   ],

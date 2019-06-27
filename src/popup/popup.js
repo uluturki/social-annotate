@@ -9,3 +9,5 @@ chrome.storage.local.get('annotatedUserIDs', function(data) {
   annotationCountSpan.innerText = annotationCount;
 });
 
+// @TODO add an enable/disable app switch and an enable/disable going over the list switch. 
+// @TODO also throw in a link to the options page.

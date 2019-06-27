@@ -1,6 +1,3 @@
-// Turn the background color to a godawful color so we know app is doing its thing.
-document.body.style.backgroundColor="orange";
-
 var surveyContainer = document.createElement('div');
 surveyContainer.className = "survey-container";
 
@@ -50,7 +47,7 @@ var resultsArray = []
 storeResults = function(surveyResults) {
 	// get annotated count and increment that too. Also annotatedUserIDs.
 	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs'], function(result) {
-		console.log('Number of recorded results: ' + result.resultsArray.length);
+		// console.log('Number of recorded results: ' + result.resultsArray.length);
 		// @TODO Check if the user record already exists, and overwrite if it does.
 		// @TODO Notify before overwriting though...
 		resultsArray = result.resultsArray;
@@ -61,8 +58,7 @@ storeResults = function(surveyResults) {
 		annotatedUserIDs.push(surveyResults.userID);
 		
 		chrome.storage.local.set({'resultsArray': resultsArray, 'annotatedUserIDs': annotatedUserIDs}, function() {
-			// Notify that we saved.
-			alert('Settings saved');
+			// console.log('save complete');
 		});
 	});
       
