@@ -8,12 +8,24 @@ storeResults = function(surveyResults) {
 		// console.log('Number of recorded results: ' + result.resultsArray.length);
 		// @TODO Check if the user record already exists, and overwrite if it does.
 		// @TODO Notify before overwriting though...
+		
+		// @TODO wrap these two in an object so they are always in sync, or switch to a dict.
 		resultsArray = result.resultsArray;
 		annotatedUserIDs = result.annotatedUserIDs;
 		
-		// keeping a separate list of IDs for quick access, doesn't take much space.
-		resultsArray.push(surveyResults);
-		annotatedUserIDs.push(surveyResults.userID);
+		// check if this user is already in storage, an if so, where.
+		let userIndex = annotatedUserIDs.indexOf(surveyResults.userID);
+		alert(userIndex)
+		if (userIndex === -1) {
+			// keeping a separate list of IDs for quick access, doesn't take much space.
+			// resultsArray.push(surveyResults);
+			// annotatedUserIDs.push(surveyResults.userID);
+			// this index appends to the end of the list.
+			userIndex = resultsArray.length;
+		} 
+		alert(userIndex)
+		resultsArray[userIndex] = surveyResults;
+		annotatedUserIDs[userIndex] = surveyResults.userID;
 		
 		chrome.storage.local.set({'resultsArray': resultsArray, 'annotatedUserIDs': annotatedUserIDs}, function() {
 			// console.log('save complete');
