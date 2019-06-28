@@ -20,7 +20,6 @@ document.querySelector('#exportLink').addEventListener('click', function(e) {
 function updateInterface (disableLink) {
 	chrome.storage.local.get('isEnabled', function(data) {
 		let linkText = '';
-		alert('Interface:' + data.isEnabled);
 		if (data.isEnabled === true) {
 			linkText = "Disable";
 		} else {
@@ -39,7 +38,6 @@ disableLink.addEventListener('click', function(e) {
 	// get the current status, flip it and store it again.
 	chrome.storage.local.get('isEnabled', function(data) {
 		let tempValue = !data.isEnabled;
-		alert('Event: ' + tempValue)
 		chrome.storage.local.set({"isEnabled": tempValue}, function() {
 			updateInterface(disableLink)
 		});
