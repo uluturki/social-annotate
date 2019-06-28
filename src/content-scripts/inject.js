@@ -68,12 +68,12 @@ chrome.storage.local.get(['config'], function(result) {
 	function submitAction(errors, values) {
 		values.userID = getCurrentScreenName(config.socialMediaPlatform);
 		
-		if (errors) {
-			alert('I beg your pardon?');
-		} else {
-			alert('Hello ' + values.bot + '. ' +
-				 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
-		}
+		// if (errors) {
+			// alert('I beg your pardon?');
+		// } else {
+			// alert('Hello ' + values.bot + '. ' +
+				 // 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
+		// }
 		storeResults(values);
 	}
 	formTemplate.onSubmit = submitAction;

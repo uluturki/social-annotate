@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   width: 160px;
-  /*min-height: 80px;*/
+  min-height: 80px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -17,4 +17,23 @@ body {
 	color: pink;
 	font-size: 1.25rem;
 	background-color: powderblue;
+}
+
+.information-container {
+	padding-left: 6px; 
+	/* padding: 6px; */
+	text-align: left;
+}
+
+#annotationCount {
+	font-weight: bold;
+}
+
+.form-container {
+	position: absolute; 
+	margin-top: 5px;
+	outline: none;
+	text-align: left;
+	bottom: 0px; 
+	left: 5px;
 }
