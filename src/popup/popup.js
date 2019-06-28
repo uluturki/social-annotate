@@ -42,7 +42,7 @@ function exportStoredResults (items) {
 }
 
 function objectList2csv(items) {
-	var csv
+	var csv = ''
 	
 	// Loop the array of objects
 	for(let row = 0; row < items.length; row++){
@@ -57,21 +57,24 @@ function objectList2csv(items) {
 
 							   // This is to not add a comma at the last cell
 							   // The '\r\n' adds a new line
+			   alert(key)
 			   csv += key + (keysCounter+1 < keysAmount ? ',' : '\r\n' )
 			   keysCounter++
+			   
 		   }
-		}else{
-		   for(let key in items[row]){
-			   csv += items[row][key] + (keysCounter+1 < keysAmount ? ',' : '\r\n' )
-			   keysCounter++
-		   }
+		   // So that it handles first row of DATA properly after adding headings
+		   keysCounter = 0
 		}
+	    for(let key in items[row]){
+		   csv += items[row][key] + (keysCounter+1 < keysAmount ? ',' : '\r\n' )
+		   keysCounter++
+	    }
+
 
 		keysCounter = 0
 	}
 	return csv
 }
-
 
 // @TODO add an enable/disable app switch and an enable/disable going over the list switch. 
 // @TODO also throw in a link to the options page.
