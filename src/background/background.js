@@ -5,7 +5,7 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.local.set({"resultsArray": [], "annotatedUserIDs": []}, function() {
+  chrome.storage.local.set({"resultsArray": [], "annotatedUserIDs": [], "config": config}, function() {
     console.log('Storage arrays initialized.');
   });
   

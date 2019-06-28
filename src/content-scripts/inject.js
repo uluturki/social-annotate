@@ -1,47 +1,4 @@
-var surveyContainer = document.createElement('div');
-surveyContainer.className = "survey-container";
 
-var survey = document.createElement('form');
-survey.setAttribute("id", "surveyForm");
-surveyContainer.appendChild(survey)
-
-// @TODO: Read where to append the survey from a config file.
-var barClassName = "global-nav-inner";
-var fixedBar = document.getElementsByClassName(barClassName);
-fixedBar[0].appendChild(surveyContainer);
-// var i;
-// for (i = 0; i < fixedBar.length; i++) {
-	// fixedBar[i].appendChild(survey);
-// }
-
-function getCurrentScreenName() {
-	headerCardClass = 'ProfileHeaderCard-screenname';
-	screenNameClass = 'u-linkComplex-target';
-	headerCard = document.getElementsByClassName(headerCardClass);
-	screenNameContainer = headerCard[0].getElementsByClassName(screenNameClass);	
-	screenName = screenNameContainer[0].innerText;
-	
-	return screenName;
-}
-
-// @TODO: Store the received values. And maybe send them to an API endpoint.
-function submitAction(errors, values) {
-	
-	//@TODO: Switch to userID grabbed from the API instead of screenName.
-	values.userID = getCurrentScreenName();
-	
-	if (errors) {
-		alert('I beg your pardon?');
-	} else {
-		alert('Hello ' + values.bot + '. ' +
-			 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
-	}
-	
-	storeResults(values);
-}
-
-
-var resultsArray = []
 // @TODO: Implement a caching mechanism so won't have to write every submit to storage.
 // Race conditions should not occur because events are called sequentially. 
 storeResults = function(surveyResults) {
@@ -61,54 +18,64 @@ storeResults = function(surveyResults) {
 			// console.log('save complete');
 		});
 	});
-      
-	
-	
-	
 }
 
-// @TODO: Read this form template from somewhere.
-formTemplate = {
-  "schema": {
-	"userID": {
-      "type": "string",
-      "title": "Annotated User ID",
-      "default": "88888"
-    },
-	"bot": {
-	  "type": "string",
-	  "title": "Do you believe this user to be a bot?",
-	  "enum": [ "bot", "NOTbot"],
-	  "required": true
-	},
-	"cool": {
-	  "type": "string",
-	  "title": "Is this user cool?",
-	  "enum": [ "cool", "NOTcool"],
-	  "required": true
+function getCurrentScreenName(platform) {
+	if (platform === "twitter") {
+		headerCardClass = 'ProfileHeaderCard-screenname';
+		screenNameClass = 'u-linkComplex-target';
+		headerCard = document.getElementsByClassName(headerCardClass);
+		screenNameContainer = headerCard[0].getElementsByClassName(screenNameClass);	
+		screenName = screenNameContainer[0].innerText;
+	} else {
+		throw "Not implemented yet"
 	}
-  },
-  onSubmit: submitAction,
-  "form": [
-	{
-      "key": "userID",
-      "type": "hidden"
-    },
-	{
-	  "key": "bot",
-	  "type": "radiobuttons",
-	  "activeClass": "btn-success"
-	},
-	{
-	  "key": "cool",
-	  "type": "radiobuttons",
-	  "activeClass": "btn-success"
-	},
-	{
-	  "type": "submit",
-	  "title": "Submit"
-	}
-  ]
+	
+	return screenName;
 }
 
-$('#surveyForm').jsonForm(formTemplate);
+// get the current config from storage
+chrome.storage.local.get(['config'], function(result) {
+
+	var config = result.config;
+		
+	var surveyContainer = document.createElement('div');
+	surveyContainer.className = "survey-container";
+
+	var survey = document.createElement('form');
+	survey.setAttribute("id", "surveyForm");
+	surveyContainer.appendChild(survey)
+
+	// Inject the form to the appropriate element in the page.
+	var barElementName = config.injectElement;
+	var fixedBar = {}
+	if (config.injectElementType === "class") {
+		fixedBar = document.getElementsByClassName(barElementName)[config.injectElementIndex];
+	} else if (config.injectElementType === "id") {
+		fixedBar = document.getElementById(barElementName);
+	}
+
+	fixedBar.appendChild(surveyContainer);
+	// var i;
+	// for (i = 0; i < fixedBar.length; i++) {
+		// fixedBar[i].appendChild(survey);
+	// }
+	
+	// Attach the onSubmit event handler to the schema
+	var formTemplate = config.surveyFormSchema;
+	
+	// @TODO: Store the received values. And maybe send them to an API endpoint.
+	function submitAction(errors, values) {
+		values.userID = getCurrentScreenName(config.socialMediaPlatform);
+		
+		if (errors) {
+			alert('I beg your pardon?');
+		} else {
+			alert('Hello ' + values.bot + '. ' +
+				 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
+		}
+		storeResults(values);
+	}
+	formTemplate.onSubmit = submitAction;
+	$('#surveyForm').jsonForm(formTemplate);
+});
