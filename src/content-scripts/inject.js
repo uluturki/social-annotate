@@ -35,47 +35,49 @@ function getCurrentScreenName(platform) {
 }
 
 // get the current config from storage
-chrome.storage.local.get(['config'], function(result) {
+chrome.storage.local.get(['config', 'isEnabled'], function(result) {
+	if (result.isEnabled === true) {
+		var config = result.config;
+			
+		var surveyContainer = document.createElement('div');
+		surveyContainer.className = "survey-container";
 
-	var config = result.config;
-		
-	var surveyContainer = document.createElement('div');
-	surveyContainer.className = "survey-container";
+		var survey = document.createElement('form');
+		survey.setAttribute("id", "surveyForm");
+		surveyContainer.appendChild(survey)
 
-	var survey = document.createElement('form');
-	survey.setAttribute("id", "surveyForm");
-	surveyContainer.appendChild(survey)
+		// Inject the form to the appropriate element in the page.
+		var barElementName = config.injectElement;
+		var fixedBar = {}
+		if (config.injectElementType === "class") {
+			fixedBar = document.getElementsByClassName(barElementName)[config.injectElementIndex];
+		} else if (config.injectElementType === "id") {
+			fixedBar = document.getElementById(barElementName);
+		}
 
-	// Inject the form to the appropriate element in the page.
-	var barElementName = config.injectElement;
-	var fixedBar = {}
-	if (config.injectElementType === "class") {
-		fixedBar = document.getElementsByClassName(barElementName)[config.injectElementIndex];
-	} else if (config.injectElementType === "id") {
-		fixedBar = document.getElementById(barElementName);
-	}
-
-	fixedBar.appendChild(surveyContainer);
-	// var i;
-	// for (i = 0; i < fixedBar.length; i++) {
-		// fixedBar[i].appendChild(survey);
-	// }
-	
-	// Attach the onSubmit event handler to the schema
-	var formTemplate = config.surveyFormSchema;
-	
-	// @TODO: Store the received values. And maybe send them to an API endpoint.
-	function submitAction(errors, values) {
-		values.userID = getCurrentScreenName(config.socialMediaPlatform);
-		
-		// if (errors) {
-			// alert('I beg your pardon?');
-		// } else {
-			// alert('Hello ' + values.bot + '. ' +
-				 // 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
+		fixedBar.appendChild(surveyContainer);
+		// var i;
+		// for (i = 0; i < fixedBar.length; i++) {
+			// fixedBar[i].appendChild(survey);
 		// }
-		storeResults(values);
+		
+		// Attach the onSubmit event handler to the schema
+		var formTemplate = config.surveyFormSchema;
+		
+		// @TODO: Send values to an API endpoint if configured to do so.
+		function submitAction(errors, values) {
+			// @TODO: Modify this so this function definition can be outside the event.
+			values.userID = getCurrentScreenName(config.socialMediaPlatform);
+			
+			// if (errors) {
+				// alert('I beg your pardon?');
+			// } else {
+				// alert('Hello ' + values.bot + '. ' +
+					 // 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
+			// }
+			storeResults(values);
+		}
+		formTemplate.onSubmit = submitAction;
+		$('#surveyForm').jsonForm(formTemplate);
 	}
-	formTemplate.onSubmit = submitAction;
-	$('#surveyForm').jsonForm(formTemplate);
 });

@@ -16,16 +16,36 @@ document.querySelector('#exportLink').addEventListener('click', function(e) {
 	});
 });
 
+
+function updateInterface (disableLink) {
+	chrome.storage.local.get('isEnabled', function(data) {
+		let linkText = '';
+		alert('Interface:' + data.isEnabled);
+		if (data.isEnabled === true) {
+			linkText = "Disable";
+		} else {
+			linkText = "Enable";
+		}
+		disableLink.innerHTML = linkText;
+	});
+}
+
 var disableLink = document.querySelector('#disableLink');
+// Populate the interface for initial values.
+updateInterface(disableLink);
+
 disableLink.addEventListener('click', function(e) {
 	// use the link/button as a toggle, toggle between disable and enable.
-	if (disableLink.innerHTML === "Disable") {
-		// TODO Implement logic here that will let this know by the content script.
-		disableLink.innerHTML = "Enable";
-	} else if (disableLink.innerHTML === "Enable") {
-		// TODO Implement logic here that will let this know by the content script.
-		disableLink.innerHTML = "Disable";
-	}
+	// get the current status, flip it and store it again.
+	chrome.storage.local.get('isEnabled', function(data) {
+		let tempValue = !data.isEnabled;
+		alert('Event: ' + tempValue)
+		chrome.storage.local.set({"isEnabled": tempValue}, function() {
+			updateInterface(disableLink)
+		});
+	});
+	// Update the interface (for now just the toggle link)
+
 });
 
 
