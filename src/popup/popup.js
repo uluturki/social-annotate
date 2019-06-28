@@ -16,6 +16,18 @@ document.querySelector('#exportLink').addEventListener('click', function(e) {
 	});
 });
 
+var disableLink = document.querySelector('#disableLink');
+disableLink.addEventListener('click', function(e) {
+	// use the link/button as a toggle, toggle between disable and enable.
+	if (disableLink.innerHTML === "Disable") {
+		// TODO Implement logic here that will let this know by the content script.
+		disableLink.innerHTML = "Enable";
+	} else if (disableLink.innerHTML === "Enable") {
+		// TODO Implement logic here that will let this know by the content script.
+		disableLink.innerHTML = "Disable";
+	}
+});
+
 
 // @TODO First line is getting messed up as undefined, figure that out.
 function exportStoredResults (items) {
@@ -25,7 +37,7 @@ function exportStoredResults (items) {
 	var url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvResults);
     chrome.downloads.download({
         url: url,
-        filename: 'results.csv'
+        filename: 'annotations.csv'
     });
 }
 

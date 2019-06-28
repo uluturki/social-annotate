@@ -1,7 +1,7 @@
 body {
   margin: 0;
   /* padding: 0; */
-  width: 160px;
+  width: 200px;
   min-height: 80px;
   -webkit-font-smoothing: antialiased;
 }
@@ -29,11 +29,31 @@ body {
 	font-weight: bold;
 }
 
+#exportLink {
+	margin: 6px;
+	/* text-align: left; */
+	/* float: left; */
+}
+
+#disableLink {
+	margin: 6px;
+	/* text-align: right; */
+	/* float: right; */
+}
+
+.lean-left {
+	float: left;
+	text-align: left;
+}
+
+.lean-right {
+	float: right;
+	text-align: right;
+}
+
 .form-container {
 	position: absolute; 
-	margin-top: 5px;
 	outline: none;
-	text-align: left;
+	width: 200px;
 	bottom: 0px; 
-	left: 5px;
 }
