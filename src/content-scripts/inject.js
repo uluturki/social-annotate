@@ -2,37 +2,6 @@
 // @TODO Check if this ID already exists in storage, and just update if it does (avoid duplicates).
 // @TODO Might have an allow duplicates checkbox in the config, if there is a use case for it.
 // Race conditions should not occur because events are called sequentially. 
-storeResults = function(surveyResults) {
-	// get annotated count and increment that too. Also annotatedUserIDs.
-	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs'], function(result) {
-		// console.log('Number of recorded results: ' + result.resultsArray.length);
-		// @TODO Check if the user record already exists, and overwrite if it does.
-		// @TODO Notify before overwriting though...
-		
-		// @TODO wrap these two in an object so they are always in sync, or switch to a dict.
-		resultsArray = result.resultsArray;
-		annotatedUserIDs = result.annotatedUserIDs;
-		
-		// check if this user is already in storage, an if so, where.
-		let userIndex = annotatedUserIDs.indexOf(surveyResults.userID);
-		alert(userIndex)
-		if (userIndex === -1) {
-			// keeping a separate list of IDs for quick access, doesn't take much space.
-			// resultsArray.push(surveyResults);
-			// annotatedUserIDs.push(surveyResults.userID);
-			// this index appends to the end of the list.
-			userIndex = resultsArray.length;
-		} 
-		alert(userIndex)
-		resultsArray[userIndex] = surveyResults;
-		annotatedUserIDs[userIndex] = surveyResults.userID;
-		
-		chrome.storage.local.set({'resultsArray': resultsArray, 'annotatedUserIDs': annotatedUserIDs}, function() {
-			// console.log('save complete');
-		});
-	});
-}
-
 function getCurrentScreenName(platform) {
 	if (platform === "twitter") {
 		headerCardClass = 'ProfileHeaderCard-screenname';
@@ -45,6 +14,37 @@ function getCurrentScreenName(platform) {
 	}
 	
 	return screenName;
+}
+
+storeResults = function(surveyResults, socialMediaPlatform, updateUserID) {
+	// get annotated count and increment that too. Also annotatedUserIDs.
+	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs'], function(result) {
+		// console.log('Number of recorded results: ' + result.resultsArray.length);
+		// @TODO Check if the user record already exists, and overwrite if it does.
+		// @TODO Notify before overwriting though...
+		
+		// @TODO wrap these two in an object so they are always in sync, or switch to a dict.
+		resultsArray = result.resultsArray;
+		annotatedUserIDs = result.annotatedUserIDs;
+		if (updateUserID === true) {
+			surveyResults.userID = getCurrentScreenName(socialMediaPlatform);
+		}
+		// check if this user is already in storage, an if so, where.
+		let userIndex = annotatedUserIDs.indexOf(surveyResults.userID);
+		if (userIndex === -1) {
+			// keeping a separate list of IDs for quick access, doesn't take much space.
+			// resultsArray.push(surveyResults);
+			// annotatedUserIDs.push(surveyResults.userID);
+			// this index appends to the end of the list.
+			userIndex = resultsArray.length;
+		} 
+		resultsArray[userIndex] = surveyResults;
+		annotatedUserIDs[userIndex] = surveyResults.userID;
+		
+		chrome.storage.local.set({'resultsArray': resultsArray, 'annotatedUserIDs': annotatedUserIDs}, function() {
+			// console.log('save complete');
+		});
+	});
 }
 
 // get the current config from storage
@@ -79,18 +79,10 @@ chrome.storage.local.get(['config', 'isEnabled'], function(result) {
 		
 		// @TODO: Send values to an API endpoint if configured to do so.
 		function submitAction(errors, values) {
-			// @TODO: Modify this so this function definition can be outside the event.
-			values.userID = getCurrentScreenName(config.socialMediaPlatform);
-			
-			// if (errors) {
-				// alert('I beg your pardon?');
-			// } else {
-				// alert('Hello ' + values.bot + '. ' +
-					 // 'I know that you are ' + values.cool + '. UserID: ' + values.userID);
-			// }
-			storeResults(values);
+			storeResults(values, config.socialMediaPlatform, true);  // store values and updateUserID field
 		}
 		formTemplate.onSubmit = submitAction;
+		
 		$('#surveyForm').jsonForm(formTemplate);
 	}
 });

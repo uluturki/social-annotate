@@ -5,12 +5,12 @@ var config = {
 	"injectElement": "global-nav-inner",
 	"injectElementType": "class",
 	"injectElementIndex": "0",
-	"screenNameList": [],
+	"screenNameList": ["strictlynofun","onurvarol","realdonaldtrump","ContraPoints","Kanopy"],
 	"surveyFormSchema" : {
 	  "schema": {
 		"userID": {
 		  "type": "string",
-		  "title": "Annotated User ID",
+		  "title": "ID for annotated user",
 		  "default": "88888"
 		},
 		"bot": {
