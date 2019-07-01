@@ -5,7 +5,7 @@ var config = {
 	"injectElement": "global-nav-inner",
 	"injectElementType": "class",
 	"injectElementIndex": "0",
-	"screenNameList": ["strictlynofun","onurvarol","realdonaldtrump","ContraPoints","Kanopy"],
+	"screenNameList": ["strictlynofun", "onurvarol", "realDonaldTrump", "ContraPoints", "Kanopy"],
 	"surveyFormSchema" : {
 	  "schema": {
 		"userID": {

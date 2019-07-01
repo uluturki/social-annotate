@@ -75,7 +75,6 @@ function objectList2csv(items) {
 
 							   // This is to not add a comma at the last cell
 							   // The '\r\n' adds a new line
-			   alert(key)
 			   csv += key + (keysCounter+1 < keysAmount ? ',' : '\r\n' )
 			   keysCounter++
 			   

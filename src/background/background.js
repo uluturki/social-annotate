@@ -5,7 +5,16 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.local.set({"resultsArray": [], "annotatedUserIDs": [], "config": config, "isEnabled": true}, function() {
+	
+  let initialStorage = {
+	  "resultsArray": [], 
+	  "annotatedUserIDs": [], 
+	  "config": config, 
+	  "isEnabled": true,
+	  "activeTargetList": [...config.screenNameList]  // clone the array, keep the initial list for future reference.
+  }
+  // {"resultsArray": [], "annotatedUserIDs": [], "config": config, "isEnabled": true}
+  chrome.storage.local.set(initialStorage, function() {
     console.log('Storage arrays initialized.');
   });
   
