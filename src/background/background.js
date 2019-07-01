@@ -11,6 +11,7 @@ chrome.runtime.onInstalled.addListener(function() {
 	  "annotatedUserIDs": [], 
 	  "config": config, 
 	  "isEnabled": true,
+	  "isGuided": false,
 	  "activeTargetList": [...config.screenNameList]  // clone the array, keep the initial list for future reference.
   }
   // {"resultsArray": [], "annotatedUserIDs": [], "config": config, "isEnabled": true}

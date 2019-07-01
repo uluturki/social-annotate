@@ -16,9 +16,10 @@ document.querySelector('#exportLink').addEventListener('click', function(e) {
 	});
 });
 
+var toggleGuidedCheckbox = document.querySelector('#toggleGuidedMode');
 
 function updateInterface (disableLink) {
-	chrome.storage.local.get('isEnabled', function(data) {
+	chrome.storage.local.get(['isEnabled','isGuided'], function(data) {
 		let linkText = '';
 		if (data.isEnabled === true) {
 			linkText = "Disable";
@@ -26,6 +27,12 @@ function updateInterface (disableLink) {
 			linkText = "Enable";
 		}
 		disableLink.innerHTML = linkText;
+		
+		if (data.isGuided === true) {
+			toggleGuidedCheckbox.checked = true;
+		} else {
+			toggleGuidedCheckbox.checked = false;
+		}
 	});
 }
 
@@ -44,6 +51,17 @@ disableLink.addEventListener('click', function(e) {
 	});
 	// Update the interface (for now just the toggle link)
 
+});
+
+
+toggleGuidedCheckbox.addEventListener('click', function(e) {
+	
+	var isChecked = false;
+	if (toggleGuidedCheckbox.checked == true){
+		isChecked = true;
+	}
+
+	chrome.storage.local.set({"isGuided": isChecked}, function() {} );
 });
 
 

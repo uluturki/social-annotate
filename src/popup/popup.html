@@ -11,14 +11,22 @@
 	<div class="information-container"> 
 		<p> Annotated user count: <span id='annotationCount'>BOOP</span></p>
 	</div>          
-	
+
 	<div class="form-container"> 
-		<div class="lean-left">
-			<a class="link-button" id="exportLink" href="#/">Export annotations</a>
-		</div>	
-		<div class="lean-right">
-			<a class="link-button" id="disableLink" href="#/">GARK</a>
-		</div> 
+		<div>
+			<div class="check-line">
+				 <label> <input type="checkbox" id="toggleGuidedMode"/> Guide me!</label>
+				<!-- <a class="link-button" id="guidedToggleLink" href="#/">Enable guided mode.</a> -->
+			</div>	
+		</div>
+		<div>
+			<div class="lean-left">
+				<a class="link-button" id="exportLink" href="#/">Export annotations</a>
+			</div>	
+			<div class="lean-right">
+				<a class="link-button" id="disableLink" href="#/">GARK</a>
+			</div> 
+		</div>
 	</div>  
 	
 	<script src="popup.js"></script>

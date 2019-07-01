@@ -18,7 +18,7 @@ function getCurrentScreenName(platform) {
 
 storeResults = function(surveyResults, socialMediaPlatform,) {
 	// get annotated count and increment that too. Also annotatedUserIDs.
-	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs', 'activeTargetList'], function(result) {
+	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs', 'activeTargetList', 'isGuided'], function(result) {
 		// console.log('Number of recorded results: ' + result.resultsArray.length);
 		// @TODO Check if the user record already exists, and overwrite if it does.
 		// @TODO Notify before overwriting though...
@@ -45,27 +45,33 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 		resultsArray[userIndex] = surveyResults;
 		annotatedUserIDs[userIndex] = surveyResults.userID;
 		
-		// drop the saved user ID from the list, if it exists in the list.
-		dropIndex = activeTargetList.indexOf(surveyResults.userID);
-		if (dropIndex > -1) {  // -1 when no match
-			activeTargetList.splice(dropIndex,1);  // remove 1 element, starting from dropIndex
-		}
-		
-		// If guided mode is active and there are users in the list, determine next in line. 
-		var bringNextUser = false;
-		var nextUser = ''
-		
-		if (activeTargetList.length > 0) {
-			// @TODO Have a toggle on the UI as well.
-			bringNextUser = true;
-			nextUser = activeTargetList[0] // pop from the list when successfully submitted, not beforehand.
-		}
-		
 		let lists2update = {
 			'resultsArray': resultsArray, 
 			'annotatedUserIDs': annotatedUserIDs, 
-			'activeTargetList': activeTargetList
-			};
+		};
+		
+		var bringNextUser = false;
+		// if guided mode is enabled in the popup UI
+		if (result.isGuided === true) {
+			// drop the saved user ID from the list, if it exists in the list.
+			dropIndex = activeTargetList.indexOf(surveyResults.userID);
+			if (dropIndex > -1) {  // -1 when no match
+				activeTargetList.splice(dropIndex,1);  // remove 1 element, starting from dropIndex
+			}
+			
+			// If guided mode is active and there are users in the list, determine next in line. 
+			
+			var nextUser = ''
+			
+			if (activeTargetList.length > 0) {
+				// @TODO Have a toggle on the UI as well.
+				bringNextUser = true;
+				nextUser = activeTargetList[0] // pop from the list when successfully submitted, not beforehand.
+			}
+			
+			lists2update.activeTargetList = activeTargetList;
+			
+		}
 			
 		chrome.storage.local.set(lists2update, function() {
 			if (bringNextUser === true){
