@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Content Annotator",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Content annotator application developed by Ismail Uluturk and Onur Varol",
   "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs"],
   "options_page": "options/options.html",
   "background": {

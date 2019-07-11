@@ -86,7 +86,8 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 // get the current config from storage
 chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(result) {
 	if (result.isEnabled === true) {
-		var config = result.config['surveys']['twitter-user'];
+		var activeSurvey = result.config.activeSurvey;
+		var config = result.config['surveys'][activeSurvey];
 		
 		var screenNameStack = result.screenNameStack;
 		

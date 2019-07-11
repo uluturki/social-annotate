@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="popup.css">
 
   <link rel="stylesheet" type="text/css"  href="../dep/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css"  href="../dep/jsonform/deps/opt/bootstrap.css">
   <script src="../dep/jquery.min.js"></script>
   <script src="../dep/bootstrap.min.js"></script>
 </head>
@@ -18,19 +19,22 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Survey<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">twitter-user</a></li>
-            <li><a href="#">twitter-tweet</a></li>
+          <ul class="dropdown-menu" id="dropdown-menu">
+            <!-- JS code fills options automatically-->
           </ul>
         </li>
-        <li><a id="go-to-options">Options</a></li>
-        <li><a class="link-button" id="exportLink" href="#/">Export</a></li>
+        <li><a id="go-to-options">Options <span class="glyphicon glyphicon-cog"></span></a></li>
+        <li><a class="link-button" id="exportLink" href="#/">Export <span class="glyphicon glyphicon-download-alt"></span></a></li>
       </ul>
     </div>
   </div>
 </nav>
   
 <div class="container-fluid" id="popup-form">
+    <div class="row">
+      <h3><span id="survey-id"></span></h3>
+    </div>
+
     <div class="row">
       <div class="col">
         <p>Annotation count: <span id="annotationCount">-1</span></p>

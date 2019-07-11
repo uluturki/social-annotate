@@ -104,4 +104,4 @@ var optionsFormSchema = {
   ]
 }
 
-$('#optionsForm').jsonForm(optionsFormSchema);
+//$('#optionsForm').jsonForm(optionsFormSchema);

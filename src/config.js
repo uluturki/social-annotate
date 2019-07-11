@@ -1,6 +1,7 @@
 // submitAction will probably be necessary to be tacked on in inject.js
 var config = {
     "exportFormat": "csv",
+    "activeSurvey": "twitter-user",
     "surveys": {
         "twitter-user":{
             "socialMediaPlatform": "twitter",
