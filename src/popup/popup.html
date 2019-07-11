@@ -1,34 +1,53 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="popup.css">
-  </head>
-  <body>
-    <div class="header-container"> 
-		<h1> soc-banger </h1>
-	</div>
-	
-	<div class="information-container"> 
-		<p> Annotated user count: <span id='annotationCount'>BOOP</span></p>
-	</div>          
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="popup.css">
 
-	<div class="form-container"> 
-		<div>
-			<div class="check-line">
-				 <label> <input type="checkbox" id="toggleGuidedMode"/> Guide me!</label>
-				<!-- <a class="link-button" id="guidedToggleLink" href="#/">Enable guided mode.</a> -->
-			</div>	
-		</div>
-		<div>
-			<div class="lean-left">
-				<a class="link-button" id="exportLink" href="#/">Export annotations</a>
-			</div>	
-			<div class="lean-right">
-				<a class="link-button" id="disableLink" href="#/">GARK</a>
-			</div> 
-		</div>
-	</div>  
-	
-	<script src="popup.js"></script>
-  </body>
+  <link rel="stylesheet" type="text/css"  href="../dep/bootstrap.min.css">
+  <script src="../dep/jquery.min.js"></script>
+  <script src="../dep/bootstrap.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div>
+      <a href="#" class="navbar-brand"><img src="../images/get_started32.png"></a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Survey<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">twitter-user</a></li>
+            <li><a href="#">twitter-tweet</a></li>
+          </ul>
+        </li>
+        <li><a id="go-to-options">Options</a></li>
+        <li><a class="link-button" id="exportLink" href="#/">Export</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid" id="popup-form">
+    <div class="row">
+      <div class="col">
+        <p>Annotation count: <span id="annotationCount">-1</span></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <span><input type="checkbox" id="toggleGuidedMode"/> Guide me!</span>
+      </div>
+      <div class="col">
+        <a id="disableLink" href="#/">Disable</a>
+      </div>  
+    </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
 </html>

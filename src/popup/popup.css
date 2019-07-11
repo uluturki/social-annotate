@@ -1,82 +1,32 @@
 body {
   margin: 0;
   /* padding: 0; */
-  width: 200px;
+  width: 400px;
   min-height: 100px;
   -webkit-font-smoothing: antialiased;
 }
 
-/* To have checkbox and label vertically aligned */
-
-label {
-  display: block;
-  padding-left: 15px;
-  text-indent: -15px;
-}
-input {
-  width: 13px;
-  height: 13px;
-  padding: 0;
-  margin:0;
-  vertical-align: bottom;
-  position: relative;
-  top: -1px;
+.navbar-collapse.collapse {
+  display: block!important;
 }
 
-.header-container {
-	height: 30px;
-	outline: none;
-	text-align: center;
-
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
 }
 
-.header-container > h1 {
-	color: pink;
-	font-size: 1.25rem;
-	background-color: powderblue;
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
 }
 
-.information-container {
-	padding-left: 6px; 
-	/* padding: 6px; */
-	text-align: left;
-}
-
-/* padding is 21px because of the 15px trick for checkbox - label alignment */
-.check-line {
-	width: 100%;
-	padding-left: 6px;
+.navbar-right {
+  float: right!important;
 }
 
 #annotationCount {
 	font-weight: bold;
 }
 
-#exportLink {
-	margin: 6px;
-	/* text-align: left; */
-	/* float: left; */
+#popup-form {
+    margin: 20px;
 }
 
-#disableLink {
-	margin: 6px;
-	/* text-align: right; */
-	/* float: right; */
-}
-
-.lean-left {
-	float: left;
-	text-align: left;
-}
-
-.lean-right {
-	float: right;
-	text-align: right;
-}
-
-.form-container {
-	position: absolute; 
-	outline: none;
-	width: 200px;
-	bottom: 0px; 
-}

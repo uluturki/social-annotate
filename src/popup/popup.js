@@ -1,6 +1,16 @@
 'use strict';
 
+document.querySelector('#go-to-options').addEventListener('click', function(e) {
+  console.log('Options clicked!');
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('options.html'));
+  }
+});
+
 // Display the number of annotated users in the storage.
+var survey = 'twitter-user';
 var annotationCountSpan = document.getElementById('annotationCount');
 
 chrome.storage.local.get('annotatedUserIDs', function(data) {
@@ -63,7 +73,6 @@ toggleGuidedCheckbox.addEventListener('click', function(e) {
 
 	chrome.storage.local.set({"isGuided": isChecked}, function() {} );
 });
-
 
 // @TODO First line is getting messed up as undefined, figure that out.
 function exportStoredResults (items) {

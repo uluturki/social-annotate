@@ -6,13 +6,13 @@
   "options_page": "options/options.html",
   "background": {
     "scripts": [
-		"config.js",
-		"background/background.js"
+		  "config.js",
+		  "background/background.js"
 	],
     "persistent": false
   },
   "browser_action": {
-    "default_title": "twitter-annotate",
+    "default_title": "social-annotate",
     "default_popup": "popup/popup.html",
 	"default_icon": {
       "16": "images/get_started16.png",
@@ -24,14 +24,14 @@
   "content_scripts": [
    {
      "matches": ["https://twitter.com/*"],
-	 "css": [ "content-scripts/inject.css" ],
-	 "js": [
-		 "dep/jsonform/deps/jquery.min.js",
-		 "dep/jsonform/deps/underscore.js",
-		 "dep/jsonform/deps/opt/jsv.js",
-		 "dep/jsonform/lib/jsonform.js",
-		 "content-scripts/inject.js" 
-	 ]
+  	 "css": [ "content-scripts/twitter-user/inject.css" ],
+  	 "js": [
+  		 "dep/jsonform/deps/jquery.min.js",
+  		 "dep/jsonform/deps/underscore.js",
+  		 "dep/jsonform/deps/opt/jsv.js",
+  		 "dep/jsonform/lib/jsonform.js",
+  		 "content-scripts/twitter-user/inject.js" 
+  	 ]
    }
   ],
   "icons": {
