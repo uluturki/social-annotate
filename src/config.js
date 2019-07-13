@@ -52,7 +52,12 @@ var config = {
             }
         },
         "twitter-tweet":{
-            "socialMediaPlatform": "twitter"
+            "socialMediaPlatform": "twitter",
+            "formFile": "forms/twitter-tweet.json"
+        },
+        "instagram-user":{
+            "socialMediaPlatform": "instagram",
+            "formFile": "forms/instagram-user.json"
         }
     }
 };

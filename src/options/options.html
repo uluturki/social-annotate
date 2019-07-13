@@ -1,16 +1,73 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-  <!--
-	<script src="../dep/jsonform/deps/jquery.min.js"></script>
-	<script src="../dep/jsonform/deps/underscore.js"></script>
-	<script src="../dep/jsonform/deps/opt/jsv.js"></script>
-	<script src="../dep/jsonform/lib/jsonform.js"></script>
-  -->
+
+    <link rel="stylesheet" type="text/css"  href="options.css">
+
+    <link rel="stylesheet" type="text/css"  href="../dep/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"  href="../dep/jsonform/deps/opt/bootstrap.css">
+    <script src="../dep/jquery.min.js"></script>
+    <script src="../dep/bootstrap.min.js"></script>
+
+    <title>Content Annotator / Options</title>
+
   </head>
+
   <body>
-    <form id="optionsForm"></form>
-    This is options page
-  </body>
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li><a href="#" class="navbar-brand"><img src="../images/get_started32.png"></a></li>
+      <li role="presentation" class="active"><a href="#options" aria-controls="options" role="tab" data-toggle="tab">Options</a></li>
+      <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="options">
+        <div class="container" id="main-form">
+          <div class="row">
+            <div class="input-group">
+              <span class="input-group-addon" id="lbl-api-description">
+                API Endpoint
+                <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="URL for an API endpoint for automatic PUT request"></span>
+              </span>
+              <input type="text" class="form-control" id="api-endpoint" aria-describedby="lbl-api-description">
+            </div>
+          </div>
+
+          <div class="row">
+
+            <h3>Survey information</h3>
+
+            <div id="survey-container"></div>
+          </div>
+
+          <div class="row">
+            <button type="button" class="btn btn-primary" id="save-button">Save</button>
+            <button type="button" class="btn btn-primary" id="save-button">Export Config</button>
+            <button type="button" class="btn btn-primary" id="save-button">Import Config</button>
+          </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="about">
+        <div class="container" id="main-form">
+          <div class="row">
+            <h2>How to modify options?</h2>
+            <p>Details of modification</p>
+
+            <h2>How to add new social media platform?</h2>
+            <p>Details of how to add new platform</p>
+
+            <h2>How to cite this tool?</h2>
+            <p>Citation information here</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   <script src="options.js"></script>
+  </body>
 </html>

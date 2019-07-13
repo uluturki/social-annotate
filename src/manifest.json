@@ -24,13 +24,17 @@
   "content_scripts": [
    {
      "matches": ["https://twitter.com/*"],
-  	 "css": [ "content-scripts/twitter-user/inject.css" ],
+  	 "css": [ 
+       "content-scripts/twitter-user/inject.css",
+       "content-scripts/twitter-tweet/inject.css" 
+     ],
   	 "js": [
   		 "dep/jsonform/deps/jquery.min.js",
   		 "dep/jsonform/deps/underscore.js",
   		 "dep/jsonform/deps/opt/jsv.js",
   		 "dep/jsonform/lib/jsonform.js",
-  		 "content-scripts/twitter-user/inject.js" 
+  		 "content-scripts/twitter-user/inject.js",
+       "content-scripts/twitter-tweet/inject.js" 
   	 ]
    }
   ],

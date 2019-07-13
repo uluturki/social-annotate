@@ -1,107 +1,53 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
 
-'use strict';
+chrome.storage.local.get(['config', 'isEnabled'], function(result) {
+    console.log(result.config);
 
-// Create the options form from the JSON schema.
-// @TODO Improve form validation and make it impossible to set configurations that will break the extension.
-// @TODO Currently, it may be possible to break the extension through bad configuration.
-// @TODO Especially add REGEX validation to the list of screen names.
-var optionsFormSchema = {
-  "schema": {
-    "surveySchema": {
-      "type": "string",
-      "title": "JSON Schema for the survey form",
-    "description": "JSON Schema for the survey form that will be injected (displayed). Click <a href='https://jsonform.github.io/jsonform/playground/index.html?example=fields-help'>here</a> to learn how to build your own schema.",
-	  "required": true
-    },
-    "userList": {
-      "type": "string",
-      "title": "List of screen names to be annotated",
-	  "description": "Comma separated list of screen names to be annotated for the guided mode. Can be left empty if the guided mode won't be used."
-    },	
-    "injectElement": {
-      "type": "string",
-      "title": "Element ID or Class",
-	  "description": "ID or Class for the container HTML element where the survey will be injected into.",
-	  "default": "global-nav-inner",
-	  "required": true
-    },	
-	"injectElementType": {
-      "type": "string",
-      "title": "Element type",
-	  "description": "Is the container element for injection identified by a class name or ID.",
-	  "default": "class",
-	  "required": true,
-	  "enum": [
-        "class",
-		"ID"
-      ],
-	  "required": true
-    },	
-    "injectIndex": {
-      "type": "number",
-      "title": "Element index",
-	  "description": "Index of the occurence of the class for the container element where the survey will be injected into. Ignored for IDs since they are unique.",
-	  "default": 0,
-	  "required": true
-    },	
-    "mediaPlatform": {
-      "type": "string",
-      "title": "Social media platform",
-	  "required": true,
-      "enum": [
-        "twitter"
-      ]
-    },
-    "exportFormat": {
-      "type": "string",
-      "title": "Export file format",
-	  "description": "Select the format for the results file that can be exported.",
-	  "required": true,
-      "enum": [
-        "csv"
-      ]
+    document.getElementById('survey-container').innerHTML = '';
+    for(var key in result.config.surveys){
+        var survey = result.config.surveys[key];
+        
+        // TODO: Read form template from a file located in forms folder?
+
+        html = `<div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="heading_` + key + `">
+                    <h4 class="panel-title">
+                      <img src="../images/` + survey.socialMediaPlatform + `.png" style="height:32px;">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_` + key + `" aria-expanded="true" aria-controls="collapse_` + key + `">
+                        ` + key + `
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse_` + key + `" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_` + key + `">
+                    <div class="panel-body">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="lbl-insert-location">
+                          Insert location
+                          <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="HTML element class to insert form"></span>
+                        </span>
+                        <input type="text" class="form-control" id="api-endpoint" aria-describedby="lbl-insert-location">
+                      </div>
+
+                      <h3><small>
+                        Form template in JSON format
+                        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Make sure JSON is formatted correctly"></span>
+                      </small></h3>
+                      <textarea class="form-control" rows="10"></textarea>
+
+                      <h3><small>
+                        Annotation list
+                        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Comma seperated list of usernames"></span>
+                      </small></h3>
+                      <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+
+        document.getElementById('survey-container').innerHTML += html;
+
     }
-  },
-  "form": [
-    {
-      "key": "surveySchema",
-      "type": "ace",
-      "aceMode": "json",
-      "aceTheme": "twilight",
-      "width": "100%",
-      "height": "200px"
-    },
-	{
-      "key": "userList",
-      "type": "textarea"
-    },
-	{
-      "key": "mediaPlatform",
-	  "titleMap": {
-        "twitter": "Twitter"
-      }
-    },
-	{
-      "type": "fieldset",
-      "title": "Advanced",
-      "expandable": true,
-      "items": [
-        "exportFormat",
-		{
-		  "type": "fieldset",
-		  "title": "Inject Element",
-		  "items": [
-			"injectElement",
-			"injectElementType",
-			"injectIndex"
-		  ]
-		}
-      ]
-    }
-  ]
-}
 
-//$('#optionsForm').jsonForm(optionsFormSchema);
+});

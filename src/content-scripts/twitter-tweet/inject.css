@@ -1,0 +1,48 @@
+/**
+ * Place your custom CSS styles here.
+ **/
+
+div.survey-container{
+	width:100%;
+	height: 30px;
+	background-color: powderblue;
+	position: fixed;
+    top=0px;
+}
+
+#surveyForm{
+	display: flex;
+	/* background-color: powderblue; */
+	position: fixed;
+	width:100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+	top=0;
+    left=0;
+}
+
+#surveyForm > div {
+	background-color: powderblue;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width:100%;
+}
+
+.flexbox-rows {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width:100%;
+}
+
+div.form-group {
+  background-color: pink;
+  margin: 10px;
+  padding: 20px;
+  flex-basis: 0;
+  min-width: 20%;
+  flex: 1 1 0;
+  <!-- min-width: 400px; -->
+  <!-- font-size: 30px; -->
+}
