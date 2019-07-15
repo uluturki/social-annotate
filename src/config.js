@@ -5,9 +5,9 @@ var config = {
     "surveys": {
         "twitter-user":{  // - in the name will cause issues when accessing this element.
             "socialMediaPlatform": "twitter",
-            "injectElement": "global-nav-inner",
-            "injectElementType": "class",
-            "injectElementIndex": "0",
+            "injectElement": {"name": "global-nav-inner", "type": "class", "index": 0},
+            // "injectElementType": "class",
+            // "injectElementIndex": "0",
             "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
             "surveyFormSchema" : {
               "schema": {
