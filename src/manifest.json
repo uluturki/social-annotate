@@ -2,7 +2,7 @@
   "name": "Content Annotator",
   "version": "1.0",
   "description": "Content annotator application developed by Ismail Uluturk and Onur Varol",
-  "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs", "webNavigation", "*://twitter.com/*"],
   "options_page": "options/options.html",
   "background": {
     "scripts": [
@@ -23,8 +23,8 @@
   },
   "content_scripts": [
    {
-     "matches": ["https://twitter.com/*"],
-	 "exclude_matches": ["https://twitter.com/settings/*"],
+     "matches": ["*://twitter.com/*"],
+	 "exclude_matches": ["*://twitter.com/settings/*"],
   	 "css": [ 
        "content-scripts/twitter/inject.css"
      ],
