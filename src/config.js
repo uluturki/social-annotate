@@ -1,7 +1,7 @@
 // submitAction will probably be necessary to be tacked on in inject.js
 var config = {
     "exportFormat": "csv",
-    "activeSurvey": "twitter-user",
+    "activeSurvey": "twitter-user", //@TODO This should be a list, there can be several active at a time.
     "surveys": {
         "twitter-user":{
             "socialMediaPlatform": "twitter",
