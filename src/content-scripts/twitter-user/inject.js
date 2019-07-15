@@ -54,7 +54,11 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 		// if guided mode is enabled in the popup UI
 		if (result.isGuided === true) {
 			// drop the saved user ID from the list, if it exists in the list.
-			dropIndex = activeTargetList.indexOf(surveyResults.userID);
+
+			// dropIndex = activeTargetList.indexOf(surveyResults.userID);
+			// issue#3: making the comparison non case sensitive to handle cases
+			// 			where twitter corrects the userid.
+			dropIndex = activeTargetList.findIndex(item => surveyResults.userID.toLowerCase() === item.toLowerCase());
 			if (dropIndex > -1) {  // -1 when no match
 				activeTargetList.splice(dropIndex,1);  // remove 1 element, starting from dropIndex
 			}
@@ -64,7 +68,6 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 			var nextUser = ''
 			
 			if (activeTargetList.length > 0) {
-				// @TODO Have a toggle on the UI as well.
 				bringNextUser = true;
 				nextUser = activeTargetList[0] // pop from the list when successfully submitted, not beforehand.
 			}
@@ -75,7 +78,7 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 			
 		chrome.storage.local.set(lists2update, function() {
 			if (bringNextUser === true){
-				// can't use tabs api within content script...
+				// can't use tabs api within content script.
 				window.location.href = platformURL + nextUser;
 			}
 
