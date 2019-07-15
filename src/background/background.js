@@ -11,8 +11,8 @@ chrome.runtime.onInstalled.addListener(function() {
 	  "annotatedUserIDs": [], 
 	  "config": config, 
 	  "isEnabled": true,
-	  "isGuided": false
-	  //"activeTargetList": [...config.screenNameList]  // clone the array, keep the initial list for future reference.
+	  "isGuided": false,
+	  "activeTargetList": [...config.surveys["twitter-user"].screenNameList]  // clone the array, keep the initial list for future reference.
     // OV: Use options page to load this list manually
   }
   // {"resultsArray": [], "annotatedUserIDs": [], "config": config, "isEnabled": true}

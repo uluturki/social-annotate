@@ -3,12 +3,12 @@ var config = {
     "exportFormat": "csv",
     "activeSurvey": "twitter-user", //@TODO This should be a list, there can be several active at a time.
     "surveys": {
-        "twitter-user":{
+        "twitter-user":{  // - in the name will cause issues when accessing this element.
             "socialMediaPlatform": "twitter",
             "injectElement": "global-nav-inner",
             "injectElementType": "class",
             "injectElementIndex": "0",
-            "screenNameList": ["strictlynofun", "onurvarol", "realDonaldTrump", "ContraPoints", "Kanopy"],
+            "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
             "surveyFormSchema" : {
               "schema": {
                 "userID": {

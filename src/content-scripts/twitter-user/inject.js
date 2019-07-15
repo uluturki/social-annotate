@@ -16,7 +16,7 @@ function getCurrentScreenName(platform) {
 	return screenName;
 }
 
-storeResults = function(surveyResults, socialMediaPlatform,) {
+function storeResults(surveyResults, socialMediaPlatform) {
 	// get annotated count and increment that too. Also annotatedUserIDs.
 	chrome.storage.local.get(['resultsArray', 'annotatedUserIDs', 'activeTargetList', 'isGuided'], function(result) {
 		// console.log('Number of recorded results: ' + result.resultsArray.length);
@@ -57,7 +57,7 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 
 			// dropIndex = activeTargetList.indexOf(surveyResults.userID);
 			// issue#3: making the comparison non case sensitive to handle cases
-			// 			where twitter corrects the userid.
+						// where twitter corrects the userid.
 			dropIndex = activeTargetList.findIndex(item => surveyResults.userID.toLowerCase() === item.toLowerCase());
 			if (dropIndex > -1) {  // -1 when no match
 				activeTargetList.splice(dropIndex,1);  // remove 1 element, starting from dropIndex
@@ -69,13 +69,12 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 			
 			if (activeTargetList.length > 0) {
 				bringNextUser = true;
-				nextUser = activeTargetList[0] // pop from the list when successfully submitted, not beforehand.
+				nextUser = activeTargetList[0]; // pop from the list when successfully submitted, not beforehand.
 			}
 			
 			lists2update.activeTargetList = activeTargetList;
 			
 		}
-			
 		chrome.storage.local.set(lists2update, function() {
 			if (bringNextUser === true){
 				// can't use tabs api within content script.
@@ -89,6 +88,7 @@ storeResults = function(surveyResults, socialMediaPlatform,) {
 // get the current config from storage
 chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(result) {
 	if (result.isEnabled === true && result.config.activeSurvey === 'twitter-user') {
+
 		var activeSurvey = result.config.activeSurvey;
 		var config = result.config['surveys'][activeSurvey];
 		
@@ -124,7 +124,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
 			let bringNextUser = false;
 			let platform = config.socialMediaPlatform;
 			let nextUser = ''
-
+			
 			storeResults(values, platform);  // store values and updateUserID field
 		}
 		formTemplate.onSubmit = submitAction;
