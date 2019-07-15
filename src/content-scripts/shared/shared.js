@@ -17,10 +17,20 @@ function getCurrentScreenName(platform) {
 }
 
 class Context {
-	constructor(contextName, injectFunction) {
+	// If no aux check function passed in the constructor, then no check necessary and can always
+	//		return true.
+	static auxillaryCheck() {
+		return true;
+	}
+	
+	constructor(contextName, injectFunction, auxCheckFunction) {
 		this.name = contextName;
 		this.injectSurvey = injectFunction;
+		if(auxCheckFunction != null) {
+			this.auxillaryCheck = auxCheckFunction;
+		}
 	}
+
 };
 
 function storeResults(surveyResults, socialMediaPlatform) {

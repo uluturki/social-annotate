@@ -1,7 +1,7 @@
 // @TODO: This list can be generated with help of collections but this will do for now.
 // Context class is defined in shared.js
-const availableContexts = [ new Context('twitter-user', injectTwitterUserSurvey), 
-							new Context('twitter-tweet', injectTwitterTweetSurvey) ]
+const availableContexts = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
+							new Context('twitter-tweet', injectTwitterTweetSurvey, null) ];
 
 function injectTwitterUserSurvey(injectElement) {
 	var surveyContainer = document.createElement('div');
@@ -27,6 +27,20 @@ function injectTwitterTweetSurvey(injectElement) {
 	alert('Tweet surveys are not implemented yet');
 }
 
+function checkUserURL() {
+	// content script won't be loaded if its not actually twitter, so all I need to check 
+	// 	is if its the main page or not. Anything thats not the main page is a user page
+	// 	exclude settings page from the manifest blob match.
+	let currentURL = window.location.href;
+	let isUserURL = true;
+	
+	if (currentURL == "https://twitter.com/") {
+		isUserURL = false;
+	}
+	
+	return isUserURL;
+}
+
 // get the current config from storage
 chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(result) {
 	// check if context is enabled
@@ -35,8 +49,9 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
 	for (index = 0; index < availableContexts.length; ++index) {
 		let currentContext = availableContexts[index];
 		let contextFlag = result.config.activeSurveys.includes(currentContext.name); 
+		let auxFlag = currentContext.auxillaryCheck();
 		
-		if (result.isEnabled === true && contextFlag === true) {
+		if (result.isEnabled === true && contextFlag === true && auxFlag === true) {
 			// there can be more than one survey active at one time, so iterate over a list 
 			// of currentContext if necessary instead of direct assignment.
 			// var activeSurvey = result.config.activeSurvey;
