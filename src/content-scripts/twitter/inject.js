@@ -32,34 +32,36 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
 	// check if context is enabled
 	// @TODO implement this check in a way that will eliminate typo issues.
 	// let currentContext = 'twitter-user';
-	let currentContext = availableContexts[0];
-	let contextFlag = result.config.activeSurveys.includes(currentContext.name); 
-	
-	if (result.isEnabled === true && contextFlag === true) {
-		// there can be more than one survey active at one time, so iterate over a list 
-		// of currentContext if necessary instead of direct assignment.
-		// var activeSurvey = result.config.activeSurvey;
-		var activeSurvey = currentContext.name;
-		var config = result.config['surveys'][activeSurvey];
+	for (index = 0; index < availableContexts.length; ++index) {
+		let currentContext = availableContexts[index];
+		let contextFlag = result.config.activeSurveys.includes(currentContext.name); 
 		
-		var screenNameStack = result.screenNameStack;
-		
-		currentContext.injectSurvey(config.injectElement);
-		// injectSurvey(currentContext, config.injectElement);
-		
-		// Attach the onSubmit event handler to the schema
-		var formTemplate = config.surveyFormSchema;
-		
-		// @TODO: Send values to an API endpoint if configured to do so.
-		function submitAction(errors, values) {
-			let bringNextUser = false;
-			let platform = config.socialMediaPlatform;
-			let nextUser = ''
+		if (result.isEnabled === true && contextFlag === true) {
+			// there can be more than one survey active at one time, so iterate over a list 
+			// of currentContext if necessary instead of direct assignment.
+			// var activeSurvey = result.config.activeSurvey;
+			var activeSurvey = currentContext.name;
+			var config = result.config['surveys'][activeSurvey];
 			
-			storeResults(values, platform);  // store values and updateUserID field
+			var screenNameStack = result.screenNameStack;
+			
+			currentContext.injectSurvey(config.injectElement);
+			// injectSurvey(currentContext, config.injectElement);
+			
+			// Attach the onSubmit event handler to the schema
+			var formTemplate = config.surveyFormSchema;
+			
+			// @TODO: Send values to an API endpoint if configured to do so.
+			function submitAction(errors, values) {
+				let bringNextUser = false;
+				let platform = config.socialMediaPlatform;
+				let nextUser = ''
+				
+				storeResults(values, platform);  // store values and updateUserID field
+			}
+			formTemplate.onSubmit = submitAction;
+			
+			$('#surveyForm').jsonForm(formTemplate);
 		}
-		formTemplate.onSubmit = submitAction;
-		
-		$('#surveyForm').jsonForm(formTemplate);
 	}
 });
