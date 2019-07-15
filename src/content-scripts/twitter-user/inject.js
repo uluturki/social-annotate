@@ -87,9 +87,16 @@ function storeResults(surveyResults, socialMediaPlatform) {
 
 // get the current config from storage
 chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(result) {
-	if (result.isEnabled === true && result.config.activeSurvey === 'twitter-user') {
+	// check if context is enabled
+	// @TODO implement this check in a way that will eliminate typo issues.
+	let currentContext = 'twitter-user';
+	contextFlag = result.config.activeSurveys.includes(currentContext); 
 
-		var activeSurvey = result.config.activeSurvey;
+	if (result.isEnabled === true && contextFlag === true) {
+		// there can be more than one survey active at one time, so iterate over a list 
+		// of currentContext if necessary instead of direct assignment.
+		// var activeSurvey = result.config.activeSurvey;
+		var activeSurvey = currentContext;
 		var config = result.config['surveys'][activeSurvey];
 		
 		var screenNameStack = result.screenNameStack;
