@@ -46,6 +46,8 @@ function storeResults(surveyResults, socialMediaPlatform) {
 		activeTargetList = result.activeTargetList;
 		// page is not redirected until submission complete, still can pull the ID from the page.
 		surveyResults.userID = getCurrentScreenName(socialMediaPlatform);
+		surveyResults.timestamp = Math.floor(Date.now() / 1000);
+
 		// @TODO: store this in the config when adding more platforms.
 		if (socialMediaPlatform == 'twitter') {
 			platformURL = "https://twitter.com/";

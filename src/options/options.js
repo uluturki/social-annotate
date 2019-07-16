@@ -1,13 +1,18 @@
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 
     $('#save-button').click(function() {
       saveOptionsPage();
-    })
+    });
 
     $('#export-button').click(function() {
       exportOptions();
-    })
+    });
+
+    $('#import-button').click(function() {
+      importOptions();
+    });
+
 });
 
 chrome.storage.local.get(['config', 'isEnabled'], function(result) {
