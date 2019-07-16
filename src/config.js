@@ -15,6 +15,11 @@ var config = {
                   "title": "ID for annotated user",
                   "default": "88888"
                 },
+                "initTimestamp": {
+                  "type": "interger",
+                  "title": "Timestamp (seconds) of the initialization",
+                  "default": 0
+                }
                 "bot": {
                   "type": "string",
                   "title": "Do you believe this user to be a bot?",
@@ -31,6 +36,10 @@ var config = {
               "form": [
                 {
                   "key": "userID",
+                  "type": "hidden"
+                },
+                {
+                  "key": "initTimestamp",
                   "type": "hidden"
                 },
                 {

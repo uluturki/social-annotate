@@ -8,8 +8,9 @@ function injectTwitterUserSurvey(injectElement) {
 	surveyContainer.className = "survey-container";
 
 	var survey = document.createElement('form');
-	survey.setAttribute("id", "surveyForm");
-	surveyContainer.appendChild(survey)
+	survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multuple forms into page
+	survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
+	surveyContainer.appendChild(survey);
 
 	// Inject the form to the appropriate element in the page.
 	var barElementName = injectElement.name;
