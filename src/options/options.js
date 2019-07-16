@@ -104,6 +104,11 @@ function saveOptionsPage(){
 function exportOptions(){
   chrome.storage.local.get(['config'], function(result) {
     console.log(result.config);
+    var url = 'data:text/plain;charset=utf-8,' + JSON.stringify(result.config,null,'\t');
+    chrome.downloads.download({
+        url: url,
+        filename: 'config.json'
+    });
   });
 };
 
