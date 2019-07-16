@@ -1,13 +1,12 @@
 // submitAction will probably be necessary to be tacked on in inject.js
 var config = {
     "exportFormat": "csv",
+    "apiEndpoint": "127.0.0.1/submit",
     "activeSurveys": ["twitter-user"], // "twitter-tweet", "instagram-user"   
     "surveys": {
         "twitter-user":{  // - in the name will cause issues when accessing this element.
             "socialMediaPlatform": "twitter",
             "injectElement": {"name": "global-nav-inner", "type": "class", "index": 0},
-            // "injectElementType": "class",
-            // "injectElementIndex": "0",
             "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
             "surveyFormSchema" : {
               "schema": {
@@ -53,11 +52,17 @@ var config = {
         },
         "twitter-tweet":{
             "socialMediaPlatform": "twitter",
-            "formFile": "forms/twitter-tweet.json"
+            "injectElement": {"name": "twitter-xxx", "type": "class", "index": 0},
+            "surveyFormSchema" : {
+              "schema":{}, "form":{}
+            }
         },
         "instagram-user":{
             "socialMediaPlatform": "instagram",
-            "formFile": "forms/instagram-user.json"
+            "injectElement": {"name": "instagram-xxx", "type": "class", "index": 0},
+            "surveyFormSchema" : {
+              "schema":{}, "form":{} 
+            }
         }
     }
 };
