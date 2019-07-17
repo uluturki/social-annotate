@@ -19,7 +19,7 @@ var config = {
                   "type": "interger",
                   "title": "Timestamp (seconds) of the initialization",
                   "default": 0
-                }
+                },
                 "bot": {
                   "type": "string",
                   "title": "Do you believe this user to be a bot?",

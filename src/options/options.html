@@ -43,10 +43,21 @@
           </div>
 
           <div class="row">
-            <button type="button" class="btn btn-primary" id="save-button">Save</button>
-            <button type="button" class="btn btn-primary" id="export-button">Export Config</button>
-            <button type="button" class="btn btn-primary" id="import-button">Import Config</button>
-            
+
+            <h3>Configuration Import / Export</h3>
+
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-primary" id="save-button">Save</button>
+              <button type="button" class="btn btn-primary" id="export-button">Export Config</button>
+            </div>
+            <div class="col-sm-8">
+              <div class="input-group input-file">
+                <input id="upload-file" type="file" class="form-control" placeholder='Choose a file...' />
+                <span class="input-group-btn">
+                  <button class="btn btn-default btn-choose" type="button" id="import-button" import-data="">Import Config</button>
+                </span>
+              </div>  
+            </div>
           </div>
         </div>
       </div>
