@@ -41,19 +41,21 @@ function storeResults(surveyResults, socialMediaPlatform) {
 
     chrome.storage.local.get(['config'], function(result){
 
-        let headers = new Headers();
-        headers.append('Accept', 'application/json');
-        headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('Content-Type', 'application/json');
+        if(result.config.apiEndpoint != ''){
+            let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            headers.append('Access-Control-Allow-Origin', '*');
+            headers.append('Content-Type', 'application/json');
 
-        fetch(result.config.apiEndpoint, {
-          mode: 'no-cors',
-          method: "POST", 
-          body: JSON.stringify(surveyResults),
-          headers: headers
-        }).then(res => {
-          console.log("Request complete! response:", res);
-        });
+            fetch(result.config.apiEndpoint, {
+              mode: 'no-cors',
+              method: "POST",
+              body: JSON.stringify(surveyResults),
+              headers: headers
+            }).then(res => {
+              console.log("Request complete! response:", res);
+            });
+        }
 
     });
 
