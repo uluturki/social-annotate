@@ -1,7 +1,7 @@
 // submitAction will probably be necessary to be tacked on in inject.js
 var config = {
     "exportFormat": "csv",
-    "apiEndpoint": "127.0.0.1/submit",
+    "apiEndpoint": "http://127.0.0.1:5000/response",
     "activeSurveys": ["twitter-user"], // "twitter-tweet", "instagram-user"   
     "surveys": {
         "twitter-user":{  // - in the name will cause issues when accessing this element.
