@@ -6,15 +6,18 @@
   "options_page": "options/options.html",
   "background": {
     "scripts": [
-		  "config.js",
-		  "background/background.js"
-	],
+      "config.js",
+      "background/background.js"
+  ],
     "persistent": false
   },
+  "web_accessible_resources": [
+    "config.json"
+  ],
   "browser_action": {
     "default_title": "social-annotate",
     "default_popup": "popup/popup.html",
-	"default_icon": {
+  "default_icon": {
       "16": "images/get_started16.png",
       "32": "images/get_started32.png",
       "48": "images/get_started48.png",
@@ -24,18 +27,18 @@
   "content_scripts": [
    {
      "matches": ["*://twitter.com/*"],
-	 "exclude_matches": ["*://twitter.com/settings/*"],
-  	 "css": [ 
+     "exclude_matches": ["*://twitter.com/settings/*"],
+     "css": [ 
        "content-scripts/twitter/inject.css"
      ],
-  	 "js": [
-  		 "dep/jsonform/deps/jquery.min.js",
-  		 "dep/jsonform/deps/underscore.js",
-  		 "dep/jsonform/deps/opt/jsv.js",
-  		 "dep/jsonform/lib/jsonform.js",
-		 "content-scripts/shared/shared.js",
-  		 "content-scripts/twitter/inject.js"
-  	 ]
+     "js": [
+       "dep/jsonform/deps/jquery.min.js",
+       "dep/jsonform/deps/underscore.js",
+       "dep/jsonform/deps/opt/jsv.js",
+       "dep/jsonform/lib/jsonform.js",
+       "content-scripts/shared/shared.js",
+       "content-scripts/twitter/inject.js"
+     ]
    }
   ],
   "icons": {
