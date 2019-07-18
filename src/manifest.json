@@ -29,7 +29,8 @@
      "matches": ["*://twitter.com/*"],
      "exclude_matches": ["*://twitter.com/settings/*"],
      "css": [ 
-       "content-scripts/twitter/inject.css"
+       "content-scripts/twitter/inject.css",
+       "dep/jsonform/deps/opt/bootstrap.css"
      ],
      "js": [
        "dep/jsonform/deps/jquery.min.js",

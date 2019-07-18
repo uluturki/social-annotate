@@ -3,15 +3,6 @@
 const availableContexts = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
 							new Context('twitter-tweet', injectTwitterTweetSurvey, null) ];
 
-
-function crawlUserName(){
-	var currentURL = window.location.href;
-	var temp = currentURL.split('.com/');
-	temp = temp[temp.length-1];
-	temp = temp.split('/')[0].split('?')[0];
-	return temp;
-}
-
 function injectTwitterUserSurvey(injectElement) {
 	var surveyContainer = document.createElement('div');
 	surveyContainer.className = "survey-container";
@@ -19,20 +10,18 @@ function injectTwitterUserSurvey(injectElement) {
 	var survey = document.createElement('form');
 	survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multuple forms into page
 	survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
-	survey.setAttribute("surveyId", crawlUserName());
 	surveyContainer.appendChild(survey);
 
 	// Inject the form to the appropriate element in the page.
 	var barElementName = injectElement.name;
-	var fixedBar = {};
+	var fixedBar = {}
 	if (injectElement.type === "class") {
-		//fixedBar = document.getElementsByClassName(barElementName)[injectElement.index];
-		fixedBar = document.getElementById('react-root');
+		fixedBar = document.getElementsByClassName(barElementName)[injectElement.index];
 	} else if (injectElement.type === "id") {
 		fixedBar = document.getElementById(barElementName);
 	}
-
-	fixedBar.insertAdjacentElement('beforebegin', surveyContainer);
+	
+	fixedBar.appendChild(surveyContainer);
 }
 
 function injectTwitterTweetSurvey(injectElement) {
@@ -40,21 +29,17 @@ function injectTwitterTweetSurvey(injectElement) {
 }
 
 function checkUserURL() {
-	let uname = crawlUserName();
-	return !(uname == '' || uname == 'home')
-	/*
 	// content script won't be loaded if its not actually twitter, so all I need to check 
 	// 	is if its the main page or not. Anything thats not the main page is a user page
 	// 	exclude settings page from the manifest blob match.
 	let currentURL = window.location.href;
 	let isUserURL = true;
 	
-	if (currentURL == "https://twitter.com/" || currentURL == "https://twitter.com/home") {
+	if (currentURL == "https://twitter.com/") {
 		isUserURL = false;
 	}
 	
 	return isUserURL;
-	*/
 }
 
 // get the current config from storage
@@ -87,6 +72,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
 				let bringNextUser = false;
 				let platform = config.socialMediaPlatform;
 				let nextUser = ''
+				
 				storeResults(values, platform);  // store values and updateUserID field
 			}
 			formTemplate.onSubmit = submitAction;

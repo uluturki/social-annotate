@@ -3,6 +3,7 @@
 // @TODO Might have an allow duplicates checkbox in the config, if there is a use case for it.
 // Race conditions should not occur because events are called sequentially. 
 function getCurrentScreenName(platform) {
+    /*
     if (platform === "twitter") {
         headerCardClass = 'ProfileHeaderCard-screenname';
         screenNameClass = 'u-linkComplex-target';
@@ -14,6 +15,8 @@ function getCurrentScreenName(platform) {
     }
     
     return screenName;
+    */
+    return 'Mahmut'; // inject.js has a twitter specific function now.
 }
 
 class Context {
@@ -26,7 +29,7 @@ class Context {
     constructor(contextName, injectFunction, auxCheckFunction) {
         this.name = contextName;
         this.injectSurvey = injectFunction;
-        if(auxCheckFunction != null) {
+        if(auxCheckFunction !== null) {
             this.auxillaryCheck = auxCheckFunction;
         }
     }
@@ -34,7 +37,8 @@ class Context {
 };
 
 function storeResults(surveyResults, socialMediaPlatform) {
-    surveyResults.userID = getCurrentScreenName(socialMediaPlatform);
+    //surveyResults.userID = getCurrentScreenName(socialMediaPlatform);
+    surveyResults.userID = document.getElementById('surveyForm').getAttribute('surveyId');
     surveyResults.timestamp = Math.floor(Date.now() / 1000);
     surveyResults.initTimestamp = document.getElementById('surveyForm').getAttribute('surveyInitTimestamp');
 

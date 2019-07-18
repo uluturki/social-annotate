@@ -1,6 +1,6 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-
+    
     $('#save-button').click(function() {
       saveOptionsPage();
     });
@@ -80,7 +80,7 @@ function loadPage(){
           document.getElementById(key + '_form-template').value = JSON.stringify(survey.surveyFormSchema,null,'\t');
         }
       }
-
+      $('[data-toggle="tooltip"]').tooltip();
   });
 }
 

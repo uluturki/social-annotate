@@ -8,6 +8,7 @@ div.survey-container{
 	background-color: #333;
 	position: fixed;
     top=0px;
+    z-index:99;
 }
 
 #surveyForm{

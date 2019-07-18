@@ -6,15 +6,14 @@ var config = {
     "surveys": {
         "twitter-user":{  // - in the name will cause issues when accessing this element.
             "socialMediaPlatform": "twitter",
-            "injectElement": {"name": "global-nav-inner", "type": "class", "index": 0},
+            "injectElement": {
+              "name": "global-nav-inner", 
+              "type": "class", 
+              "index": 0
+            },
             "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
             "surveyFormSchema" : {
               "schema": {
-                "userID": {
-                  "type": "string",
-                  "title": "ID for annotated user",
-                  "default": "88888"
-                },
                 "initTimestamp": {
                   "type": "interger",
                   "title": "Timestamp (seconds) of the initialization",
@@ -34,10 +33,6 @@ var config = {
                 }
               },
               "form": [
-                {
-                  "key": "userID",
-                  "type": "hidden"
-                },
                 {
                   "key": "initTimestamp",
                   "type": "hidden"
