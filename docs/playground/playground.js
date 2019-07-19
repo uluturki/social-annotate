@@ -148,7 +148,7 @@ $('document').ready(function () {
    */
   var loadExample = function (example) {
     $.ajax({
-      url: '/playground/examples/' + example + '.json',
+      url: 'examples/' + example + '.json',
       dataType: 'text'
     }).done(function (code) {
       var aceId = $('#form .ace_editor').attr('id');
