@@ -14,11 +14,6 @@ var config = {
             "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
             "surveyFormSchema" : {
               "schema": {
-                "initTimestamp": {
-                  "type": "interger",
-                  "title": "Timestamp (seconds) of the initialization",
-                  "default": 0
-                },
                 "bot": {
                   "type": "string",
                   "title": "Do you believe this user to be a bot?",
@@ -34,10 +29,6 @@ var config = {
               },
               "form": [
                 {
-                  "key": "initTimestamp",
-                  "type": "hidden"
-                },
-                {
                   "key": "bot",
                   "type": "radiobuttons",
                   "activeClass": "btn-success"
@@ -49,7 +40,8 @@ var config = {
                 },
                 {
                   "type": "submit",
-                  "title": "Submit"
+                  "title": "Submit",
+                  "htmlClass": "surveySubmitBtn"
                 }
               ]
             }

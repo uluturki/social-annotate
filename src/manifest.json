@@ -7,10 +7,12 @@
   "background": {
     "scripts": [
       "config.js",
-      "background/background.js"
+      "background/background.js",
+      "dep/analytics.js"
   ],
     "persistent": false
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "web_accessible_resources": [
     "config.json"
   ],
@@ -33,6 +35,7 @@
        "dep/jsonform/deps/opt/bootstrap.css"
      ],
      "js": [
+       "dep/analytics.js",
        "dep/jsonform/deps/jquery.min.js",
        "dep/jsonform/deps/underscore.js",
        "dep/jsonform/deps/opt/jsv.js",

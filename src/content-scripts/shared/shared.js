@@ -42,6 +42,7 @@ function storeResults(surveyResults, socialMediaPlatform) {
     surveyResults.timestamp = Math.floor(Date.now() / 1000);
     surveyResults.initTimestamp = document.getElementById('surveyForm').getAttribute('surveyInitTimestamp');
 
+    _gaq.push(['_trackEvent', 'SurveySubmitted', 'clicked']); // Track number of survey submitted by Google Analytics.
 
     chrome.storage.local.get(['config'], function(result){
 
