@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: validate
 ---
 
 ## Welcome to another page
