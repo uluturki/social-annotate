@@ -1,6 +1,6 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-    
+
     $('#save-button').click(function() {
       saveOptionsPage();
     });
@@ -47,8 +47,8 @@ function loadPage(){
                         </div>
 
                         <h3><small>
-                          Form template in JSON format
-                          <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Make sure JSON is formatted correctly"></span>
+                          Form template in JSON format. Validate <a href="https://uluturki.github.io/twitter_annotate/playground/" target="_blank">here</a> 
+                          before pasting here. <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Make sure JSON is formatted correctly"></span>
                         </small></h3>
                         <textarea id='` + key + `_form-template' class="form-control" rows="10"></textarea>
 
