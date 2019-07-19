@@ -4,9 +4,18 @@ layout: default
 
 # Content Annotator
 
-Abstract of the paper will go here
+Abstract of the paper will go here.
 
-# How to cite 
+## How to cite 
+
+```
+@article{contentAnnotator2019,
+  title={},
+  author={Uluturk, Ismail and Varol, Onur},
+  journal={},
+  year={2019}
+}
+```
 
 # Validating forms
 
