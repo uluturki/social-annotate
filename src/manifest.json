@@ -17,10 +17,10 @@
     "default_title": "social-annotate",
     "default_popup": "popup/popup.html",
   "default_icon": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+      "16": "images/ca16.png",
+      "32": "images/ca32.png",
+      "48": "images/ca48.png",
+      "128": "images/ca128.png"
     }
   },
   "content_scripts": [
@@ -45,10 +45,10 @@
    }
   ],
   "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+    "16": "images/ca16.png",
+    "32": "images/ca32.png",
+    "48": "images/ca48.png",
+    "128": "images/ca128.png"
   },
   "manifest_version": 2
 }
