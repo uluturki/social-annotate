@@ -2,7 +2,7 @@
 var config = {
     "exportFormat": "csv",
     "apiEndpoint": "http://127.0.0.1:5000/response",
-    "activeSurveys": [ "instagram-user"], // "twitter-tweet", "instagram-user"   
+    "activeSurveys": [ "twitter-user"], // "twitter-tweet", "instagram-user"   
     "surveys": {
         "instagram-user":{
             "socialMediaPlatform": "instagram",

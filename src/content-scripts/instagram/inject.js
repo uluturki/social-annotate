@@ -1,6 +1,6 @@
 // @TODO: This list can be generated with help of collections but this will do for now.
 // Context class is defined in shared.js
-const availableContexts = [ new Context('instagram-user', injectInstagramUserSurvey, checkUserURL)];
+const availableContextsInstagram = [ new Context('instagram-user', injectInstagramUserSurvey, checkUserURL)];
 
 
 function crawlUserName(){
@@ -61,8 +61,8 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
     // check if context is enabled
     // @TODO implement this check in a way that will eliminate typo issues.
     // let currentContext = 'twitter-user';
-    for (index = 0; index < availableContexts.length; ++index) {
-        let currentContext = availableContexts[index];
+    for (index = 0; index < availableContextsInstagram.length; ++index) {
+        let currentContext = availableContextsInstagram[index];
         if(!currentContext.name.includes('instagram')){
             continue;
         }

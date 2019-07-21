@@ -1,16 +1,9 @@
 // @TODO: This list can be generated with help of collections but this will do for now.
 // Context class is defined in shared.js
-const availableContexts = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
+const availableContextsTwitter = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
                             new Context('twitter-tweet', injectTwitterTweetSurvey, null) ];
 
-/*
-var newContext = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
-                   new Context('twitter-tweet', injectTwitterTweetSurvey, null) ];
-if (typeof availableContexts === 'undefined' || availableContexts === null) {
-    const availableContexts = newContext;
-}else{
-    availableContexts.push(newContext);
-}*/
+
 
 
 function crawlUserName(){
@@ -71,8 +64,8 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
     // check if context is enabled
     // @TODO implement this check in a way that will eliminate typo issues.
     // let currentContext = 'twitter-user';
-    for (index = 0; index < availableContexts.length; ++index) {
-        let currentContext = availableContexts[index];
+    for (index = 0; index < availableContextsTwitter.length; ++index) {
+        let currentContext = availableContextsTwitter[index];
         if(!currentContext.name.includes('twitter')){
             continue;
         }
