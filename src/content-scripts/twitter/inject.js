@@ -3,6 +3,15 @@
 const availableContexts = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
                             new Context('twitter-tweet', injectTwitterTweetSurvey, null) ];
 
+/*
+var newContext = [ new Context('twitter-user', injectTwitterUserSurvey, checkUserURL), 
+                   new Context('twitter-tweet', injectTwitterTweetSurvey, null) ];
+if (typeof availableContexts === 'undefined' || availableContexts === null) {
+    const availableContexts = newContext;
+}else{
+    availableContexts.push(newContext);
+}*/
+
 
 function crawlUserName(){
     var currentURL = window.location.href;
@@ -64,6 +73,9 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
     // let currentContext = 'twitter-user';
     for (index = 0; index < availableContexts.length; ++index) {
         let currentContext = availableContexts[index];
+        if(!currentContext.name.includes('twitter')){
+            continue;
+        }
         let contextFlag = result.config.activeSurveys.includes(currentContext.name); 
         let auxFlag = currentContext.auxillaryCheck();
         

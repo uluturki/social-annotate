@@ -2,7 +2,7 @@
   "name": "Content Annotator",
   "version": "1.0",
   "description": "Content annotator application developed by Ismail Uluturk and Onur Varol",
-  "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs", "webNavigation", "*://twitter.com/*"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs", "webNavigation", "*://twitter.com/*", "*://instagram.com/*"],
   "options_page": "options/options.html",
   "background": {
     "scripts": [
@@ -13,9 +13,6 @@
     "persistent": false
   },
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "web_accessible_resources": [
-    "config.json"
-  ],
   "browser_action": {
     "default_title": "social-annotate",
     "default_popup": "popup/popup.html",
@@ -28,9 +25,10 @@
   },
   "content_scripts": [
    {
-     "matches": ["*://twitter.com/*"],
+     "matches": ["*://twitter.com/*", "*://instagram.com/*"],
      "exclude_matches": ["*://twitter.com/settings/*"],
      "css": [ 
+       "content-scripts/instagram/inject.css",
        "content-scripts/twitter/inject.css",
        "dep/jsonform/deps/opt/bootstrap.css"
      ],
@@ -41,7 +39,8 @@
        "dep/jsonform/deps/opt/jsv.js",
        "dep/jsonform/lib/jsonform.js",
        "content-scripts/shared/shared.js",
-       "content-scripts/twitter/inject.js"
+       "content-scripts/twitter/inject.js",
+       "content-scripts/instagram/inject.js"
      ]
    }
   ],
