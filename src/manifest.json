@@ -2,47 +2,53 @@
   "name": "Content Annotator",
   "version": "1.0",
   "description": "Content annotator application developed by Ismail Uluturk and Onur Varol",
-  "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs", "webNavigation", "*://twitter.com/*"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "downloads", "tabs", "webNavigation", "*://twitter.com/*", "*://instagram.com/*"],
   "options_page": "options/options.html",
   "background": {
     "scripts": [
-		  "config.js",
-		  "background/background.js"
-	],
+      "config.js",
+      "background/background.js",
+      "dep/analytics.js"
+  ],
     "persistent": false
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "browser_action": {
     "default_title": "social-annotate",
     "default_popup": "popup/popup.html",
-	"default_icon": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+  "default_icon": {
+      "16": "images/ca16.png",
+      "32": "images/ca32.png",
+      "48": "images/ca48.png",
+      "128": "images/ca128.png"
     }
   },
   "content_scripts": [
    {
-     "matches": ["*://twitter.com/*"],
-	 "exclude_matches": ["*://twitter.com/settings/*"],
-  	 "css": [ 
-       "content-scripts/twitter/inject.css"
+     "matches": ["*://twitter.com/*", "*://instagram.com/*"],
+     "exclude_matches": ["*://twitter.com/settings/*"],
+     "css": [ 
+       "content-scripts/instagram/inject.css",
+       "content-scripts/twitter/inject.css",
+       "dep/jsonform/deps/opt/bootstrap.css"
      ],
-  	 "js": [
-  		 "dep/jsonform/deps/jquery.min.js",
-  		 "dep/jsonform/deps/underscore.js",
-  		 "dep/jsonform/deps/opt/jsv.js",
-  		 "dep/jsonform/lib/jsonform.js",
-		 "content-scripts/shared/shared.js",
-  		 "content-scripts/twitter/inject.js"
-  	 ]
+     "js": [
+       "dep/analytics.js",
+       "dep/jsonform/deps/jquery.min.js",
+       "dep/jsonform/deps/underscore.js",
+       "dep/jsonform/deps/opt/jsv.js",
+       "dep/jsonform/lib/jsonform.js",
+       "content-scripts/shared/shared.js",
+       "content-scripts/twitter/inject.js",
+       "content-scripts/instagram/inject.js"
+     ]
    }
   ],
   "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+    "16": "images/ca16.png",
+    "32": "images/ca32.png",
+    "48": "images/ca48.png",
+    "128": "images/ca128.png"
   },
   "manifest_version": 2
 }

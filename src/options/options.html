@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css"  href="../dep/jsonform/deps/opt/bootstrap.css">
     <script src="../dep/jquery.min.js"></script>
     <script src="../dep/bootstrap.min.js"></script>
+    <script src="../dep/analytics.js"></script>
 
     <title>Content Annotator / Options</title>
 
@@ -17,7 +18,7 @@
   <body>
 
     <ul class="nav nav-tabs" role="tablist">
-      <li><a href="#" class="navbar-brand"><img src="../images/get_started32.png"></a></li>
+      <li><a href="#" class="navbar-brand"><img src="../images/ca32.png"></a></li>
       <li role="presentation" class="active"><a href="#options" aria-controls="options" role="tab" data-toggle="tab">Options</a></li>
       <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
     </ul>
@@ -43,9 +44,21 @@
           </div>
 
           <div class="row">
-            <button type="button" class="btn btn-primary" id="save-button">Save</button>
-            <button type="button" class="btn btn-primary" id="export-button">Export Config</button>
-            <button type="button" class="btn btn-primary" id="import-button">Import Config</button>
+
+            <h3>Configuration Import / Export</h3>
+
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-primary" id="save-button">Save</button>
+              <button type="button" class="btn btn-primary" id="export-button">Export Config</button>
+            </div>
+            <div class="col-sm-8">
+              <div class="input-group input-file">
+                <input id="upload-file" type="file" class="form-control" placeholder='Choose a file...' />
+                <span class="input-group-btn">
+                  <button class="btn btn-default btn-choose" type="button" id="import-button" import-data="">Import Config</button>
+                </span>
+              </div>  
+            </div>
           </div>
         </div>
       </div>
