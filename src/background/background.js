@@ -38,7 +38,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
 	//	I will leave this out for now.
 	
 	// Possibly: This can send a message to the content script, which will then rerun itself/restart from checking.
-	
+	//		Also see event filters here, we can filter these events to only twitter https://developer.chrome.com/extensions/background_pages
 	// chrome.tabs.executeScript(null,{file:"contentscript.js"});
 });
   

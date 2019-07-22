@@ -49,7 +49,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
 	for (index = 0; index < availableContexts.length; ++index) {
 		let currentContext = availableContexts[index];
 		let contextFlag = result.config.activeSurveys.includes(currentContext.name); 
-		let auxFlag = currentContext.auxillaryCheck();
+		let auxFlag = currentContext.auxiliaryCheck();
 		
 		if (result.isEnabled === true && contextFlag === true && auxFlag === true) {
 			// there can be more than one survey active at one time, so iterate over a list 

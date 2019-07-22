@@ -19,7 +19,7 @@ function getCurrentScreenName(platform) {
 class Context {
 	// If no aux check function passed in the constructor, then no check necessary and can always
 	//		return true.
-	static auxillaryCheck() {
+	auxiliaryCheck() {
 		return true;
 	}
 	
@@ -27,11 +27,11 @@ class Context {
 		this.name = contextName;
 		this.injectSurvey = injectFunction;
 		if(auxCheckFunction != null) {
-			this.auxillaryCheck = auxCheckFunction;
+			this.auxiliaryCheck = auxCheckFunction;
 		}
 	}
 
-};
+}
 
 function storeResults(surveyResults, socialMediaPlatform) {
 	// get annotated count and increment that too. Also annotatedUserIDs.
