@@ -24,25 +24,39 @@
     }
   },
   "content_scripts": [
-   {
-     "matches": ["*://twitter.com/*", "*://instagram.com/*"],
-     "exclude_matches": ["*://twitter.com/settings/*"],
-     "css": [ 
-       "content-scripts/instagram/inject.css",
-       "content-scripts/twitter/inject.css",
-       "dep/jsonform/deps/opt/bootstrap.css"
-     ],
-     "js": [
-       "dep/analytics.js",
-       "dep/jsonform/deps/jquery.min.js",
-       "dep/jsonform/deps/underscore.js",
-       "dep/jsonform/deps/opt/jsv.js",
-       "dep/jsonform/lib/jsonform.js",
-       "content-scripts/shared/shared.js",
-       "content-scripts/twitter/inject.js",
-       "content-scripts/instagram/inject.js"
-     ]
-   }
+  {
+    "matches": ["*://twitter.com/*"],
+    "exclude_matches": ["*://twitter.com/settings/*"],
+    "css": [
+      "content-scripts/twitter/inject.css",
+      "dep/jsonform/deps/opt/bootstrap.css"
+    ],
+    "js": [
+      "dep/analytics.js",
+      "dep/jsonform/deps/jquery.min.js",
+      "dep/jsonform/deps/underscore.js",
+      "dep/jsonform/deps/opt/jsv.js",
+      "dep/jsonform/lib/jsonform.js",
+      "content-scripts/shared/shared.js",
+      "content-scripts/twitter/inject.js"
+    ]
+  },
+  {
+    "matches": ["*://instagram.com/*"],
+    "css": [
+      "content-scripts/instagram/inject.css",
+      "dep/jsonform/deps/opt/bootstrap.css"
+    ],
+    "js": [
+      "dep/analytics.js",
+      "dep/jsonform/deps/jquery.min.js",
+      "dep/jsonform/deps/underscore.js",
+      "dep/jsonform/deps/opt/jsv.js",
+      "dep/jsonform/lib/jsonform.js",
+      "content-scripts/shared/shared.js",
+      "content-scripts/instagram/inject.js"
+    ]
+  }
   ],
   "icons": {
     "16": "images/ca16.png",
