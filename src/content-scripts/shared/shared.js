@@ -17,17 +17,14 @@ function getCurrentScreenName(platform) {
 }
 
 class Context {
-	// If no aux check function passed in the constructor, then no check necessary and can always
-	//		return true.
-	auxiliaryCheck() {
-		return true;
-	}
 	
 	constructor(contextName, injectFunction, auxCheckFunction) {
 		this.name = contextName;
 		this.injectSurvey = injectFunction;
-		if(auxCheckFunction != null) {
+		if(auxCheckFunction !== null) {
 			this.auxiliaryCheck = auxCheckFunction;
+		}else{
+			this.auxiliaryCheck = function() { return true;}
 		}
 	}
 
