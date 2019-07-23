@@ -2,11 +2,11 @@
 var config = {
     "exportFormat": "csv",
     "apiEndpoint": "http://127.0.0.1:5000/response",
-    "activeSurveys": [ "twitter-user"], // "twitter-tweet", "instagram-user"   
+    "activeSurveys": [ "twitter-user", "instagram-user"], // "twitter-tweet", "instagram-user"   
     "surveys": {
         "instagram-user":{
             "socialMediaPlatform": "instagram",
-            "injectElement": {"name": "XajnB", "type": "class", "index": 0},
+            "injectElement": {"name": "", "type": "class", "index": 0},
             "surveyFormSchema" : {
               "surveyFormSchema" : {
               "schema": {
@@ -41,7 +41,7 @@ var config = {
                 }
               ]
             }
-            }
+          }
         },
         "twitter-tweet":{
             "socialMediaPlatform": "twitter",

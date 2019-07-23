@@ -9,14 +9,14 @@
       "config.js",
       "background/background.js",
       "dep/analytics.js"
-  ],
+    ],
     "persistent": false
   },
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "browser_action": {
     "default_title": "social-annotate",
     "default_popup": "popup/popup.html",
-  "default_icon": {
+    "default_icon": {
       "16": "images/ca16.png",
       "32": "images/ca32.png",
       "48": "images/ca48.png",
@@ -24,39 +24,40 @@
     }
   },
   "content_scripts": [
-  {
-    "matches": ["*://twitter.com/*"],
-    "exclude_matches": ["*://twitter.com/settings/*"],
-    "css": [
-      "content-scripts/twitter/inject.css",
-      "dep/jsonform/deps/opt/bootstrap.css"
-    ],
-    "js": [
-      "dep/analytics.js",
-      "dep/jsonform/deps/jquery.min.js",
-      "dep/jsonform/deps/underscore.js",
-      "dep/jsonform/deps/opt/jsv.js",
-      "dep/jsonform/lib/jsonform.js",
-      "content-scripts/shared/shared.js",
-      "content-scripts/twitter/inject.js"
-    ]
-  },
-  {
-    "matches": ["*://instagram.com/*"],
-    "css": [
-      "content-scripts/instagram/inject.css",
-      "dep/jsonform/deps/opt/bootstrap.css"
-    ],
-    "js": [
-      "dep/analytics.js",
-      "dep/jsonform/deps/jquery.min.js",
-      "dep/jsonform/deps/underscore.js",
-      "dep/jsonform/deps/opt/jsv.js",
-      "dep/jsonform/lib/jsonform.js",
-      "content-scripts/shared/shared.js",
-      "content-scripts/instagram/inject.js"
-    ]
-  }
+    {
+      "matches": ["*://twitter.com/*"],
+      "exclude_matches": ["*://twitter.com/settings/*"],
+      "css": [
+        "content-scripts/twitter/inject.css",
+        "dep/jsonform/deps/opt/bootstrap.css"
+      ],
+      "js": [
+        "dep/analytics.js",
+        "dep/jsonform/deps/jquery.min.js",
+        "dep/jsonform/deps/underscore.js",
+        "dep/jsonform/deps/opt/jsv.js",
+        "dep/jsonform/lib/jsonform.js",
+        "content-scripts/shared/shared.js",
+        "content-scripts/twitter/inject.js"
+      ]
+    },
+    {
+      "matches": ["*://instagram.com/*"],
+      "run_at": "document_end",
+      "css": [
+        "content-scripts/instagram/inject.css",
+        "dep/jsonform/deps/opt/bootstrap.css"
+      ],
+      "js": [
+        "dep/analytics.js",
+        "dep/jsonform/deps/jquery.min.js",
+        "dep/jsonform/deps/underscore.js",
+        "dep/jsonform/deps/opt/jsv.js",
+        "dep/jsonform/lib/jsonform.js",
+        "content-scripts/shared/shared.js",
+        "content-scripts/instagram/inject.js"
+      ]
+    }
   ],
   "icons": {
     "16": "images/ca16.png",

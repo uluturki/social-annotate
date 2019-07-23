@@ -87,11 +87,11 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
             // Attach the onSubmit event handler to the schema
             var formTemplate = config.surveyFormSchema;
             
-            // @TODO: Send values to an API endpoint if configured to do so.
             function submitAction(errors, values) {
                 let bringNextUser = false;
                 let platform = config.socialMediaPlatform;
                 let nextUser = ''
+                values.survey = currentContext.name;
                 storeResults(values, platform);  // store values and updateUserID field
             }
             formTemplate.onSubmit = submitAction;

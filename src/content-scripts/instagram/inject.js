@@ -63,6 +63,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
     // let currentContext = 'twitter-user';
     for (index = 0; index < availableContextsInstagram.length; ++index) {
         let currentContext = availableContextsInstagram[index];
+        console.log(currentContext);
         if(!currentContext.name.includes('instagram')){
             continue;
         }
@@ -89,6 +90,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function(r
                 let bringNextUser = false;
                 let platform = config.socialMediaPlatform;
                 let nextUser = ''
+                values.survey = currentContext.name;
                 storeResults(values, platform);  // store values and updateUserID field
             }
             formTemplate.onSubmit = submitAction;
