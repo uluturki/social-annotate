@@ -26,6 +26,7 @@
   "content_scripts": [
     {
       "matches": ["*://twitter.com/*"],
+      "run_at": "document_end",
       "exclude_matches": ["*://twitter.com/settings/*"],
       "css": [
         "content-scripts/twitter/inject.css",

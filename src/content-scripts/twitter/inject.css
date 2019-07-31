@@ -2,13 +2,23 @@
  * Place your custom CSS styles here.
  **/
 
-div.survey-container{
+div.survey-container-user{
 	width:100%;
 	height: 30px;
 	background-color: #333;
 	position: fixed;
-    top=0px;
+	top: 0;
     z-index:99;
+
+}
+
+div.survey-container-tweet{
+	/*width:100%;*/
+	height: 30px;
+	background-color: #333;
+	/*position: fixed;*/
+	top: 0;
+	z-index:99;
 }
 
 #surveyForm{
@@ -17,8 +27,8 @@ div.survey-container{
 	width:100%;
 	flex-direction: row;
 	flex-wrap: wrap;
-	top=0;
-    left=0;
+	top: 0;
+	left: 0;
     color:#333;
 }
 
