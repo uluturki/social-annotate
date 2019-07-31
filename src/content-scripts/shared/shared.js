@@ -123,6 +123,8 @@ function storeResults(surveyResults, socialMediaPlatform) {
             
         }
         chrome.storage.local.set(lists2update, function() {
+            // TODO Update this part for tweets as well, first figure which type is submitted, then construct url
+            //  accordingly
             if (bringNextUser === true){
                 // can't use tabs api within content script.
                 window.location.href = platformURL + nextUser;

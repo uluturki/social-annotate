@@ -9,69 +9,30 @@ const availableContextsTwitter = [new Context('twitter-user', injectTwitterUserS
 const reactRoot = document.getElementById('react-root');
 
 // Options for the observer (which mutations to observe)
-const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['role'], attributeOldValue: true};
+const config = { attributes: true, childList: false, subtree: true, attributeFilter: ['role'], attributeOldValue: true};
 
-// var flagg = true
-// Callback function to execute when mutations are observed
 const observerCallback = function(mutationsList, observer) {
     let primaryColID = 'primaryColumn';
     let attName = 'data-testid';
     for (let mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-            // if (mutation.target.getAttribute('data-testid') === "tweet") {
-            //     alert('fukken bingo');
-            // }
-            for (let addedNode of mutation.addedNodes) {
-                // tweets are note added with anythings discernible so addedNodes isn't working for what I need.
-                // console.log(addedNode.getAttribute('role'));
-            }
-        }
-        else if (mutation.type === 'attributes') {
+        if (mutation.type === 'attributes') {
             if (mutation.target.getAttribute('role') === "article") {
-                // This catches it, but also retriggers after each mouseover for some reason. both new and old values
-                // are article when that happens, because change happens in the parent node css class. I should probably
-                // just check if survey exists, and if it does, do nothing. not great but I can't find a better way.
-                // console.log('role: ' + mutation.target.getAttribute('role'));
-                // console.log(mutation.oldValue);
-                // this event fires every time on mouseover because attributes are changing, just check if the survey
-                // is already in there.
-                // console.log(mutation.target.getElementsByClassName('survey-container-twitter'));
+                // this event fires every time mouseover on tweet container because attributes are changing, just check
+                // if the survey is already in there before injecting. There may be a better way but I'm done with this
+                // maybe later.
                 if (mutation.target.parentNode.getElementsByClassName('survey-container-tweet').length === 0) {
                     injectTwitterTweetSurvey(mutation.target)
                 }
-                // mutation.target.innerText = 'BOYABAT';
-                // if (flagg === true) {
-                //     mutation.target.innerText = 'HEYHAT';
-                //     flagg = false;
-                // }
             }
-
-            // if (mutation.attributeName === 'role') {
-            //     // if(mutation.target.getAttribute('data-testid') === 'tweet') {
-            //     //     // var surveyContainer = document.createElement('div');
-            //     //     // surveyContainer.className = "survey-container";
-            //     //     //
-            //     //     // var survey = document.createElement('form');
-            //     //     // survey.setAttribute("id", "surveyForm2"); // TODO: This ID should be unique when importing multiple forms into page
-            //     //     // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
-            //     //     // survey.setAttribute("surveyId", crawlUserName());
-            //     //     // surveyContainer.appendChild(survey);
-            //     //     //
-            //     //     // mutation.target.insertAdjacentElement('beforebegin', surveyContainer);
-            //     //     alert(mutation.target.getAttribute('data-testid'))
-            //     // }
-            //
-            // }
         }
     }
 };
-
 
 // Create an observer instance linked to the callback function
 const observer = new MutationObserver(observerCallback);
 
 // Start observing the target node for configured mutations
-observer.observe(reactRoot, config);
+// observer.observe(reactRoot, config);
 
 
 function crawlUserName() {
@@ -107,6 +68,18 @@ function injectTwitterUserSurvey(injectElement) {
     fixedBar.insertAdjacentElement('beforebegin', surveyContainer);
 }
 
+function enableTweetObserver(injectElement) {
+    observer.observe(reactRoot, config)
+}
+
+function extractTweetDetails(articleNode) {
+    // there is only one time element, at least for now...
+    let tweetLink = articleNode.querySelector("time").parentNode.href;
+    tweetLink = tweetLink.split('/');
+
+    return {tweetOwner: tweetLink[3], tweetID: tweetLink[tweetLink.length - 1]} //last element is the id
+}
+
 var tweetCount = 0;
 function injectTwitterTweetSurvey(injectNode) {
     // @ TODO This shall be done by mutation observer so it supports new tweets too
@@ -115,21 +88,14 @@ function injectTwitterTweetSurvey(injectNode) {
     surveyContainer.className = "survey-container-tweet";
 
     let survey = document.createElement('form');
-    survey.setAttribute("id", "surveyForm" + tweetCount++); // TODO: This ID should be unique when importing multiple forms into page
+    survey.setAttribute("id", "surveyForm-" + tweetCount++);
     survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
-    survey.setAttribute("surveyId", crawlUserName());
+    let tweetDetails = extractTweetDetails(injectNode);
+    survey.setAttribute("surveyId", tweetDetails.tweetID);
+    // this information is kind of redundant since it can be learned from tweetID, however it does make life easier
+    survey.setAttribute("tweetOwner", tweetDetails.tweetOwner);
     surveyContainer.appendChild(survey);
 
-    // // Inject the form to the appropriate element in the page.
-    // // let tweetElementName = injectElement.name;
-    // let tweetElementName = 'article';  // role='article' brings tweets only it seems.
-    // //fixedBar = document.getElementsByClassName(barElementName)[injectElement.index];
-    //
-    // let articleDivList = document.querySelectorAll(tweetElementName);
-    // alert('number of divs ' + string(articleDivList.length));
-    // for (const articleDiv of articleDivList) {
-    //     articleDiv.insertAdjacentElement('beforebegin', surveyContainer);
-    // }
     injectNode.insertAdjacentElement('afterbegin', surveyContainer);
 }
 
@@ -157,9 +123,10 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function (
     // check if context is enabled
     // @TODO implement this check in a way that will eliminate typo issues.
     // let currentContext = 'twitter-user';
+    const currentPlatform = 'twitter';  // manifest ensures this file is only called for twitter.
     for (index = 0; index < availableContextsTwitter.length; ++index) {
         let currentContext = availableContextsTwitter[index];
-        if (!currentContext.name.includes('twitter')) {
+        if (!currentContext.name.includes(currentPlatform)) {
             continue;
         }
         let contextFlag = result.config.activeSurveys.includes(currentContext.name);
@@ -172,8 +139,8 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function (
             var activeSurvey = currentContext.name;
             var config = result.config['surveys'][activeSurvey];
 
-            var screenNameStack = result.screenNameStack;
-
+            // @TODO for survey-tweet, have this method call start the observer, form template rendering also need to
+            //      happen on the observer callback, pass parameters related to that to this method as well.
             currentContext.injectSurvey(config.injectElement);
             // injectSurvey(currentContext, config.injectElement);
 
@@ -182,14 +149,14 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function (
 
             function submitAction(errors, values) {
                 let bringNextUser = false;
-                let platform = config.socialMediaPlatform;
-                let nextUser = ''
+                let platform = currentPlatform;
+                let nextUser = '';
                 values.survey = currentContext.name;
                 storeResults(values, platform);  // store values and updateUserID field
             }
 
+            // @TODO this one renders the header only, move that into a DOM load event as well.
             formTemplate.onSubmit = submitAction;
-
             $('#surveyForm').jsonForm(formTemplate);
         }
     }
