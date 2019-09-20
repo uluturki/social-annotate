@@ -1,49 +1,54 @@
 // submitAction will probably be necessary to be tacked on in inject.js
+// {
+//         "twitter-user": true,
+//         "twitter-tweet": false,
+//         "instagram-user": false
+//     } ,
 var config = {
     "exportFormat": "csv",
-    "apiEndpoint": "http://127.0.0.1:5000/response",
-    "activeSurveys": [ "twitter-user", "instagram-user"], // "twitter-tweet", "instagram-user"   
+    "apiEndpoint": "",  // http://127.0.0.1:5000/response
+    "activeSurveys": ["twitter-user"], // "twitter-tweet", "instagram-user"
     "surveys": {
-        "instagram-user":{
-            "socialMediaPlatform": "instagram",
-            "studyID": "alpha",
-            "injectElement": {"name": "", "type": "class", "index": 0},
-            "surveyFormSchema" : {
-              "surveyFormSchema" : {
-              "schema": {
-                "influencer": {
-                  "type": "string",
-                  "title": "Do you believe this user to be a influencer?",
-                  "enum": [ "influencer", "NOT influencer"],
-                  "required": true
-                },
-                "authentic": {
-                  "type": "string",
-                  "title": "Is this user authentic?",
-                  "enum": [ "authentic", "NOT authentic"],
-                  "required": true
-                }
-              },
-              "form": [
-                {
-                  "key": "influencer",
-                  "type": "radiobuttons",
-                  "activeClass": "btn-success"
-                },
-                {
-                  "key": "authentic",
-                  "type": "radiobuttons",
-                  "activeClass": "btn-success"
-                },
-                {
-                  "type": "submit",
-                  "title": "Submit",
-                  "htmlClass": "surveySubmitBtn"
-                }
-              ]
-            }
-          }
-        },
+        // "instagram-user":{
+        //     "socialMediaPlatform": "instagram",
+        //     "studyID": "alpha",
+        //     "injectElement": {"name": "", "type": "class", "index": 0},
+        //     "surveyFormSchema" : {
+        //       "surveyFormSchema" : {
+        //       "schema": {
+        //         "influencer": {
+        //           "type": "string",
+        //           "title": "Do you believe this user to be a influencer?",
+        //           "enum": [ "influencer", "NOT influencer"],
+        //           "required": true
+        //         },
+        //         "authentic": {
+        //           "type": "string",
+        //           "title": "Is this user authentic?",
+        //           "enum": [ "authentic", "NOT authentic"],
+        //           "required": true
+        //         }
+        //       },
+        //       "form": [
+        //         {
+        //           "key": "influencer",
+        //           "type": "radiobuttons",
+        //           "activeClass": "btn-success"
+        //         },
+        //         {
+        //           "key": "authentic",
+        //           "type": "radiobuttons",
+        //           "activeClass": "btn-success"
+        //         },
+        //         {
+        //           "type": "submit",
+        //           "title": "Submit",
+        //           "htmlClass": "surveySubmitBtn"
+        //         }
+        //       ]
+        //     }
+        //   }
+        // },
         "twitter-tweet":{
             "socialMediaPlatform": "twitter",
             "injectElement": {"name": "twitter-xxx", "type": "class", "index": 0},

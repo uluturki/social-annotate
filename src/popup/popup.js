@@ -9,33 +9,56 @@ document.querySelector('#go-to-options').addEventListener('click', function(e) {
   }
 });
 
+function updateAnnotationCount () {
+    var annotationCountSpan = document.getElementById('annotationCount');
+    chrome.storage.local.get(['config', 'annotatedElements'], function(data) {
+        // let annotationCount = data.annotatedUserIDs.length;
+        // @TODO for now supporting only one active survey at one time, most of the codebase supports multiple just needs
+        //      testing and UI updates.
+        let activeSurvey = data.config.activeSurveys[0];
+        annotationCountSpan.innerText = data.annotatedElements[activeSurvey].length;
+    });
+}
+
 // Display the number of annotated users in the storage.
 var survey = '';
 var surveyDropdown = document.getElementById('dropdown-menu');
 chrome.storage.local.get('config', function(data) {
-  for (var key in data.config.surveys){
-    var option = document.createElement('li');
-    option.data = key;
-    option.addEventListener("click", function(){
-        document.getElementById('survey-id').innerHTML = this.data
-    });
-    option.innerHTML = "<a href='#'>" + key + "</a>";
-    surveyDropdown.appendChild(option);
-    
+    for (var key in data.config.surveys){
+        var option = document.createElement('li');
+        option.data = key;
+        // event for clicking on a survey name on the dropdown, selecting that survey
+        option.addEventListener("click", function(){
+            // @TODO also keep guided for all different survey types, maybe even enable separately and a separate big
+            //      toggle for everything. this needs some thinking.
+            let chosenSurvey = this.data;
+            document.getElementById('survey-id').innerHTML = chosenSurvey;
+            // update the active survey in the stored config variable.
+            chrome.storage.local.get('config', function (data) {
+                data.config.activeSurveys = [chosenSurvey];
+                chrome.storage.local.set({'config':data.config}, function() {
+                    // @TODO there are a lot of unnecessary storage calls here, consolidate.
+                    updateAnnotationCount();  //@TODO this isn't doing anything.
+                });
+
+            });
+        });
+
+        option.innerHTML = "<a href='#'>" + key + "</a>";
+        surveyDropdown.appendChild(option);
+    }
     // Set the default as the latest one
-    survey = key;
+    // @TODO for now supporting only one active survey at one time, most of the codebase supports multiple just needs
+    //      testing and UI updates.
+    survey = data.config.activeSurveys[0];
     document.getElementById('survey-id').innerHTML = survey;
-    data.config.activeSurvey = survey; 
-    // TODO: We need to be able to update this current-survey value on config.
-  }
+    // @TODO bring together all these update interface functions
+    updateAnnotationCount();
+
 });
 
-var annotationCountSpan = document.getElementById('annotationCount');
-chrome.storage.local.get('annotatedUserIDs', function(data) {
-  let annotationCount = 0;
-  annotationCount = data.annotatedUserIDs.length;
-  annotationCountSpan.innerText = annotationCount;
-});
+
+
 
 document.querySelector('#exportLink').addEventListener('click', function(e) {
     chrome.storage.local.get('resultsArray', function(data) {
@@ -67,6 +90,7 @@ function updateInterface (disableLink) {
 var disableLink = document.querySelector('#disableLink');
 // Populate the interface for initial values.
 updateInterface(disableLink);
+
 
 disableLink.addEventListener('click', function(e) {
     // use the link/button as a toggle, toggle between disable and enable.
@@ -138,5 +162,3 @@ function objectList2csv(items) {
     return csv
 }
 
-// @TODO add an enable/disable app switch and an enable/disable going over the list switch. 
-// @TODO also throw in a link to the options page.

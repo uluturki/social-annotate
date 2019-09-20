@@ -51,7 +51,7 @@ function injectTwitterUserSurvey(injectElement) {
     surveyContainer.className = "survey-container-user";
 
     var survey = document.createElement('form');
-    survey.setAttribute("id", "userSurveyForm"); // TODO: This ID should be unique when importing multiple forms into page
+    survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multiple forms into page
     survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     survey.setAttribute("surveyId", crawlUserName());
     surveyContainer.appendChild(survey);
@@ -89,9 +89,9 @@ function injectTwitterTweetSurvey(injectNode) {
     surveyContainer.className = "survey-container-tweet";
 
     let survey = document.createElement('form');
-    survey.setAttribute("id", "tweetSurveyForm-" + tweetCount++);
+    survey.setAttribute("id", "surveyForm-" + tweetCount++);
     survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
-    let tweetDetails = extractTweetDetails(injectNode);
+    let tweetDetails = extractTweetDetails(injectNode);  // @TODO something wrong with this line
     survey.setAttribute("surveyId", tweetDetails.tweetID);
     // this information is kind of redundant since it can be learned from tweetID, however it does make life easier
     survey.setAttribute("tweetOwner", tweetDetails.tweetOwner);  //@TODO Rename this to userID so it matches with rest. If user survey, this column will have smth, and elementID won't.
@@ -137,6 +137,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
             // there can be more than one survey active at one time, so iterate over a list
             // of currentContext if necessary instead of direct assignment.
             // var activeSurvey = result.config.activeSurvey;
+
             var activeSurvey = currentContext.name;
             var config = result.config['surveys'][activeSurvey];
 
@@ -159,7 +160,6 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
                 values.clientID = clientID;
                 storeResults(values, platform);  // store values and updateUserID field
             }
-
             // @TODO this one renders the header only, move that into a DOM load event as well.
             formTemplate.onSubmit = submitAction;
             $('#surveyForm').jsonForm(formTemplate);

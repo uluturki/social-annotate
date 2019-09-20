@@ -97,8 +97,8 @@ function storeResults(surveyResults, socialMediaPlatform) {
         annotatedElements[surveyType][userIndex] = surveyResults.userID;
         
         let lists2update = {
-            'resultsArray': resultsArrays,
-            'annotatedUserIDs': annotatedElements,
+            'resultsArrays': resultsArrays,
+            'annotatedElements': annotatedElements,
         };
         
         var bringNextUser = false;
