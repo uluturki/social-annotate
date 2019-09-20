@@ -61,9 +61,9 @@ chrome.storage.local.get('config', function(data) {
 
 
 document.querySelector('#exportLink').addEventListener('click', function(e) {
-    chrome.storage.local.get('resultsArray', function(data) {
-        var resultsArray = data.resultsArray;
-        exportStoredResults(resultsArray);
+    chrome.storage.local.get('resultsArrays', function(data) {
+        let resultsArrays = data.resultsArrays;
+        exportStoredResults(resultsArrays);
     });
 });
 
@@ -117,11 +117,15 @@ toggleGuidedCheckbox.addEventListener('click', function(e) {
 });
 
 // @TODO First line is getting messed up as undefined, figure that out.
-function exportStoredResults (items) {
+function exportStoredResults (resultArrays) {
     // Save as file
-    var csvResults = objectList2csv(items);
-    
-    var url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvResults);
+    let csvResults = '';
+    for (let surveyType in resultArrays) {
+        if (resultArrays.hasOwnProperty(surveyType)) {
+            csvResults += objectList2csv(resultArrays[surveyType]);
+        }
+    }
+    let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvResults);
     chrome.downloads.download({
         url: url,
         filename: 'annotations.csv'
@@ -129,7 +133,7 @@ function exportStoredResults (items) {
 }
 
 function objectList2csv(items) {
-    var csv = ''
+    var csv = '';
     
     // Loop the array of objects
     for(let row = 0; row < items.length; row++){
