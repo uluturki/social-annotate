@@ -9,7 +9,7 @@ const availableContextsTwitter = [new Context('twitter-user', injectTwitterUserS
 const reactRoot = document.getElementById('react-root');
 
 // Options for the observer (which mutations to observe)
-const config = { attributes: true, childList: false, subtree: true, attributeFilter: ['role'], attributeOldValue: true};
+const obsConfig = { attributes: true, childList: false, subtree: true, attributeFilter: ['role'], attributeOldValue: true};
 
 const observerCallback = function(mutationsList, observer) {
     let primaryColID = 'primaryColumn';
@@ -18,8 +18,9 @@ const observerCallback = function(mutationsList, observer) {
         if (mutation.type === 'attributes') {
             if (mutation.target.getAttribute('role') === "article") {
                 // this event fires every time mouseover on tweet container because attributes are changing, just check
-                // if the survey is already in there before injecting. There may be a better way but I'm done with this
-                // maybe later.
+                // if the survey is already in there before injecting. There may be a better way but I'm just dealing
+                // with this.
+                // maybe later...
                 if (mutation.target.parentNode.getElementsByClassName('survey-container-tweet').length === 0) {
                     injectTwitterTweetSurvey(mutation.target)
                 }
@@ -50,7 +51,7 @@ function injectTwitterUserSurvey(injectElement) {
     surveyContainer.className = "survey-container-user";
 
     var survey = document.createElement('form');
-    survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multiple forms into page
+    survey.setAttribute("id", "userSurveyForm"); // TODO: This ID should be unique when importing multiple forms into page
     survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     survey.setAttribute("surveyId", crawlUserName());
     surveyContainer.appendChild(survey);
@@ -69,7 +70,7 @@ function injectTwitterUserSurvey(injectElement) {
 }
 
 function enableTweetObserver(injectElement) {
-    observer.observe(reactRoot, config)
+    observer.observe(reactRoot, obsConfig)
 }
 
 function extractTweetDetails(articleNode) {
@@ -88,12 +89,12 @@ function injectTwitterTweetSurvey(injectNode) {
     surveyContainer.className = "survey-container-tweet";
 
     let survey = document.createElement('form');
-    survey.setAttribute("id", "surveyForm-" + tweetCount++);
+    survey.setAttribute("id", "tweetSurveyForm-" + tweetCount++);
     survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     let tweetDetails = extractTweetDetails(injectNode);
     survey.setAttribute("surveyId", tweetDetails.tweetID);
     // this information is kind of redundant since it can be learned from tweetID, however it does make life easier
-    survey.setAttribute("tweetOwner", tweetDetails.tweetOwner);
+    survey.setAttribute("tweetOwner", tweetDetails.tweetOwner);  //@TODO Rename this to userID so it matches with rest. If user survey, this column will have smth, and elementID won't.
     surveyContainer.appendChild(survey);
 
     injectNode.insertAdjacentElement('afterbegin', surveyContainer);
@@ -119,7 +120,7 @@ function checkUserURL() {
 }
 
 // get the current config from storage
-chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function (result) {
+chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID'], function (result) {
     // check if context is enabled
     // @TODO implement this check in a way that will eliminate typo issues.
     // let currentContext = 'twitter-user';
@@ -145,13 +146,17 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList'], function (
             // injectSurvey(currentContext, config.injectElement);
 
             // Attach the onSubmit event handler to the schema
-            var formTemplate = config.surveyFormSchema;
+            let formTemplate = config.surveyFormSchema;
+            let studyID = config.studyID;
+            let clientID = config.clientID;
 
             function submitAction(errors, values) {
                 let bringNextUser = false;
                 let platform = currentPlatform;
                 let nextUser = '';
-                values.survey = currentContext.name;
+                values.surveyType = currentContext.name;
+                values.studyID = studyID;
+                values.clientID = clientID;
                 storeResults(values, platform);  // store values and updateUserID field
             }
 

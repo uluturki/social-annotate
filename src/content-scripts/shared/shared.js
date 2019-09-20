@@ -66,35 +66,39 @@ function storeResults(surveyResults, socialMediaPlatform) {
     });
 
     // get annotated count and increment that too. Also annotatedUserIDs.
-    chrome.storage.local.get(['resultsArray', 'annotatedUserIDs', 'activeTargetList', 'isGuided'], function(result) {
+    chrome.storage.local.get(['resultsArrays', 'annotatedElements', 'activeTargetList', 'isGuided'], function(result) {
         // console.log('Number of recorded results: ' + result.resultsArray.length);
         // @TODO Check if the user record already exists, and overwrite if it does.
         // @TODO Notify before overwriting though...
         
         // @TODO wrap these two in an object so they are always in sync, or switch to a dict.
-        resultsArray = result.resultsArray;
-        annotatedUserIDs = result.annotatedUserIDs;
+        resultsArrays = result.resultsArrays;
+        annotatedElements = result.annotatedElements;
         activeTargetList = result.activeTargetList;
         
         // @TODO: store this in the config when adding more platforms.
         if (socialMediaPlatform == 'twitter') {
             platformURL = "https://twitter.com/";
         }
+
+        let surveyType = surveyResults.surveyType;
+
         // check if this user is already in storage, and if so, where.
-        let userIndex = annotatedUserIDs.indexOf(surveyResults.userID);
+        let userIndex = annotatedElements[surveyType].indexOf(surveyResults.userID);
         if (userIndex === -1) {
             // keeping a separate list of IDs for quick access, doesn't take much space.
             // resultsArray.push(surveyResults);
             // annotatedUserIDs.push(surveyResults.userID);
             // this index appends to the end of the list.
-            userIndex = resultsArray.length;
-        } 
-        resultsArray[userIndex] = surveyResults;
-        annotatedUserIDs[userIndex] = surveyResults.userID;
+            userIndex = resultsArrays[surveyType].length;
+        }
+
+        resultsArrays[surveyType][userIndex] = surveyResults;
+        annotatedElements[surveyType][userIndex] = surveyResults.userID;
         
         let lists2update = {
-            'resultsArray': resultsArray, 
-            'annotatedUserIDs': annotatedUserIDs, 
+            'resultsArray': resultsArrays,
+            'annotatedUserIDs': annotatedElements,
         };
         
         var bringNextUser = false;
@@ -112,7 +116,7 @@ function storeResults(surveyResults, socialMediaPlatform) {
             
             // If guided mode is active and there are users in the list, determine next in line. 
             
-            var nextUser = ''
+            var nextUser = '';
             
             if (activeTargetList.length > 0) {
                 bringNextUser = true;

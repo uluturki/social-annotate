@@ -6,6 +6,7 @@ var config = {
     "surveys": {
         "instagram-user":{
             "socialMediaPlatform": "instagram",
+            "studyID": "alpha",
             "injectElement": {"name": "", "type": "class", "index": 0},
             "surveyFormSchema" : {
               "surveyFormSchema" : {
@@ -46,6 +47,7 @@ var config = {
         "twitter-tweet":{
             "socialMediaPlatform": "twitter",
             "injectElement": {"name": "twitter-xxx", "type": "class", "index": 0},
+            "studyID": "kokone",
             "surveyFormSchema" : {
               "schema":{}, "form":{}
             }
@@ -57,6 +59,7 @@ var config = {
               "type": "class", 
               "index": 0
             },
+            "studyID": "maruko",
             "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
             "surveyFormSchema" : {
               "schema": {

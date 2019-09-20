@@ -5,17 +5,27 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-	
+
+	// This ID is not necessarily unique, but unlikely to hit non-unique ids, extension needs to be installed on the
+	//	same millisecond + the 4 character random part needs to match. doesn't follow UUID standard because i'm a bad person.
+	// let clientID = '_' + Math.random().toString(36).substr(2, 9);
+	let clientID = '_' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
+
 	let initialStorage = {
-	  "resultsArray": [], 
-	  "annotatedUserIDs": [], 
-	  "config": config, 
-	  "isEnabled": true,
-	  "isGuided": false,
-	  "activeTargetList": [...config.surveys["twitter-user"].screenNameList]  // clone the array, keep the initial list for future reference.
-	// OV: Use options page to load this list manually
-	}
-	// {"resultsArray": [], "annotatedUserIDs": [], "config": config, "isEnabled": true}
+		"resultsArrays": {
+			"twitter-user": [],
+			"twitter-tweets": []
+		},  // @TODO pull these from a supported types list somewhere.
+		"annotatedElements": {
+			"twitter-user": [],
+			"twitter-tweets": []
+		}, // @TODO pull these from a supported types list somewhere.
+		"clientID": clientID,
+		"config": config,
+		"isEnabled": true,
+		"isGuided": false,
+		"activeTargetList": [...config.surveys["twitter-user"].screenNameList]  // clone the array, keep the initial list for future reference.
+	};
 	chrome.storage.local.set(initialStorage, function() {
 	console.log('Storage arrays initialized.');
 	});

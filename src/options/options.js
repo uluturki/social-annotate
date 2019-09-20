@@ -17,9 +17,9 @@ $(function () {
 
     loadPage();
 });
-
+// @TODO handle clientID in the forms (make it editable)
 function loadPage(){
-  chrome.storage.local.get(['config', 'isEnabled'], function(result) {
+  chrome.storage.local.get(['config', 'isEnabled', 'clientID'], function(result) {
       console.log(result.config);
       document.getElementById('api-endpoint').value = result.config.apiEndpoint;
 
