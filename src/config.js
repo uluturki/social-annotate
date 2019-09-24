@@ -51,10 +51,40 @@ var config = {
         // },
         "twitter-tweet":{
             "socialMediaPlatform": "twitter",
-            "injectElement": {"name": "twitter-xxx", "type": "class", "index": 0},
+            "injectElement": {},  // not using this for tweets, its kind of complicated to find the tweets and no point in making it configurable, "name": "article", "type": "role", "index": 0
             "studyID": "kokone",
             "surveyFormSchema" : {
-              "schema":{}, "form":{}
+                "schema": {
+                    "smart": {
+                        "type": "string",
+                        "title": "Is this tweet smart?",
+                        "enum": [ "no", "NO"],
+                        "required": true
+                    },
+                    "pointless": {
+                        "type": "string",
+                        "title": "Is this tweet pointless?",
+                        "enum": [ "yes", "YES"],
+                        "required": true
+                    }
+                },
+                "form": [
+                    {
+                        "key": "smart",
+                        "type": "radiobuttons",
+                        "activeClass": "btn-success"
+                    },
+                    {
+                        "key": "pointless",
+                        "type": "radiobuttons",
+                        "activeClass": "btn-success"
+                    },
+                    {
+                        "type": "submit",
+                        "title": "Submit",
+                        "htmlClass": "surveySubmitBtn"
+                    }
+                ]
             }
         },
         "twitter-user":{  // - in the name will cause issues when accessing this element.

@@ -23,25 +23,92 @@ function getCurrentScreenName(platform) {
     return screenName;
 }
 
+const metadataSchemes = {
+    "initTimestamp": {
+        "type": "number",
+        "title": "Initial Timestamp",
+        "default": 0
+    },
+    "userID": {
+        "type": "string",
+        "title": "User ID",
+        "default": "hohe"
+    },
+    "postID": {
+        "type": "string",
+        "title": "Post(tweet) ID",
+        "default": "hahi"
+    }
+};
+
+const metadataForms = [
+    {
+        "key": "initTimestamp",
+        "type": "hidden",
+        "activeClass": "btn-success"
+    },
+    {
+        "key": "userID",
+        "type": "hidden",
+        "activeClass": "btn-success"
+    },
+    {
+        "key": "postID",
+        "type": "hidden",
+        "activeClass": "btn-success"
+    }
+];
+
 class Context {
-    
+
     constructor(contextName, injectFunction, auxCheckFunction) {
         this.name = contextName;
         this.injectSurvey = injectFunction;
+        // this.renderSurvey = renderFunction;  // render function is set after construction
         if(auxCheckFunction !== null) {
             this.auxiliaryCheck = auxCheckFunction;
         }else{
             this.auxiliaryCheck = function() { return true;}
         }
+        this.formTemplate = null;
+        this.submitAction = null;
+    }
+
+    renderSurvey(userID, postID=null, formIdx=null) {
+        // @TODO attach these metadata fields in a separate setter.
+        // Attach the onSubmit event handler to the schema
+        this.formTemplate.onSubmit = this.submitAction;
+        // attach the metadata fields to the template
+        for (let key in metadataSchemes) {
+            if (metadataSchemes.hasOwnProperty(key)) {
+                this.formTemplate.schema[key] = metadataSchemes[key];
+            }
+        }
+        for (let item of metadataForms) {
+            this.formTemplate.form.splice(this.formTemplate.form.length-1, 0, item);
+        }
+        // fill in the attached metadata fields.
+        this.formTemplate.schema["initTimestamp"].default = Math.floor(Date.now() / 1000);
+        this.formTemplate.schema["userID"].default = userID;
+        if (postID != null) {
+            this.formTemplate.schema["postID"].default = postID;
+        }
+
+        let formName = '#surveyForm';
+        if (formIdx != null) {
+            formName = formName + '-' + formIdx.toString()
+        }
+
+        $(formName).jsonForm(this.formTemplate);
     }
 
 }
 
 function storeResults(surveyResults, socialMediaPlatform) {
     //surveyResults.userID = getCurrentScreenName(socialMediaPlatform);
-    surveyResults.userID = document.getElementById('surveyForm').getAttribute('surveyId');
-    surveyResults.timestamp = Math.floor(Date.now() / 1000);
-    surveyResults.initTimestamp = document.getElementById('surveyForm').getAttribute('surveyInitTimestamp');
+    // surveyResults.userID = document.getElementById('surveyForm').getAttribute('surveyId');
+    surveyResults.postTimestamp = Math.floor(Date.now() / 1000);
+    // surveyResults.initTimestamp = document.getElementById('surveyForm').getAttribute('surveyInitTimestamp');
 
     _gaq.push(['_trackEvent', 'SurveySubmitted', 'clicked']); // Track number of survey submitted by Google Analytics.
 

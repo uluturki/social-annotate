@@ -1,8 +1,9 @@
-// @TODO: This list can be generated with help of collections but this will do for now.
-// Context class is defined in shared.js
 
+// Context class is defined in shared.js
+// @TODO make this array a struct to avoid magic indices.
 const availableContextsTwitter = [new Context('twitter-user', injectTwitterUserSurvey, checkUserURL),
-    new Context('twitter-tweet', injectTwitterTweetSurvey, null)];
+    new Context('twitter-tweet', enableTweetObserver, null)];
+
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
 // Select the node that will be observed for mutations
@@ -10,7 +11,7 @@ const reactRoot = document.getElementById('react-root');
 
 // Options for the observer (which mutations to observe)
 const obsConfig = { attributes: true, childList: false, subtree: true, attributeFilter: ['role'], attributeOldValue: true};
-
+// @TODO All this observer stuff needs to be twitter specific, so that instagram etc. can have theirs as well.
 const observerCallback = function(mutationsList, observer) {
     let primaryColID = 'primaryColumn';
     let attName = 'data-testid';
@@ -21,8 +22,11 @@ const observerCallback = function(mutationsList, observer) {
                 // if the survey is already in there before injecting. There may be a better way but I'm just dealing
                 // with this.
                 // maybe later...
-                if (mutation.target.parentNode.getElementsByClassName('survey-container-tweet').length === 0) {
-                    injectTwitterTweetSurvey(mutation.target)
+                let insertElement = mutation.target.parentNode.parentNode;  // i wish there was a better way to get to this.
+                if (insertElement.getElementsByClassName('survey-container-tweet').length === 0) {
+                    let surveyIdx = injectTwitterTweetSurvey(insertElement);
+                    let tweetDetails = extractTweetDetails(insertElement);
+                    availableContextsTwitter[1].renderSurvey(tweetDetails.tweetOwner, tweetDetails.tweetID, surveyIdx);  // @TODO magic index, todo at definition.
                 }
             }
         }
@@ -37,8 +41,8 @@ const observer = new MutationObserver(observerCallback);
 
 
 function crawlUserName() {
-    var currentURL = window.location.href;
-    var temp = currentURL.split('.com/');
+    let currentURL = window.location.href;
+    let temp = currentURL.split('.com/');
     temp = temp[temp.length - 1];
     temp = temp.split('/')[0].split('?')[0];
     return temp;
@@ -52,8 +56,8 @@ function injectTwitterUserSurvey(injectElement) {
 
     var survey = document.createElement('form');
     survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multiple forms into page
-    survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
-    survey.setAttribute("surveyId", crawlUserName());
+    // @TODO !!! replace these with invisible fields on the form.
+    // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     surveyContainer.appendChild(survey);
 
     // Inject the form to the appropriate element in the page.
@@ -89,15 +93,14 @@ function injectTwitterTweetSurvey(injectNode) {
     surveyContainer.className = "survey-container-tweet";
 
     let survey = document.createElement('form');
-    survey.setAttribute("id", "surveyForm-" + tweetCount++);
-    survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
-    let tweetDetails = extractTweetDetails(injectNode);  // @TODO something wrong with this line
-    survey.setAttribute("surveyId", tweetDetails.tweetID);
-    // this information is kind of redundant since it can be learned from tweetID, however it does make life easier
-    survey.setAttribute("tweetOwner", tweetDetails.tweetOwner);  //@TODO Rename this to userID so it matches with rest. If user survey, this column will have smth, and elementID won't.
+    survey.setAttribute("id", "surveyForm-" + tweetCount);
+    // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
+    survey.classList.add("surveyFormTweet");
     surveyContainer.appendChild(survey);
 
     injectNode.insertAdjacentElement('afterbegin', surveyContainer);
+
+    return tweetCount++;  // well its a global variable but this is the fastest way for now.
 }
 
 function checkUserURL() {
@@ -141,13 +144,8 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
             var activeSurvey = currentContext.name;
             var config = result.config['surveys'][activeSurvey];
 
-            // @TODO for survey-tweet, have this method call start the observer, form template rendering also need to
-            //      happen on the observer callback, pass parameters related to that to this method as well.
-            currentContext.injectSurvey(config.injectElement);
-            // injectSurvey(currentContext, config.injectElement);
-
             // Attach the onSubmit event handler to the schema
-            let formTemplate = config.surveyFormSchema;
+
             let studyID = config.studyID;
             let clientID = config.clientID;
 
@@ -160,9 +158,17 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
                 values.clientID = clientID;
                 storeResults(values, platform);  // store values and updateUserID field
             }
-            // @TODO this one renders the header only, move that into a DOM load event as well.
-            formTemplate.onSubmit = submitAction;
-            $('#surveyForm').jsonForm(formTemplate);
+
+            currentContext.formTemplate = config.surveyFormSchema;
+            currentContext.submitAction = submitAction;
+
+            currentContext.injectSurvey(config.injectElement);
+            // twitter-tweet renders inside the observer callback, observer is enabled with injectSurvey on the line
+            // above, so it is guaranteed to never call render before it was defined and set.
+            if (currentContext.name !== 'twitter-tweet') {
+                surveyID = crawlUserName();
+                currentContext.renderSurvey(surveyID);
+            }
         }
     }
 });
