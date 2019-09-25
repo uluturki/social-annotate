@@ -133,12 +133,11 @@ function storeResults(surveyResults, socialMediaPlatform) {
     });
 
     // get annotated count and increment that too. Also annotatedUserIDs.
-    chrome.storage.local.get(['resultsArrays', 'annotatedElements', 'activeTargetList', 'isGuided'], function(result) {
+    chrome.storage.local.get(['resultsArrays', 'annotatedElements', 'activeTargetList', 'isGuided', 'clientID'], function(result) {
         // console.log('Number of recorded results: ' + result.resultsArray.length);
-        // @TODO Check if the user record already exists, and overwrite if it does.
-        // @TODO Notify before overwriting though...
-        
-        // @TODO wrap these two in an object so they are always in sync, or switch to a dict.
+
+        surveyResults.clientID = result.clientID;
+
         resultsArrays = result.resultsArrays;
         annotatedElements = result.annotatedElements;
         activeTargetList = result.activeTargetList;
