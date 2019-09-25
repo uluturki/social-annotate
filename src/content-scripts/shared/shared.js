@@ -150,18 +150,26 @@ function storeResults(surveyResults, socialMediaPlatform) {
 
         let surveyType = surveyResults.surveyType;
 
+        // @TODO update for tweet storage.
         // check if this user is already in storage, and if so, where.
-        let userIndex = annotatedElements[surveyType].indexOf(surveyResults.userID);
-        if (userIndex === -1) {
+        let insertKey = null;
+        if (surveyType === 'twitter-user') {
+            insertKey = surveyResults.userID;
+        }else if (surveyType === 'twitter-tweet') {
+            insertKey = surveyResults.postID;
+        }
+
+        let insertIndex = annotatedElements[surveyType].indexOf(insertKey);
+        if (insertIndex === -1) {
             // keeping a separate list of IDs for quick access, doesn't take much space.
             // resultsArray.push(surveyResults);
             // annotatedUserIDs.push(surveyResults.userID);
             // this index appends to the end of the list.
-            userIndex = resultsArrays[surveyType].length;
+            insertIndex = resultsArrays[surveyType].length;
         }
 
-        resultsArrays[surveyType][userIndex] = surveyResults;
-        annotatedElements[surveyType][userIndex] = surveyResults.userID;
+        resultsArrays[surveyType][insertIndex] = surveyResults;
+        annotatedElements[surveyType][insertIndex] = surveyResults.userID;
         
         let lists2update = {
             'resultsArrays': resultsArrays,
@@ -170,7 +178,7 @@ function storeResults(surveyResults, socialMediaPlatform) {
         
         var bringNextUser = false;
         // if guided mode is enabled in the popup UI
-        if (result.isGuided === true) {
+        if (result.isGuided === true && surveyType === 'twitter-user') {  // @TODO support guided mode for tweets too.
             // drop the saved user ID from the list, if it exists in the list.
 
             // dropIndex = activeTargetList.indexOf(surveyResults.userID);
