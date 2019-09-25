@@ -122,14 +122,18 @@ function exportStoredResults (resultArrays) {
     let csvResults = '';
     for (let surveyType in resultArrays) {
         if (resultArrays.hasOwnProperty(surveyType)) {
-            csvResults += objectList2csv(resultArrays[surveyType]);
+            csvResults = objectList2csv(resultArrays[surveyType]);
         }
+
+        let fileName = 'annotations-' + surveyType + '.csv';
+        fileName = fileName.replace(/-/g ,'_');
+
+        let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvResults);
+        chrome.downloads.download({
+            url: url,
+            filename: fileName
+        });
     }
-    let url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvResults);
-    chrome.downloads.download({
-        url: url,
-        filename: 'annotations.csv'
-    });
 }
 
 function objectList2csv(items) {
