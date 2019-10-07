@@ -74,7 +74,8 @@ class Context {
         this.submitAction = null;
     }
 
-    renderSurvey(userID, postID=null, formIdx=null) {
+    // @TODO Use tweet ID instead of separate formID.
+    renderSurvey(userID, postID=null) {
         // @TODO attach these metadata fields in a separate setter.
         // Attach the onSubmit event handler to the schema
         this.formTemplate.onSubmit = this.submitAction;
@@ -90,19 +91,37 @@ class Context {
         // fill in the attached metadata fields.
         this.formTemplate.schema["initTimestamp"].default = Math.floor(Date.now() / 1000);
         this.formTemplate.schema["userID"].default = userID;
-        if (postID != null) {
-            this.formTemplate.schema["postID"].default = postID;
-        }
 
         let formName = '#surveyForm';
-        if (formIdx != null) {
-            formName = formName + '-' + formIdx.toString()
+        if (postID != null) {
+            this.formTemplate.schema["postID"].default = postID;
+            formName = formName + '-' + postID.toString()
         }
 
         $(formName).jsonForm(this.formTemplate);
     }
 
 }
+
+const notificationContainer = document.createElement('DIV');
+notificationContainer.classList.add('notification-container');
+let placeholderSpan = document.createElement('SPAN');
+placeholderSpan.innerText = "getittogether.";
+notificationContainer.appendChild(placeholderSpan);
+
+const overwriteSpan = document.createElement('SPAN');
+overwriteSpan.classList.add('notification-message-overwrite');
+overwriteSpan.innerHTML = "Record already exists. New submissions will overwrite.";  // add span here
+
+const successSpan = document.createElement('SPAN');
+successSpan.classList.add('notification-message-success');
+successSpan.innerHTML = "Submission Successful!";  // add span here
+
+// @TODO: ideally, failure should be handled/retried on the background, overall failure handling is a bit lacking,
+//          can use some further work.
+const failureSpan = document.createElement('SPAN');
+failureSpan.classList.add('notification-message-failure');
+failureSpan.innerHTML = "Submission Failed. Please try again.";  // add span here
 
 function storeResults(surveyResults, socialMediaPlatform) {
     //surveyResults.userID = getCurrentScreenName(socialMediaPlatform);
@@ -113,8 +132,9 @@ function storeResults(surveyResults, socialMediaPlatform) {
     _gaq.push(['_trackEvent', 'SurveySubmitted', 'clicked']); // Track number of survey submitted by Google Analytics.
 
     chrome.storage.local.get(['config'], function(result){
-
-        if(result.config.apiEndpoint != ''){
+        let success = true;
+        if(result.config.apiEndpoint !== ''){
+            success = false;
             let headers = new Headers();
             headers.append('Accept', 'application/json');
             headers.append('Access-Control-Allow-Origin', '*');
@@ -127,9 +147,22 @@ function storeResults(surveyResults, socialMediaPlatform) {
               headers: headers
             }).then(res => {
               console.log("Request complete! response:", res);
+              // @TODO might not necessarily be success here, handle response types.
+              success = true;
             });
         }
+        if (success){
+            let divName = "surveyForm";
+            if (surveyResults.surveyType === "twitter-tweet"){
+                divName += '-' + surveyResults.postID.toString();
+            }
 
+            let surveyContainer = document.getElementById(divName);
+            // Call displayalert function, it will check if the container already exists, and if not, insert it.
+            // container only ever has 1 child.
+            notificationContainer.replaceChild(successSpan, notificationContainer.firstChild);
+            surveyContainer.insertAdjacentElement("beforebegin", notificationContainer);
+        }
     });
 
     // get annotated count and increment that too. Also annotatedUserIDs.

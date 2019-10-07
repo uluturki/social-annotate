@@ -23,6 +23,12 @@ div.survey-container-tweet{
 	z-index:99;
 }
 
+div.notification-container{
+/*	Show on top as a banner*/
+	background-color: #f5f5f5;
+	text-align: right;
+}
+
 /*These are for user survey on top*/
 #surveyForm{
 	display: flex;

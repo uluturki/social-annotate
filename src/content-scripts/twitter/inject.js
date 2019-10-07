@@ -24,9 +24,10 @@ const observerCallback = function(mutationsList, observer) {
                 // maybe later...
                 let insertElement = mutation.target.parentNode.parentNode;  // i wish there was a better way to get to this.
                 if (insertElement.getElementsByClassName('survey-container-tweet').length === 0) {
-                    let surveyIdx = injectTwitterTweetSurvey(insertElement);
                     let tweetDetails = extractTweetDetails(insertElement);
-                    availableContextsTwitter[1].renderSurvey(tweetDetails.tweetOwner, tweetDetails.tweetID, surveyIdx);  // @TODO magic index, todo at definition.
+
+                    injectTwitterTweetSurvey(insertElement, tweetDetails.tweetID);
+                    availableContextsTwitter[1].renderSurvey(tweetDetails.tweetOwner, tweetDetails.tweetID);  // @TODO magic index, todo at definition.
                 }
             }
         }
@@ -85,22 +86,22 @@ function extractTweetDetails(articleNode) {
     return {tweetOwner: tweetLink[3], tweetID: tweetLink[tweetLink.length - 1]} //last element is the id
 }
 
-var tweetCount = 0;
-function injectTwitterTweetSurvey(injectNode) {
+// var tweetCount = 0;
+function injectTwitterTweetSurvey(injectNode, tweetID) {
     // @ TODO This shall be done by mutation observer so it supports new tweets too
     // alert('attempting to inject tweets');
     let surveyContainer = document.createElement('div');
     surveyContainer.className = "survey-container-tweet";
 
     let survey = document.createElement('form');
-    survey.setAttribute("id", "surveyForm-" + tweetCount);
+    survey.setAttribute("id", "surveyForm-" + tweetID);
     // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     survey.classList.add("surveyFormTweet");
     surveyContainer.appendChild(survey);
 
     injectNode.insertAdjacentElement('afterbegin', surveyContainer);
 
-    return tweetCount++;  // well its a global variable but this is the fastest way for now.
+    // return tweetCount++;  // well its a global variable but this is the fastest way for now.
 }
 
 function checkUserURL() {
