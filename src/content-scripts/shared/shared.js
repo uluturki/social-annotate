@@ -204,7 +204,8 @@ function storeResults(surveyResults, socialMediaPlatform) {
         let insertKey = null;
         if (surveyType === 'twitter-user') {
             insertKey = surveyResults.userID;
-        }else if (surveyType === 'twitter-tweet') {
+        }
+        else if (surveyType === 'twitter-tweet') {
             insertKey = surveyResults.postID;
         }
 
@@ -218,7 +219,7 @@ function storeResults(surveyResults, socialMediaPlatform) {
         }
 
         resultsArrays[surveyType][insertIndex] = surveyResults;
-        annotatedElements[surveyType][insertIndex] = surveyResults.userID;
+        annotatedElements[surveyType][insertIndex] = insertKey;
         
         let lists2update = {
             'resultsArrays': resultsArrays,
