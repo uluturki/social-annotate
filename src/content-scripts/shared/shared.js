@@ -59,6 +59,21 @@ const metadataForms = [
     }
 ];
 
+const notificationContainer = document.createElement('DIV');
+notificationContainer.classList.add('notification-container');
+let placeholderSpan = document.createElement('SPAN');
+// placeholderSpan.innerText = "getittogether.";
+notificationContainer.appendChild(placeholderSpan);
+
+const overwriteSpan = document.createElement('SPAN');
+overwriteSpan.classList.add('notification-message-overwrite');
+overwriteSpan.innerHTML = "Record already exists. New submissions will overwrite.";  // add span here
+
+const successSpan = document.createElement('SPAN');
+successSpan.classList.add('notification-message-success');
+successSpan.innerHTML = "Submission Successful!";  // add span here
+
+
 class Context {
 
     constructor(contextName, injectFunction, auxCheckFunction) {
@@ -99,23 +114,37 @@ class Context {
         }
 
         $(formName).jsonForm(this.formTemplate);
+
+        // @TODO This part is a bit piecemeal, some CSS work can make it so that a single all encompassing div is
+        //      inserted once for all cases, but that's for future.
+        let divName = "surveyForm";
+        if (this.name === "twitter-tweet"){
+            divName += '-' + postID.toString();
+        }
+
+        let surveyContainer = document.getElementById(divName);
+        let injectContainer = surveyContainer.children[0];
+        if (this.name === "twitter-user"){
+            injectContainer = surveyContainer.children[0].children[0];  // guaranteed to be there, though it doesn't look good.
+        }
+
+        let nc = notificationContainer.cloneNode(true);  // from shared.js
+        injectContainer.insertAdjacentElement('beforebegin', nc);
+
+        let surveyType = this.name;
+        // Check if this one is already annotated.
+        chrome.storage.local.get(['annotatedElements'], function(result) {
+            // This one is only called for tweets, though a more general implementation would be nice in the future.
+            let checkID = (postID === null ? userID : postID);
+            let entryIndex = result.annotatedElements[surveyType].indexOf(checkID);  // for tweets, this keeps userIDs not tweetIDs, UPDATE THAT!.
+            if (entryIndex !== -1) {  // if an entry already exists
+                let os = overwriteSpan.cloneNode(true);  // from shared.js
+                nc.replaceChild(os, nc.firstChild);
+            }
+        });
     }
 
 }
-
-const notificationContainer = document.createElement('DIV');
-notificationContainer.classList.add('notification-container');
-let placeholderSpan = document.createElement('SPAN');
-placeholderSpan.innerText = "getittogether.";
-notificationContainer.appendChild(placeholderSpan);
-
-const overwriteSpan = document.createElement('SPAN');
-overwriteSpan.classList.add('notification-message-overwrite');
-overwriteSpan.innerHTML = "Record already exists. New submissions will overwrite.";  // add span here
-
-const successSpan = document.createElement('SPAN');
-successSpan.classList.add('notification-message-success');
-successSpan.innerHTML = "Submission Successful!";  // add span here
 
 // @TODO: ideally, failure should be handled/retried on the background, overall failure handling is a bit lacking,
 //          can use some further work.
@@ -131,10 +160,10 @@ function storeResults(surveyResults, socialMediaPlatform) {
 
     _gaq.push(['_trackEvent', 'SurveySubmitted', 'clicked']); // Track number of survey submitted by Google Analytics.
 
+    let apiSuccess = true;
     chrome.storage.local.get(['config'], function(result){
-        let success = true;
         if(result.config.apiEndpoint !== ''){
-            success = false;
+            apiSuccess = false;
             let headers = new Headers();
             headers.append('Accept', 'application/json');
             headers.append('Access-Control-Allow-Origin', '*');
@@ -148,20 +177,8 @@ function storeResults(surveyResults, socialMediaPlatform) {
             }).then(res => {
               console.log("Request complete! response:", res);
               // @TODO might not necessarily be success here, handle response types.
-              success = true;
+              apiSuccess = true;
             });
-        }
-        if (success){
-            let divName = "surveyForm";
-            if (surveyResults.surveyType === "twitter-tweet"){
-                divName += '-' + surveyResults.postID.toString();
-            }
-
-            let surveyContainer = document.getElementById(divName);
-            // Call displayalert function, it will check if the container already exists, and if not, insert it.
-            // container only ever has 1 child.
-            notificationContainer.replaceChild(successSpan, notificationContainer.firstChild);
-            surveyContainer.insertAdjacentElement("beforebegin", notificationContainer);
         }
     });
 
@@ -239,6 +256,35 @@ function storeResults(surveyResults, socialMediaPlatform) {
             if (bringNextUser === true){
                 // can't use tabs api within content script.
                 window.location.href = platformURL + nextUser;
+            }
+
+            if (apiSuccess){  // @TODO: endpoint error handling isn't done properly, all parts part related to API needs
+                                // full on exception handling.
+                let divName = "surveyForm";
+                if (surveyResults.surveyType === "twitter-tweet"){
+                    divName += '-' + surveyResults.postID.toString();
+                }
+
+                let ss = successSpan.cloneNode(true);  // @TODO: Have this blink so works for back2back submissions. can remove the span in submit click to achieve that maybe.
+
+                let surveyContainer = document.getElementById(divName);
+                // @TODO: this part is also a bit piecemeal, work on a universally injectable single div.
+                let nc = null;
+                if (surveyResults.surveyType === "twitter-tweet") {
+                    // notification container is guaranteed to exist here as the only sibling of surveyCont, grab it and
+                    // just clone a span into it.
+                    nc = surveyContainer.getElementsByClassName("notification-container")[0];
+                }
+                else if (surveyResults.surveyType === "twitter-user") {
+                    // guaranteed to have one of these
+                    nc = surveyContainer.getElementsByClassName("notification-container")[0];
+                }
+                if (nc !== null) {
+                    nc.replaceChild(ss, nc.firstChild);
+                    // @TODO Doesn't look good but works when someone hits submit back-to-back. Can use better UI overall.
+                    $(ss).fadeOut(0);
+                    $(ss).fadeIn(200);
+                }
             }
 
         });

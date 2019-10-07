@@ -49,21 +49,18 @@ function crawlUserName() {
     return temp;
 }
 
-function injectTwitterUserSurvey(injectElement) {
-    // @ TODO maybe this should wait for load, there might be a race condition right now
-    // https://stackoverflow.com/questions/13917047/how-to-get-a-content-script-to-load-after-a-pages-javascript-has-executed
-    var surveyContainer = document.createElement('div');
+
+function injectTwitterUserSurvey(injectElement, userID) {
+    let surveyContainer = document.createElement('div');
     surveyContainer.className = "survey-container-user";
 
-    var survey = document.createElement('form');
+    let survey = document.createElement('form');
     survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multiple forms into page
-    // @TODO !!! replace these with invisible fields on the form.
-    // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     surveyContainer.appendChild(survey);
 
     // Inject the form to the appropriate element in the page.
-    var barElementName = injectElement.name;
-    var fixedBar = {};
+    let barElementName = injectElement.name;
+    let fixedBar = {};
     if (injectElement.type === "class") {
         //fixedBar = document.getElementsByClassName(barElementName)[injectElement.index];
         fixedBar = document.getElementById('react-root');
@@ -71,7 +68,19 @@ function injectTwitterUserSurvey(injectElement) {
         fixedBar = document.getElementById(barElementName);
     }
 
+    // let nc = notificationContainer.cloneNode();  // from shared.js
+    // fixedBar.insertAdjacentElement('beforebegin', nc);  // I don't know why there is a warning here...
     fixedBar.insertAdjacentElement('beforebegin', surveyContainer);
+
+    // chrome.storage.local.get(['annotatedElements'], function(result) {
+    //     // This one is only called for users, though a more general implementation would be nice in the future.
+    //     let surveyType = 'twitter-user';
+    //     let entryIndex = result.annotatedElements[surveyType].indexOf(userID);
+    //     if (entryIndex !== -1) {  // if an entry already exists
+    //         let os = overwriteSpan.cloneNode();  // from shared.js
+    //         nc.replaceChild(os, notificationContainer.firstChild);
+    //     }
+    // });
 }
 
 function enableTweetObserver(injectElement) {
@@ -87,6 +96,20 @@ function extractTweetDetails(articleNode) {
 }
 
 // var tweetCount = 0;
+// @TODO check if an entry already exists for this tweetID, and show a warning if so. This is going to be inefficient
+//      with our current implementation ( O(kn) k=number of tweets, n=number of entries) but neither k nor n should ever
+//      get very large, we should still rewamp this in the future. ----!!! Storage API call limit may also be an issue
+//      if so that rewamping will have to happen now !!!----
+// This is how to check if exists...
+// let insertIndex = annotatedElements[surveyType].indexOf(insertKey);
+// if (insertIndex === -1) {
+//     // keeping a separate list of IDs for quick access, doesn't take much space.
+//     // resultsArray.push(surveyResults);
+//     // annotatedUserIDs.push(surveyResults.userID);
+//     // this index appends to the end of the list.
+//     insertIndex = resultsArrays[surveyType].length;
+// }
+
 function injectTwitterTweetSurvey(injectNode, tweetID) {
     // @ TODO This shall be done by mutation observer so it supports new tweets too
     // alert('attempting to inject tweets');
@@ -98,9 +121,7 @@ function injectTwitterTweetSurvey(injectNode, tweetID) {
     // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
     survey.classList.add("surveyFormTweet");
     surveyContainer.appendChild(survey);
-
     injectNode.insertAdjacentElement('afterbegin', surveyContainer);
-
     // return tweetCount++;  // well its a global variable but this is the fastest way for now.
 }
 
@@ -129,7 +150,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
     // @TODO implement this check in a way that will eliminate typo issues.
     // let currentContext = 'twitter-user';
     const currentPlatform = 'twitter';  // manifest ensures this file is only called for twitter.
-    for (index = 0; index < availableContextsTwitter.length; ++index) {
+    for (let index = 0; index < availableContextsTwitter.length; ++index) {
         let currentContext = availableContextsTwitter[index];
         if (!currentContext.name.includes(currentPlatform)) {
             continue;
@@ -142,8 +163,8 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
             // of currentContext if necessary instead of direct assignment.
             // var activeSurvey = result.config.activeSurvey;
 
-            var activeSurvey = currentContext.name;
-            var config = result.config['surveys'][activeSurvey];
+            let activeSurvey = currentContext.name;
+            let config = result.config['surveys'][activeSurvey];
 
             // Attach the onSubmit event handler to the schema
 
@@ -151,19 +172,21 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
             let clientID = config.clientID;
 
             function submitAction(errors, values) {
-                let bringNextUser = false;
-                let platform = currentPlatform;
-                let nextUser = '';
-                values.surveyType = currentContext.name;
-                values.studyID = studyID;
-                values.clientID = clientID;
-                storeResults(values, platform);  // store values and updateUserID field
+                if (!errors) {
+                    let bringNextUser = false;
+                    let platform = currentPlatform;
+                    let nextUser = '';
+                    values.surveyType = currentContext.name;
+                    values.studyID = studyID;
+                    values.clientID = clientID;
+                    storeResults(values, platform);  // store values and updateUserID field
+                }
             }
 
             currentContext.formTemplate = config.surveyFormSchema;
             currentContext.submitAction = submitAction;
 
-            currentContext.injectSurvey(config.injectElement);
+            currentContext.injectSurvey(config.injectElement);  // @TODO: pass survey ID here
             // twitter-tweet renders inside the observer callback, observer is enabled with injectSurvey on the line
             // above, so it is guaranteed to never call render before it was defined and set.
             if (currentContext.name !== 'twitter-tweet') {
