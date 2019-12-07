@@ -1,6 +1,15 @@
 # twitter_annotate
 Helps annotating twitter users by bringin everything in a single screen and keeping records straight.
 
+# Going public, v1.0 soon!
+We are looking for potential user scenarios/stories so we can support them properly. If you have a use case, or suggestions, let us know!
+If you would like to contribute, check out the issues and let us know if you see anything you like.
+
+You can find latest screenshots from our tests below.
+
+![user annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_tweet_survey_example.png)
+
+![tweet annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_user_survey_example.png)
 
 
 # Brain storming for the tool
