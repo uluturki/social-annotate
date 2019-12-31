@@ -1,4 +1,4 @@
-# twitter_annotate
+# social-annotator
 Helps annotating social media content and users by bringin everything in a single screen and keeping records straight.
 
 # Going public, v1.0 soon!
