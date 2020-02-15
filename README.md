@@ -1,5 +1,15 @@
 # social-annotator
-Helps annotating social media content and users by bringin everything in a single screen and keeping records straight.
+Helps annotating social media content and users by bringing everything in a single screen and keeping records straight.
+
+## Quick Install & Usage
+* Clone/download the repo.
+* Using Chrome/Edge: Go to extensions page, turn on developer mode. Use "Load unpacked" button. Select "src" directory in the repository.
+https://developer.chrome.com/extensions/getstarted
+* You can configure extension/export CSV data with the extension popup. Click the logo right to the address bar.
+* In the options page. There are advanced features like designing your own survey and defining an API endpoint to store the results.
+* By default it is activated on Twitter. 
+* Now you can annotate accounts!
+
 
 # Going public, v1.0 soon!
 We are looking for potential user scenarios/stories so we can support them properly. If you have a use case, or suggestions, let us know!
