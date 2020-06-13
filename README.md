@@ -1,6 +1,26 @@
-# twitter_annotate
-Helps annotating twitter users by bringin everything in a single screen and keeping records straight.
+# social-annotator
+Helps annotating social media content and users by bringing everything in a single screen and keeping records straight.
 
+## Getting started
+* Clone/download the repo.
+* Using Chrome/Edge: Go to the extensions page and turn on the developer mode. Hit "Load unpacked" button and select the "src" directory in the repository. Details:
+https://developer.chrome.com/extensions/getstarted
+* You can manage the extension and export annotated data using the extension popup. Click the extension logo to the right of the address bar.
+* In the options page, you can find advanced features like customizing survey questions for your study and defining an API endpoint to store the results. More documentation on these will be coming soon, feel free to reach us for help until then.
+* Extension is activated on Twitter by default with a placeholder survey.  
+* You can now annotate accounts!
+
+
+# Going public, v1.0 soon!
+We are looking for potential user scenarios/stories so we can support them properly. If you have a use case, or suggestions, let us know!
+Instagram support will be live with v1.0 as well.
+If you would like to contribute, check out the issues and let us know if you see anything you like.
+
+You can find latest screenshots from our tests below.
+
+![user annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_tweet_survey_example.png)
+
+![tweet annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_user_survey_example.png)
 
 
 # Brain storming for the tool
