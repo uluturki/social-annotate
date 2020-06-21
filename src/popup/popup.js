@@ -9,6 +9,12 @@ document.querySelector('#go-to-options').addEventListener('click', function(e) {
   }
 });
 
+function refresh_page(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+    });
+}
+
 function updateAnnotationCount () {
     var annotationCountSpan = document.getElementById('annotationCount');
     chrome.storage.local.get(['config', 'annotatedElements'], function(data) {
@@ -43,9 +49,8 @@ chrome.storage.local.get('config', function(data) {
 
             });
 
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
-            });
+            refresh_page();
+
         });
 
         option.innerHTML = "<a href='#'>" + key + "</a>";
@@ -106,7 +111,7 @@ disableLink.addEventListener('click', function(e) {
         });
     });
     // Update the interface (for now just the toggle link)
-
+    refresh_page();
 });
 
 
