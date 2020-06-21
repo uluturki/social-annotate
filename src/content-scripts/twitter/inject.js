@@ -22,7 +22,8 @@ const observerCallback = function(mutationsList, observer) {
                 // if the survey is already in there before injecting. There may be a better way but I'm just dealing
                 // with this.
                 // maybe later...
-                let insertElement = mutation.target.parentNode.parentNode;  // i wish there was a better way to get to this.
+                // let insertElement = mutation.target.parentNode.parentNode; // need to do one parent less after a twitter update...
+                let insertElement = mutation.target.parentNode;
                 if (insertElement.getElementsByClassName('survey-container-tweet').length === 0) {
                     let tweetDetails = extractTweetDetails(insertElement);
 
