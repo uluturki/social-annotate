@@ -47,7 +47,7 @@ function loadPage(){
                         </div>
 
                         <h3><small>
-                          Form template in JSON format. Validate <a href="https://uluturki.github.io/twitter_annotate/playground/" target="_blank">here</a> 
+                          Form template in JSON format. Validate <a href="https://jsonform.github.io/jsonform/playground/index.html" target="_blank">here</a> 
                           before pasting here. <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Make sure JSON is formatted correctly"></span>
                         </small></h3>
                         <textarea id='` + key + `_form-template' class="form-control" rows="10"></textarea>
@@ -128,9 +128,11 @@ function importOptions(){
   if(configData.hasOwnProperty('surveys')){ // Check surveys key should be in the config file at least.
     chrome.storage.local.set({'config':configData}, function() {
       console.log('Config data updated');
+      console.log('Config data', configData);
     });
   }
-  loadPage();
+  //loadPage();
+  location.reload();
 };
 
 function handleFileSelect(evt)
