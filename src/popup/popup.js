@@ -42,6 +42,10 @@ chrome.storage.local.get('config', function(data) {
                 });
 
             });
+
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+            });
         });
 
         option.innerHTML = "<a href='#'>" + key + "</a>";
