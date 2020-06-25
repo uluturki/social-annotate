@@ -43,7 +43,7 @@
       ]
     },
     {
-      "matches": ["*://instagram.com/*"],
+      "matches": ["*://www.instagram.com/*"],
       "run_at": "document_end",
       "css": [
         "content-scripts/instagram/inject.css",

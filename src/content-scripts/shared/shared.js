@@ -1,4 +1,3 @@
-
 // @TODO Check if this ID already exists in storage, and just update if it does (avoid duplicates).
 // @TODO Might have an allow duplicates checkbox in the config, if there is a use case for it.
 // Race conditions should not occur because events are called sequentially. 

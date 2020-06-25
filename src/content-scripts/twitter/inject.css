@@ -2,13 +2,17 @@
  * Place your custom CSS styles here.
  **/
 
-div.survey-container-user{
-	width:100%;
+div.survey-container-user{	width:100%;
 	height: 30px;
+	display: flex;
+	/*flex-direction: column;*/
+	flex-wrap: wrap-reverse;
+	overflow: auto;
 	background-color: #333;
 	position: fixed;
-	top: 0;
-    z-index:99;
+	/*top: 0;*/
+	bottom: 0;
+	z-index:99;
 
 }
 
@@ -44,9 +48,9 @@ div.notification-container{
 	position: fixed;
 	width:100%;
 	flex-direction: row;
-	flex-wrap: wrap;
-	top: 0;
-	left: 0;
+	flex-wrap: wrap-reverse;
+	/*top: 0;*/
+	/*left: 0;*/
     color:#333;
 }
 
@@ -54,7 +58,7 @@ div.notification-container{
 	background-color: #333;
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: wrap-reverse;
 	width:100%;
 }
 
@@ -74,7 +78,7 @@ div.notification-container{
 	/*position: absolute;*/
 	width:100%;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: wrap-reverse;
 	top: 0;
 	left: 0;
 	color:#333;
@@ -84,7 +88,7 @@ div.notification-container{
 	background-color: #333;
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: wrap-reverse;
 	width:100%;
 }
 
@@ -103,7 +107,7 @@ div.notification-container{
 .flexbox-rows {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: wrap-reverse;
 	width:100%;
 }
 

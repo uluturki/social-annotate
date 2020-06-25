@@ -129,6 +129,49 @@ var config = {
                 }
               ]
             }
+        },
+        "instagram-user":{  // - in the name will cause issues when accessing this element.
+            "socialMediaPlatform": "instagram",
+            "injectElement": {
+                "name": "global-nav-inner",
+                "type": "class",
+                "index": 0
+            },
+            "studyID": "maruko",
+            "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
+            "surveyFormSchema" : {
+                "schema": {
+                    "bot": {
+                        "type": "string",
+                        "title": "Do you believe this user to be a bot?",
+                        "enum": [ "bot", "NOTbot"],
+                        "required": true
+                    },
+                    "cool": {
+                        "type": "string",
+                        "title": "Is this user cool?",
+                        "enum": [ "cool", "NOTcool"],
+                        "required": true
+                    }
+                },
+                "form": [
+                    {
+                        "key": "bot",
+                        "type": "radiobuttons",
+                        "activeClass": "btn-success"
+                    },
+                    {
+                        "key": "cool",
+                        "type": "radiobuttons",
+                        "activeClass": "btn-success"
+                    },
+                    {
+                        "type": "submit",
+                        "title": "Submit",
+                        "htmlClass": "surveySubmitBtn"
+                    }
+                ]
+            }
         }
     }
 };
