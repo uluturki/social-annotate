@@ -66,5 +66,10 @@
     "48": "images/ca48.png",
     "128": "images/ca128.png"
   },
+  "web_accessible_resources": [
+    "content-scripts/instagram/inject.css",
+    "content-scripts/twitter/inject.css",
+    "dep/jsonform/deps/opt/bootstrap.css"
+  ],
   "manifest_version": 2
 }

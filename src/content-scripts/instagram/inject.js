@@ -59,10 +59,18 @@ function crawlUserName() {
 function injectInstagramUserSurvey(injectElement, userID) {
     let surveyContainer = document.createElement('div');
     surveyContainer.className = "survey-container-user";
+    surveyContainer.setAttribute("id", "surveyFormContainer");
+    const shadowRoot = surveyContainer.attachShadow({ mode: 'open' });
+
+    shadowRoot.innerHTML = `\
+   <link rel="stylesheet" type="text/css" href="${chrome.extension.getURL("dep/jsonform/deps/opt/bootstrap.css")}"></link>\
+   <link rel="stylesheet" type="text/css" href="${chrome.extension.getURL("content-scripts/instagram/inject.css")}"></link>\
+`;
 
     let survey = document.createElement('form');
     survey.setAttribute("id", "surveyForm"); // TODO: This ID should be unique when importing multiple forms into page
-    surveyContainer.appendChild(survey);
+    // surveyContainer.appendChild(survey);
+    shadowRoot.appendChild(survey);
 
     // Inject the form to the appropriate element in the page.
     let barElementName = injectElement.name;
@@ -88,6 +96,7 @@ function injectInstagramUserSurvey(injectElement, userID) {
     //     }
     // });
 }
+
 
 // function enableTweetObserver(injectElement) {
 //     observer.observe(reactRoot, obsConfig)
@@ -197,7 +206,7 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
             currentContext.injectSurvey(config.injectElement);  // @TODO: pass survey ID here
             // twitter-tweet renders inside the observer callback, observer is enabled with injectSurvey on the line
             // above, so it is guaranteed to never call render before it was defined and set.
-            if (currentContext.name !== 'twitter-tweet') {  // @TODO: localize to instagram.
+            if (currentContext.name === 'instagram-user') {  // @TODO: localize to instagram.
                 surveyID = crawlUserName();
                 currentContext.renderSurvey(surveyID);
             }

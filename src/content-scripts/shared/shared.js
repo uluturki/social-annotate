@@ -106,13 +106,15 @@ class Context {
         this.formTemplate.schema["initTimestamp"].default = Math.floor(Date.now() / 1000);
         this.formTemplate.schema["userID"].default = userID;
 
-        let formName = '#surveyForm';
+        //let formName = '#surveyForm';
+        let formName = '#surveyFormContainer';
         if (postID != null) {
             this.formTemplate.schema["postID"].default = postID;
             formName = formName + '-' + postID.toString()
         }
-
-        $(formName).jsonForm(this.formTemplate);
+        let shadowRoot = document.getElementById('surveyFormContainer').shadowRoot;
+        //$(formName).jsonForm(this.formTemplate);
+        $(shadowRoot.children[shadowRoot.children.length - 1]).jsonForm(this.formTemplate); // @TODO This is a horrible temp. hack
 
         // @TODO This part is a bit piecemeal, some CSS work can make it so that a single all encompassing div is
         //      inserted once for all cases, but that's for future.
