@@ -14,11 +14,13 @@ chrome.runtime.onInstalled.addListener(function() {
 	let initialStorage = {
 		"resultsArrays": {
 			"twitter-user": [],
-			"twitter-tweet": []
+			"twitter-tweet": [],
+			"instagram-user": []
 		},  // @TODO pull these from a supported types list somewhere.
 		"annotatedElements": {
 			"twitter-user": [],
-			"twitter-tweet": []
+			"twitter-tweet": [],
+			"instagram-user": []
 		}, // @TODO pull these from a supported types list somewhere.
 		"clientID": clientID,
 		"config": config,

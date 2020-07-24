@@ -207,7 +207,8 @@ chrome.storage.local.get(['config', 'isEnabled', 'activeTargetList', 'clientID']
             // twitter-tweet renders inside the observer callback, observer is enabled with injectSurvey on the line
             // above, so it is guaranteed to never call render before it was defined and set.
             if (currentContext.name === 'instagram-user') {  // @TODO: localize to instagram.
-                surveyID = crawlUserName();
+                let surveyID = crawlUserName();
+                // alert(surveyID);
                 currentContext.renderSurvey(surveyID);
             }
         }

@@ -107,12 +107,12 @@ class Context {
         this.formTemplate.schema["userID"].default = userID;
 
         //let formName = '#surveyForm';
-        let formName = '#surveyFormContainer';
+        let formName = 'surveyFormContainer';
         if (postID != null) {
             this.formTemplate.schema["postID"].default = postID;
             formName = formName + '-' + postID.toString()
         }
-        let shadowRoot = document.getElementById('surveyFormContainer').shadowRoot;
+        let shadowRoot = document.getElementById(formName).shadowRoot;
         //$(formName).jsonForm(this.formTemplate);
         $(shadowRoot.children[shadowRoot.children.length - 1]).jsonForm(this.formTemplate); // @TODO This is a horrible temp. hack
 
@@ -123,11 +123,12 @@ class Context {
             divName += '-' + postID.toString();
         }
 
-        let surveyContainer = document.getElementById(divName);
-        let injectContainer = surveyContainer.children[0];
-        if (this.name === "twitter-user"){
-            injectContainer = surveyContainer.children[0].children[0];  // guaranteed to be there, though it doesn't look good.
-        }
+        // let surveyContainer = document.getElementById(divName);
+        // let injectContainer = surveyContainer.children[0];
+        let injectContainer = shadowRoot.children[shadowRoot.children.length - 1];
+        // if (this.name === "twitter-user"){
+        injectContainer = injectContainer.children[0];  // guaranteed to be there, though it doesn't look good.
+        // }
 
         let nc = notificationContainer.cloneNode(true);  // from shared.js
         injectContainer.insertAdjacentElement('beforebegin', nc);
@@ -209,6 +210,9 @@ function storeResults(surveyResults, socialMediaPlatform) {
         else if (surveyType === 'twitter-tweet') {
             insertKey = surveyResults.postID;
         }
+        else if (surveyType === 'instagram-user') {
+            insertKey = surveyResults.userID;
+        }
 
         let insertIndex = annotatedElements[surveyType].indexOf(insertKey);
         if (insertIndex === -1) {
@@ -221,7 +225,8 @@ function storeResults(surveyResults, socialMediaPlatform) {
 
         resultsArrays[surveyType][insertIndex] = surveyResults;
         annotatedElements[surveyType][insertIndex] = insertKey;
-        
+        // alert(insertKey);
+        // alert(insertIndex);
         let lists2update = {
             'resultsArrays': resultsArrays,
             'annotatedElements': annotatedElements,
@@ -262,25 +267,27 @@ function storeResults(surveyResults, socialMediaPlatform) {
 
             if (apiSuccess){  // @TODO: endpoint error handling isn't done properly, all parts part related to API needs
                                 // full on exception handling.
-                let divName = "surveyForm";
+                let divName = "surveyFormContainer";
                 if (surveyResults.surveyType === "twitter-tweet"){
                     divName += '-' + surveyResults.postID.toString();
                 }
 
                 let ss = successSpan.cloneNode(true);  // @TODO: Have this blink so works for back2back submissions. can remove the span in submit click to achieve that maybe.
 
-                let surveyContainer = document.getElementById(divName);
+                let surveyContainer = document.getElementById(divName).shadowRoot;
                 // @TODO: this part is also a bit piecemeal, work on a universally injectable single div.
                 let nc = null;
-                if (surveyResults.surveyType === "twitter-tweet") {
-                    // notification container is guaranteed to exist here as the only sibling of surveyCont, grab it and
-                    // just clone a span into it.
-                    nc = surveyContainer.getElementsByClassName("notification-container")[0];
-                }
-                else if (surveyResults.surveyType === "twitter-user") {
-                    // guaranteed to have one of these
-                    nc = surveyContainer.getElementsByClassName("notification-container")[0];
-                }
+                nc = surveyContainer.children[surveyContainer.children.length - 1].children[0]; // @TODO I need to clean all this up.
+
+                // if (surveyResults.surveyType === "twitter-tweet") {
+                //     // notification container is guaranteed to exist here as the only sibling of surveyCont, grab it and
+                //     // just clone a span into it.
+                //     nc = surveyContainer.getElementsByClassName("notification-container")[0];
+                // }
+                // else if (surveyResults.surveyType === "twitter-user") {
+                //     // guaranteed to have one of these
+                //     nc = surveyContainer.getElementsByClassName("notification-container")[0];
+                // }
                 if (nc !== null) {
                     nc.replaceChild(ss, nc.firstChild);
                     // @TODO Doesn't look good but works when someone hits submit back-to-back. Can use better UI overall.

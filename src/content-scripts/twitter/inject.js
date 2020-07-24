@@ -124,12 +124,29 @@ function injectTwitterTweetSurvey(injectNode, tweetID) {
     // alert('attempting to inject tweets');
     let surveyContainer = document.createElement('div');
     surveyContainer.className = "survey-container-tweet";
+    let containerName = "surveyFormContainer-" + tweetID;
+    surveyContainer.setAttribute("id", containerName);
+    const shadowRoot = surveyContainer.attachShadow({ mode: 'open' });
+
+    shadowRoot.innerHTML = `\
+   <link rel="stylesheet" type="text/css" href="${chrome.extension.getURL("dep/jsonform/deps/opt/bootstrap.css")}"></link>\
+   <link rel="stylesheet" type="text/css" href="${chrome.extension.getURL("content-scripts/twitter/inject.css")}"></link>\
+`;
 
     let survey = document.createElement('form');
-    survey.setAttribute("id", "surveyForm-" + tweetID);
-    // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
+    let surveyName = "surveyForm-" + tweetID;
+    survey.setAttribute("id", surveyName); // TODO: This ID should be unique when importing multiple forms into page
+    // surveyContainer.appendChild(survey);
     survey.classList.add("surveyFormTweet");
-    surveyContainer.appendChild(survey);
+    shadowRoot.appendChild(survey);
+
+
+    //
+    // let survey = document.createElement('form');
+    // survey.setAttribute("id", "surveyForm-" + tweetID);
+    // // survey.setAttribute("surveyInitTimestamp", Math.floor(Date.now() / 1000));
+    // survey.classList.add("surveyFormTweet");
+    // surveyContainer.appendChild(survey);
     injectNode.insertAdjacentElement('afterbegin', surveyContainer);
     // return tweetCount++;  // well its a global variable but this is the fastest way for now.
 }
