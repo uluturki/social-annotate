@@ -3,10 +3,10 @@ Helps annotating social media content and users by bringing everything in a sing
 
 ## Getting started
 * Clone/download the repo.
-* Using Chrome/Edge: Go to the extensions page and turn on the developer mode. Hit "Load unpacked" button and select the "src" directory in the repository. Details:
+* Using Google Chrome (only Chrome is supported at the moment): Go to the extensions page at chrome://extensions and turn on the developer mode. Hit "Load unpacked" button and select the "src" directory in the repository. For details, refer to the Google Chrome documentation:
 https://developer.chrome.com/extensions/getstarted
-* You can manage the extension and export annotated data using the extension popup. Click the extension logo to the right of the address bar.
-* In the options page, you can find advanced features like customizing survey questions for your study and defining an API endpoint to store the results. More documentation on these will be coming soon, feel free to reach us for help until then.
+* You can manage the extension and export annotated data using the extension popup. Click the extension logo to the right of the address bar on the browser to access the popup.
+* In the options page, you can find advanced features like customizing survey questions for your study and defining an API endpoint to post the results to. More documentation on these will be coming soon, feel free to reach us for help until then.
 * Extension is activated on Twitter by default with a placeholder survey.  
 * You can now annotate accounts!
 
