@@ -1,5 +1,5 @@
 ---
-title: 'Social-Annotate: Browser extension to annotate and collect social media data'
+title: '`Social-Annotate`: Browser extension to annotate and collect social media data'
 tags:
   - browser extension
   - data collection
@@ -20,16 +20,12 @@ affiliations:
 date: 28 July 2020
 bibliography: manuscipt/paper.bib
 
-# Optional fields if submitting to a AAS journal too, see this blog post:
-# https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
-# Abstract
+# Summary
 
 Human annotated data is essential in building machine learning systems and analyzing online systems. Most research efforts go through cumbersome data collection phases where they either build complicated annotation pipelines for online data or annotate offline data shared on spreadsheets or surveys. These approaches introduce significant overhead to any study requiring data collection and causes researchers to divert significant effort away from analysis and modelling to data collection, especially when they have limited programming experience.
-Here we present Social-Annotate, an extendable and configurable browser extension, to assist annotation and collection of online data. In this project we aim to develop a tool that can easily adapt to different tasks and extend to most online platforms. Social-Annotate allows collection of data directly on the online platform as a user sees and interacts with it as they normally would by injecting surveys into webpages on the browser, and annotations can easily be exported as files or sent to API endpoints for collaborative data collection. We aim with this tool to promote and expedite annotation of online datasets and reduce the data collection overhead so that researchers can focus on research.
+Here we present `Social-Annotate`, an extendable and configurable browser extension, to assist annotation and collection of online data. In this project we aim to develop a tool that can easily adapt to different tasks and extend to most online platforms. `Social-Annotate` allows collection of data directly on the online platform as a user sees and interacts with it as they normally would by injecting surveys into webpages on the browser, and annotations can easily be exported as files or sent to API endpoints for collaborative data collection. We aim with this tool to promote and expedite annotation of online datasets and reduce the data collection overhead so that researchers can focus on research.
 
 # Introduction
 
@@ -42,7 +38,7 @@ While the data collection approaches described so far appear feasible, they ofte
 Aspects of this task that can be automated or augmented to help annotators and reduce overhead.
 However, these automated approaches often require implementing custom data pipelines or tools. This introduces a cost of entry that excludes researchers with limited technical know-how or financial resources and makes studies of smaller scope less feasible in terms of effort or financial cost.  
 
-Here we build Social-Annotate, an extendable and configurable browser extension for data collection, to achieve following goals:
+Here we build `Social-Annotate`, an extendable and configurable browser extension for data collection, to achieve following goals:
 
 - Bringing online data sources and data collection platform together to speed-up the annotation process.
 - Survey forms that are easy to customize for non-technical users, and extendable for other websites. 
@@ -66,15 +62,13 @@ We build our browser extension following the design guidelines and best practice
     
 - **Options page**: A page for configuring and customizing the extension to change the behavior of certain aspects. Configurations on this page can be exported to or imported from a file.
     
+![`Social-Annotate` schematic design. Components of the extension presented in the middle panel and their UI designs shown on the right panel.\label{fig:schema}](manuscript/schema.png)
 
 In Figure \autoref{fig:schema}, we present the high-level representation of the extension. Elements of the extension are presented in the middle panel. We implement a separate content script for each social media platform, and only inject the relevant scripts to the page. Content scripts inject the surveys to the page, where the injection location and the survey itself can be configured. Users can interact with the extension using "popup" and configure it using "options" pages. 
 
 Our extension does not require any changes to the code for customizing the survey questions. We aim to be accessible for all users, especially those with limited programming experience. Surveys can be customized in the options page, and entire configurations including customized surveys can be exported as a configuration file that can be shared with study participants for easy onboarding.
 
-Advanced users can also implement their own content scripts for extending to different platforms. Using this additional functionality, users can design their own data collection strategy and manipulate content for controlled studies. We are providing details on how to easily extend Social-Annotate for supporting other platforms.
-
-![Social-Annotate schematic design. Components of the extension presented in the middle panel and their UI designs shown on the right panel.\label{fig:schema}](schema.png)
-
+Advanced users can also implement their own content scripts for extending to different platforms. Using this additional functionality, users can design their own data collection strategy and manipulate content for controlled studies. We are providing details on how to easily extend `Social-Annotate` for supporting other platforms.
 
 
 
@@ -84,7 +78,7 @@ Advanced users can also implement their own content scripts for extending to dif
 
 Surveys can have an arbitrary number of questions of various types, according to the needs of the study. We rely on JSON schemas as templates for easy configuration and sharing custom survey forms. These surveys are then injected into the page when the URL matches with the target domain. It is possible to have different types of surveys for each platform, which will also effect which elements the surveys are injected to. For example, it is possible to annotate users or tweets on Twitter.
 
-![Example form can be input following a JSON schema format. Options page provide various controllers for configuring the annotation study.\label{fig:example-form}](options_page.png)
+![Example form can be input following a JSON schema format. Options page provide various controllers for configuring the annotation study.\label{fig:example-form}](manuscript/options_page.png)
 
 An example form is presented in Fig~\autoref{fig:example-form} (right) for social bot detection research. Users can easily design their own questions and provide the JSON schema code through the options page, or import from a configuration file prepared and distributed to the participants by researchers conducting the study. Using JSON schema to define survey forms gives access to a wide range of form elements and controls without writing any HTML code, and enables researchers with limited technical know-how to create custom forms easily following provided examples ([jsonform package: https://github.com/jsonform/jsonform](https://github.com/jsonform/jsonform))
 
@@ -106,9 +100,9 @@ Collecting annotation results from multiple users may require gathering all the 
 
 # Extending to other platforms
 
-Social-Annotate is designed with easy deployment to other platforms such as Instagram, Reddit, Facebook, etc. in mind. We demonstrate this extension process by extending Social-Annotate to support annotating users on Instagram. This section can be considered as a walk-through on extending for any other platforms. We welcome and strongly encourage contributions to our open-source repository.
+`Social-Annotate` is designed with easy deployment to other platforms such as Instagram, Reddit, Facebook, etc. in mind. We demonstrate this extension process by extending `Social-Annotate` to support annotating users on Instagram. This section can be considered as a walk-through on extending for any other platforms. We welcome and strongly encourage contributions to our open-source repository.
 
-Social-Annotate has a central configuration file, called `config.js`, that contains information on extensions custom properties and details about the surveys. First step of extending this tool to other platforms is adding a new survey object into "surveys" field as shown in the highlighted code block below. 
+`Social-Annotate` has a central configuration file, called `config.js`, that contains information on extensions custom properties and details about the surveys. First step of extending this tool to other platforms is adding a new survey object into "surveys" field as shown in the highlighted code block below. 
 
 
 ```javascript
@@ -175,7 +169,7 @@ Finally, we need to update `manifest.json` declare when the new content-script f
 # Conclusion
 
 Researchers have already been using browser extension to collect data on user behavior [@capra2010hci], crowdsourcing tags [@kaur2014scholarometer], study news consumption behavior of online accounts [@chakraborty2016stop], or identification of social bots [@khayat2019vassl].
-Especially in domains require datasets collected from wide range of behaviors, sampling biases for annotation can be an issues. Crowdsourcing the annotation task to real users can reveal different types of accounts and users can label those accounts since they have been observing them in their own social media timelines. Tools for filtering social bot accounts becoming more important since platforms struggle catching up with the novel automated behaviors. Tools like [BotSentinel](http://botsentinel.com/) designed to mask problematic accounts, but such system can be instrumented for data collection and experimentation as well. Social-Annotate can be also extended to insert scores for social media users or content using popular services like [Botometer](https://botometer.iuni.iu.edu) and [Hoaxy](http://hoaxy.iuni.iu.edu/).
+Especially in domains require datasets collected from wide range of behaviors, sampling biases for annotation can be an issues. Crowdsourcing the annotation task to real users can reveal different types of accounts and users can label those accounts since they have been observing them in their own social media timelines. Tools for filtering social bot accounts becoming more important since platforms struggle catching up with the novel automated behaviors. Tools like [BotSentinel](http://botsentinel.com/) designed to mask problematic accounts, but such system can be instrumented for data collection and experimentation as well. `Social-Annotate` can be also extended to insert scores for social media users or content using popular services like [Botometer](https://botometer.iuni.iu.edu) and [Hoaxy](http://hoaxy.iuni.iu.edu/).
 
 We hope that by providing this tool we will reduce the overhead required for data annotation and improve the feasibility of research projects with limited resources.
 
@@ -185,11 +179,13 @@ Finally, although we emphasize collecting annotated social media datasets as the
 
 # Code repository
 
-Social-Annotate is available online on our website and through Github repository listed below.
+`Social-Annotate` is available online on our website and through Github repository listed below.
 
-- **Website**: [http://uluturki.github.io/social-annotate](http://uluturki.github.io/social-annotate)
+Resource     | URL
+------------ | -------------
+**Website**  | [http://uluturki.github.io/social-annotate](http://uluturki.github.io/social-annotate)
+**Github**   | [https://github.com/uluturki/social-annotate](https://github.com/uluturki/social-annotate)
 
-- **Github**: [https://github.com/uluturki/social-annotate](https://github.com/uluturki/social-annotate)
 
 
 # References
