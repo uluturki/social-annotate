@@ -62,7 +62,7 @@ We build our browser extension following the design guidelines and best practice
     
 - **Options page**: A page for configuring and customizing the extension to change the behavior of certain aspects. Configurations on this page can be exported to or imported from a file.
     
-![`Social-Annotate` schematic design. Components of the extension presented in the middle panel and their UI designs shown on the right panel.\label{fig:schema}](manuscript/schema.png)
+![`Social-Annotate` schematic design. Components of the extension presented in the middle panel and their UI designs shown on the right panel.\label{fig:schema}](./manuscript/schema.png)
 
 In Figure \autoref{fig:schema}, we present the high-level representation of the extension. Elements of the extension are presented in the middle panel. We implement a separate content script for each social media platform, and only inject the relevant scripts to the page. Content scripts inject the surveys to the page, where the injection location and the survey itself can be configured. Users can interact with the extension using "popup" and configure it using "options" pages. 
 
@@ -78,7 +78,7 @@ Advanced users can also implement their own content scripts for extending to dif
 
 Surveys can have an arbitrary number of questions of various types, according to the needs of the study. We rely on JSON schemas as templates for easy configuration and sharing custom survey forms. These surveys are then injected into the page when the URL matches with the target domain. It is possible to have different types of surveys for each platform, which will also effect which elements the surveys are injected to. For example, it is possible to annotate users or tweets on Twitter.
 
-![Example form can be input following a JSON schema format. Options page provide various controllers for configuring the annotation study.\label{fig:example-form}](manuscript/options_page.png)
+![Example form can be input following a JSON schema format. Options page provide various controllers for configuring the annotation study.\label{fig:example-form}](./manuscript/options_page.png)
 
 An example form is presented in Fig~\autoref{fig:example-form} (right) for social bot detection research. Users can easily design their own questions and provide the JSON schema code through the options page, or import from a configuration file prepared and distributed to the participants by researchers conducting the study. Using JSON schema to define survey forms gives access to a wide range of form elements and controls without writing any HTML code, and enables researchers with limited technical know-how to create custom forms easily following provided examples ([jsonform package: https://github.com/jsonform/jsonform](https://github.com/jsonform/jsonform))
 
