@@ -31,7 +31,7 @@ Here we present `Social-Annotate`, an extendable and configurable browser extens
 
 Machine learning applications rely on high-quality annotated data to build supervised models. This is especially true in social media analysis, and models trained on account behavior and content have been used to detect automated activities and to study conversations in the past [@mitra2015credbank; @potthast2017stylometric; @shu2018fakenewsnet; @varol2017online; @yang2019arming]. 
 
-Researchers are often faced with inefficient tasks of inspection and labeling to build such annotated datasets. Most data collection studies, content to be inspected is often shares as a collection of URLs contained in platforms such as online forms and spreadsheets. This content is then inspected manually by following the URL directly on a web-browser, or the content is isolated and extracted from its source on a separate data collection platform. Crowd-sourcing approaches can help scale the annotation task, however the cost of high-quality annotated data is still high with crowd-sourcing since performance non-expert users requires further validation or larger samples [@hsueh2009data; @see2013comparing]. A crowd-sourcing platform can also provide annotated data in a machine-readable format to help researchers get to the analysis more conveniently. 
+Researchers are often faced with inefficient tasks of inspection and labeling to build such annotated datasets. Most data collection studies, content to be inspected is often shares as a collection of URLs contained in platforms such as online forms and spreadsheets. This content is then inspected manually by following the URL directly on a web-browser, or the content is isolated and extracted from its source on a separate data collection platform. Crowd-sourcing approaches can help scale the annotation task, however the cost of high-quality annotated data is still high with crowd-sourcing since performance non-expert users requires further validation or larger samples [@hsueh2009data; @see2013comparing]. A crowd-sourcing platform can also provide annotated data in a machine-readable format to help researchers get to the analysis more conveniently.
 
 While the data collection approaches described so far appear feasible, they often require a constant back-and-forth between the browser and forms, or display data that have been previously extracted alongside forms on a separate platform, isolated from the original online source of the content. Both of these approaches introduce significant overhead in collection, preparation, and access of content to be annotated. Furthermore, these approaches isolate content annotation task from the natural use of the online platform which may user experience and introduce or remove biases compared to regular users. Recommendation algorithms, the sequence content is loaded, and content layout on the page are some examples of these sources of influence inherent to each platform.
 
@@ -44,7 +44,6 @@ Here we build `Social-Annotate`, an extendable and configurable browser extensio
 - Survey forms that are easy to customize for non-technical users, and extendable for other websites. 
 - Datasets collected for a study can be exported to JSON or CSV files, or submitted to an API endpoint automatically.
 - Browser extension can inject survey question directly into websites so that annotation can be collected while interacting with the source platform naturally, or manipulate the displayed content for controlled studies.
-
 
 
 
@@ -61,15 +60,16 @@ We build our browser extension following the design guidelines and best practice
 - **Popup page**: A simple interface to control the extension, such as enable/disable, annotation statistics, and switching between different collection tasks.
     
 - **Options page**: A page for configuring and customizing the extension to change the behavior of certain aspects. Configurations on this page can be exported to or imported from a file.
+
+
     
 ![`Social-Annotate` schematic design. Components of the extension presented in the middle panel and their UI designs shown on the right panel.\label{fig:schema}](manuscript/schema.png)
 
-In Figure \autoref{fig:schema}, we present the high-level representation of the extension. Elements of the extension are presented in the middle panel. We implement a separate content script for each social media platform, and only inject the relevant scripts to the page. Content scripts inject the surveys to the page, where the injection location and the survey itself can be configured. Users can interact with the extension using "popup" and configure it using "options" pages. 
+In \autoref{fig:schema}, we present the high-level representation of the extension. Elements of the extension are presented in the middle panel. We implement a separate content script for each social media platform, and only inject the relevant scripts to the page. Content scripts inject the surveys to the page, where the injection location and the survey itself can be configured. Users can interact with the extension using "popup" and configure it using "options" pages. 
 
 Our extension does not require any changes to the code for customizing the survey questions. We aim to be accessible for all users, especially those with limited programming experience. Surveys can be customized in the options page, and entire configurations including customized surveys can be exported as a configuration file that can be shared with study participants for easy onboarding.
 
-Advanced users can also implement their own content scripts for extending to different platforms. Using this additional functionality, users can design their own data collection strategy and manipulate content for controlled studies. We are providing details on how to easily extend `Social-Annotate` for supporting other platforms.
-
+Advanced users can also implement their own content scripts for extending to different platforms. Using this additional functionality, users can design their own data collection strategy and manipulate content for controlled studies. We are providing details on how to easily extend `Social-Annotate` for supporting other platforms in section called "Extending to other platforms".
 
 
 
@@ -80,9 +80,9 @@ Surveys can have an arbitrary number of questions of various types, according to
 
 ![Example form can be input following a JSON schema format. Options page provide various controllers for configuring the annotation study.\label{fig:example-form}](manuscript/options_page.png)
 
-An example form is presented in Fig~\autoref{fig:example-form} (right) for social bot detection research. Users can easily design their own questions and provide the JSON schema code through the options page, or import from a configuration file prepared and distributed to the participants by researchers conducting the study. Using JSON schema to define survey forms gives access to a wide range of form elements and controls without writing any HTML code, and enables researchers with limited technical know-how to create custom forms easily following provided examples ([jsonform package: https://github.com/jsonform/jsonform](https://github.com/jsonform/jsonform))
+An example form is presented in \autoref{fig:example-form} (right) for social bot detection research. Users can easily design their own questions and provide the JSON schema code through the options page, or import from a configuration file prepared and distributed to the participants by researchers conducting the study. Using JSON schema to define survey forms gives access to a wide range of form elements and controls without writing any HTML code, and enables researchers with limited technical know-how to create custom forms easily following provided examples ([jsonform package: https://github.com/jsonform/jsonform](https://github.com/jsonform/jsonform))
 
-Each survey form collects answers for survey questions, including but not limited to multiple choice and free text entry, as well as additional meta-data such as time it takes to answer each question and time of submission. This data is temporarily stored on the local storage of the browser, and can be exported to a file at any time. It is also possible to post each annotation to a remote server through HTTP requests. 
+Each survey form collects answers for survey questions, including but not limited to multiple choice and free text entry, as well as additional meta-data such as time it takes to answer each question and time of submission. This data is temporarily stored on the local storage of the browser, and can be exported to a file at any time. It is also possible to post each annotation to a remote server through HTTP requests.
 
 
 
@@ -92,8 +92,7 @@ Each survey form collects answers for survey questions, including but not limite
 
 Collection of the survey responses are an important step prior to analysis of the outcomes. One of the common formats for analyzing such data is comma-separated files that can be opened using any spreadsheet application. Alternatively, programmatic manipulation of these results are also possible. Here we also consider exporting outcomes of the study in a JSON file where each survey response and their corresponding meta-data information are nested. 
 
-Collecting annotation results from multiple users may require gathering all the exported files and merging them. To centralize all the responses into a single location, we also provide the option to send responses to a user defined API endpoint. Having a simple server-side application listening to this endpoint, users can gather results from multiple clients. We provide a sample Flask server-side application to demonstrate this functionality in our code repository. This feature can be used to enable easier crowd-sourcing.
-
+Collecting annotation results from multiple users may require gathering all the exported files and merging them. To centralize all the responses into a single location, we also provide the option to send responses to a user defined API endpoint. Having a simple server-side application listening to this endpoint, users can gather results from multiple clients. We provide a sample Flask server-side application to demonstrate this functionality in our code repository. This feature can be used to enable easier crowd-sourcing. 
 
 
 
@@ -102,39 +101,64 @@ Collecting annotation results from multiple users may require gathering all the 
 
 `Social-Annotate` is designed with easy deployment to other platforms such as Instagram, Reddit, Facebook, etc. in mind. We demonstrate this extension process by extending `Social-Annotate` to support annotating users on Instagram. This section can be considered as a walk-through on extending for any other platforms. We welcome and strongly encourage contributions to our open-source repository.
 
-`Social-Annotate` has a central configuration file, called `config.js`, that contains information on extensions custom properties and details about the surveys. First step of extending this tool to other platforms is adding a new survey object into "surveys" field as shown in the highlighted code block below. 
+`Social-Annotate` has a central configuration file, called `config.js`, that contains information on extensions custom properties and details about the surveys. First step of extending this tool to other platforms is adding a new survey object into "surveys" field as shown in the highlighted code block below.
 
 
 ```javascript
 # config.js
 var config = {
-    "exportFormat": "csv",
-    "activeSurveys": ["twitter-user"], 
-    "surveys": {
-        "instagram-user":{
-            "socialMediaPlatform": "instagram",
-            "injectElement": {
-              "name": "global-nav-inner", 
-              "type": "class", 
-              "index": 0
-            },
-            "surveyFormSchema" : {
-                ...
-            }
-        },
-        "twitter-user":{ 
-            ...
-        }
+  "exportFormat": "csv",
+  "activeSurveys": ["twitter-user"], 
+  "surveys": {
+**    "instagram-user":{ **
+**      "socialMediaPlatform": "instagram", **
+**      "injectElement": { **
+**        "name": "global-nav-inner", **
+**        "type": "class", **
+**        "index": 0 **
+**      }, **
+**      "surveyFormSchema" : { **
+**        ... **
+**      } **
+**    }, **
+    
+    "twitter-user":{ 
+      ...
     }
+  }
 };
 ```
 
-Content scripts ...
+Content scripts for the new platform should reside in its own directory under the `content-scripts` folder. Name of this folder should match with the key of "socialMediaPlatform" field in the config. In this particular case "instagram" (line 5) should be used as folder name. 
+
+Behavior of the extension on this new platform is defined by `inject.js` and `inject.css` files, while `shared/shared.js` includes the shared logic and definitions. The content-script for each platform implements the `Context` class defined in `shared.js`. This requires implementing an `injectSurvey` method and an `auxiliaryCheck` method. The `injectSurvey` method locates the DOM element the survey will be injected into and creates a container element for the survey. The survey is rendered into a shadow tree using Shadow DOM to isolate it from the page DOM. The `auxiliaryCheck` method does any platform specific checks such as validating the URL for user pages, or it can return `True` if no checks are necessary. If there are multiple `Context`s per platform, such as annotating users and tweets on Twitter, each context should be defined separately within the content-script for that platform. Finally, the platform specific content script defined under `platform/inject.js` loads the configuration file and renders the survey following the `Context` instances available and the configurations. `platform/inject.css` provides the style for the injected survey, isolated from the page DOM through Shadow DOM. 
+
+We now need to identify the DOM element that we want to inject the form content into on the Instagram webpage. Developer tools for modern browsers provide inspection tools to identify DOM elements and capabilities to test changes in the codes simultaneously, which can be used to determine an element that will be a suitable container for the survey. In the `config.js` file, we provide this information in a field called "injectElement" (lines 8-10). This field captures the matching field of the HTML div element such as "class" or "id". 
+
+After creating the content-scripts, we need to set-up storage space for the new contexts defined in the new platform specific content-scripts. The storage initialization can be found in the `background.js` file, as seen below. An empty array for each new context needs to be initialized under `resultsArrays` and `annotatedElements` objects. 
+
+```javascript
+let initialStorage = {
+  "resultsArrays": {
+    "twitter-user": [],
+    "twitter-tweet": [],
+    "instagram-user": []
+  },  
+  "annotatedElements": {
+    "twitter-user": [],
+    "twitter-tweet": [],
+    "instagram-user": []
+  }, 
+  "clientID": clientID,
+  "config": config,
+  "isEnabled": true,
+  "isGuided": false,
+  "activeTargetList": [...config.surveys["twitter-user"].screenNameList]  // clone the array, keep the initial list for future reference.
+};
+```
 
 
-
-Finally, we need to update `manifest.json` declare when the new content-script files and any other files needed for this addition to support a new platform should be injected to the page.
-
+Finally, we need to update `manifest.json` declare when the new content-script files and any other files needed for this addition to support a new platform should be injected to the page. The style sheets are required to be made available as `web_accessible_resources` because the surveys are isolated from the original page DOM through Shadow DOM, and we need to access the style sheets from within the shadow tree.
 
 ```javascript
 # manifest.js
@@ -159,7 +183,12 @@ Finally, we need to update `manifest.json` declare when the new content-script f
        "content-scripts/twitter/inject.js",
        "content-scripts/shared/shared.js",
        ... // Other JS files
-     ]
+     ],
+    "web_accessible_resources": [
+    "content-scripts/instagram/inject.css",
+    "content-scripts/twitter/inject.css",
+    "dep/jsonform/deps/opt/bootstrap.css"
+  ],
    }
   ]
 }
@@ -169,12 +198,11 @@ Finally, we need to update `manifest.json` declare when the new content-script f
 # Conclusion
 
 Researchers have already been using browser extension to collect data on user behavior [@capra2010hci], crowdsourcing tags [@kaur2014scholarometer], study news consumption behavior of online accounts [@chakraborty2016stop], or identification of social bots [@khayat2019vassl].
-Especially in domains require datasets collected from wide range of behaviors, sampling biases for annotation can be an issues. Crowdsourcing the annotation task to real users can reveal different types of accounts and users can label those accounts since they have been observing them in their own social media timelines. Tools for filtering social bot accounts becoming more important since platforms struggle catching up with the novel automated behaviors. Tools like [BotSentinel](http://botsentinel.com/) designed to mask problematic accounts, but such system can be instrumented for data collection and experimentation as well. `Social-Annotate` can be also extended to insert scores for social media users or content using popular services like [Botometer](https://botometer.iuni.iu.edu) and [Hoaxy](http://hoaxy.iuni.iu.edu/).
+Especially in domains require datasets collected from wide range of behaviors, sampling biases for annotation can become a significant issue. Crowdsourcing the annotation task to real users can surface a more diverse set of accounts since users can label the accounts they have are observing in their own social media timelines. Tools for filtering social bot accounts are also becoming more important since platforms struggle catching up with the novel automated behaviors. Tools like [BotSentinel](http://botsentinel.com) are designed to mask problematic accounts, however such a system can be instrumented for data collection and experimentation as well. `Social-Annotate` can also be extended to insert scores for social media users or content using popular services like [Botometer](https://botometer.iuni.iu.edu) and [Hoaxy](http://hoaxy.iuni.iu.edu/).
 
-We hope that by providing this tool we will reduce the overhead required for data annotation and improve the feasibility of research projects with limited resources.
+We hope that by providing this tool we will reduce the overhead required for data annotation and improve the feasibility of research projects with limited resources. We believe enabling annotation directly on the social media platforms with minimal impact to the regular user experience can also make a wider range of studies possible.
 
-Finally, although we emphasize collecting annotated social media datasets as the main focus of this tool, it is possible to extend it to be used on any other website. We welcome and strongly encourage contributions to our open-sourced repository.
-
+Finally, although we emphasize collecting annotated social media datasets as the main focus of this tool, it is possible to extend it to be used on any content on the web. We welcome and strongly encourage contributions to our open-sourced repository.
 
 
 # Code repository
