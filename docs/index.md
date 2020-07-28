@@ -19,4 +19,4 @@ Abstract of the paper will go here.
 
 # Validating forms
 
-To validate survey forms, please refer to the playground page of the `jsonform` package [here](https://uluturki.github.io/twitter_annotate/playground).
+To validate survey forms, please refer to the playground page of the `jsonform` package [here](https://jsonform.github.io/jsonform/playground/index.html).
