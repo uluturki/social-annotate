@@ -110,17 +110,17 @@ var config = {
   "exportFormat": "csv",
   "activeSurveys": ["twitter-user"], 
   "surveys": {
-**    "instagram-user":{ **
-**      "socialMediaPlatform": "instagram", **
-**      "injectElement": { **
-**        "name": "global-nav-inner", **
-**        "type": "class", **
-**        "index": 0 **
-**      }, **
-**      "surveyFormSchema" : { **
-**        ... **
-**      } **
-**    }, **
+    "instagram-user":{
+      "socialMediaPlatform": "instagram",
+      "injectElement": {
+        "name": "global-nav-inner", 
+        "type": "class", 
+        "index": 0
+      },
+      "surveyFormSchema" : {
+        ...
+      }
+    },
     
     "twitter-user":{ 
       ...
@@ -129,11 +129,11 @@ var config = {
 };
 ```
 
-Content scripts for the new platform should reside in its own directory under the `content-scripts` folder. Name of this folder should match with the key of "socialMediaPlatform" field in the config. In this particular case "instagram" (line 5) should be used as folder name. 
+Content scripts for the new platform should reside in its own directory under the `content-scripts` folder. Name of this folder should match with the key of "socialMediaPlatform" field in the config. In this particular case "instagram" should be used as folder name. 
 
 Behavior of the extension on this new platform is defined by `inject.js` and `inject.css` files, while `shared/shared.js` includes the shared logic and definitions. The content-script for each platform implements the `Context` class defined in `shared.js`. This requires implementing an `injectSurvey` method and an `auxiliaryCheck` method. The `injectSurvey` method locates the DOM element the survey will be injected into and creates a container element for the survey. The survey is rendered into a shadow tree using Shadow DOM to isolate it from the page DOM. The `auxiliaryCheck` method does any platform specific checks such as validating the URL for user pages, or it can return `True` if no checks are necessary. If there are multiple `Context`s per platform, such as annotating users and tweets on Twitter, each context should be defined separately within the content-script for that platform. Finally, the platform specific content script defined under `platform/inject.js` loads the configuration file and renders the survey following the `Context` instances available and the configurations. `platform/inject.css` provides the style for the injected survey, isolated from the page DOM through Shadow DOM. 
 
-We now need to identify the DOM element that we want to inject the form content into on the Instagram webpage. Developer tools for modern browsers provide inspection tools to identify DOM elements and capabilities to test changes in the codes simultaneously, which can be used to determine an element that will be a suitable container for the survey. In the `config.js` file, we provide this information in a field called "injectElement" (lines 8-10). This field captures the matching field of the HTML div element such as "class" or "id". 
+We now need to identify the DOM element that we want to inject the form content into on the Instagram webpage. Developer tools for modern browsers provide inspection tools to identify DOM elements and capabilities to test changes in the codes simultaneously, which can be used to determine an element that will be a suitable container for the survey. In the `config.js` file, we provide this information in a field called "injectElement". This field captures the matching field of the HTML div element such as "class" or "id". 
 
 After creating the content-scripts, we need to set-up storage space for the new contexts defined in the new platform specific content-scripts. The storage initialization can be found in the `background.js` file, as seen below. An empty array for each new context needs to be initialized under `resultsArrays` and `annotatedElements` objects. 
 
@@ -153,7 +153,8 @@ let initialStorage = {
   "config": config,
   "isEnabled": true,
   "isGuided": false,
-  "activeTargetList": [...config.surveys["twitter-user"].screenNameList]  // clone the array, keep the initial list for future reference.
+  // clone the array below, keep the initial list for future reference.
+  "activeTargetList": [...config.surveys["twitter-user"].screenNameList]  
 };
 ```
 
@@ -168,28 +169,28 @@ Finally, we need to update `manifest.json` declare when the new content-script f
   "manifest_version": 2,
   ... // Other configurations
   "content_scripts": [
-   {
-     "matches": [
+    {
+      "matches": [
         "*://twitter.com/*",
         "*://instagram.com/*"
-     ],
-     "css": [ 
-       "content-scripts/instagram/inject.css",
-       "content-scripts/twitter/inject.css",
-       ... // Other CSS files
-     ],
-     "js": [
-       "content-scripts/instagram/inject.js",
-       "content-scripts/twitter/inject.js",
-       "content-scripts/shared/shared.js",
-       ... // Other JS files
-     ],
-    "web_accessible_resources": [
-    "content-scripts/instagram/inject.css",
-    "content-scripts/twitter/inject.css",
-    "dep/jsonform/deps/opt/bootstrap.css"
-  ],
-   }
+      ],
+      "css": [ 
+        "content-scripts/instagram/inject.css",
+        "content-scripts/twitter/inject.css",
+        ... // Other CSS files
+      ],
+      "js": [
+        "content-scripts/instagram/inject.js",
+        "content-scripts/twitter/inject.js",
+        "content-scripts/shared/shared.js",
+        ... // Other JS files
+      ],
+      "web_accessible_resources": [
+        "content-scripts/instagram/inject.css",
+        "content-scripts/twitter/inject.css",
+        "dep/jsonform/deps/opt/bootstrap.css"
+      ],
+    }
   ]
 }
 ```
