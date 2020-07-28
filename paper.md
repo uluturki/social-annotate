@@ -9,7 +9,7 @@ tags:
 authors:
   - name: Ismail Uluturk
     affiliation: 1
-  - name: Onur Varol^[Corresponding author: `onur@varollab.com`]
+  - name: Onur Varol^[Corresponding author]
     orcid: 0000-0002-3994-6106
     affiliation: 2
 affiliations:
