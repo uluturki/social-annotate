@@ -20,7 +20,9 @@ You can find latest screenshots from our tests below.
 
 ![user annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_tweet_survey_example.png)
 
-![tweet annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_user_survey_example.png)
+![tweet annotation_real](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_user_survey_example_new.png)
+
+![user annotation_instagram](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_instagram_user_survey_example.png)
 
 
 # Brain storming for the tool
