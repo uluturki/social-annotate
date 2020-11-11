@@ -27,7 +27,7 @@ You can find latest screenshots from our tests below.
 
 # Brain storming for the tool
 
-We can consider having a tool to help reseachers to annotate and collect data easily on their browser. [Here](https://chrome.google.com/webstore/detail/twlets-twitter-to-excel/glmadnnfibhnhgboophnodnhbjdogiec) is an example designe to download data. We can do better and add annotation capabilities.
+We can consider having a tool to help reseachers to annotate and collect data easily on their browser. [Here](https://chrome.google.com/webstore/detail/twlets-twitter-to-excel/glmadnnfibhnhgboophnodnhbjdogiec) is an example design to download data. We can do better and add annotation capabilities.
 
 Some design choices can be
 
