@@ -58,13 +58,13 @@ var config = {
                     "smart": {
                         "type": "string",
                         "title": "Is this tweet smart?",
-                        "enum": [ "no", "NO"],
+                        "enum": [ "yes", "no"],
                         "required": true
                     },
                     "pointless": {
                         "type": "string",
                         "title": "Is this tweet pointless?",
-                        "enum": [ "yes", "YES"],
+                        "enum": [ "yes", "no"],
                         "required": true
                     }
                 },

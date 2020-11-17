@@ -2,6 +2,7 @@
 Helps annotating social media content and users by bringing everything in a single screen and keeping records straight.
 
 ## Getting started
+
 * Clone/download the repo.
 * Using Google Chrome (only Chrome is supported at the moment): Go to the extensions page at chrome://extensions and turn on the developer mode. Hit "Load unpacked" button and select the "src" directory in the repository. For details, refer to the Google Chrome documentation:
 https://developer.chrome.com/extensions/getstarted
@@ -11,10 +12,12 @@ https://developer.chrome.com/extensions/getstarted
 * You can now annotate accounts!
 
 
-# Going public, v1.0 soon!
-We are looking for potential user scenarios/stories so we can support them properly. If you have a use case, or suggestions, let us know!
-Instagram support will be live with v1.0 as well.
-If you would like to contribute, check out the issues and let us know if you see anything you like.
+# A Visual Demo Is Worth a Thousand Words
+
+Please see our short demo for setting up the system and using for data annotation.
+
+
+# We released v1.0!
 
 You can find latest screenshots from our tests below.
 
@@ -24,20 +27,14 @@ You can find latest screenshots from our tests below.
 
 ![user annotation_instagram](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/content-annotator_instagram_user_survey_example.png)
 
+# Community guidelines
 
-# Brain storming for the tool
+We are looking for potential user scenarios/stories so we can support them properly. If you have a use case, or suggestions, let us know! 
 
-We can consider having a tool to help reseachers to annotate and collect data easily on their browser. [Here](https://chrome.google.com/webstore/detail/twlets-twitter-to-excel/glmadnnfibhnhgboophnodnhbjdogiec) is an example design to download data. We can do better and add annotation capabilities.
+## Contribute to the software
 
-Some design choices can be
+If you would like to contribute, check out the issues and please provide your changes through pull-requests. We are looking for additional use cases to incorporate with our system.
 
-- Easy to customize interface for specific tasks. People can design their own study in two levels: Account and content level. 
+## Report issues or problems with the software
 
-- Easy to export outcomes. We can provide settings for researchers to select their data collection. User profile metadata and content information can be collected. Data storage can be either a server or browser storage that will give a chance to export as json or CSV file.
-
-Some mockups below
-
-![user annotate](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/user-annotation.png)
-
-![tweet annotation](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/tweet-annotation.png)
-
+If you notice any problem with this tool, please submit an issue on this repository. If you have any question, you can also reach us through our public profiles: @onurvarol and @uluturki

@@ -17,7 +17,7 @@ affiliations:
    index: 1
  - name: Faculty of Engineering and Natural Sciences, Sabanci University
    index: 2
-date: 28 July 2020
+date: 20 November 2020
 bibliography: manuscript/paper.bib
 
 ---
@@ -27,7 +27,7 @@ bibliography: manuscript/paper.bib
 Human annotated data is essential in building machine learning systems and analyzing online systems. Most research efforts go through cumbersome data collection phases where they either build complicated annotation pipelines for online data or annotate offline data shared on spreadsheets or surveys. These approaches introduce significant overhead to any study requiring data collection and causes researchers to divert significant effort away from analysis and modelling to data collection, especially when they have limited programming experience.
 Here we present `Social-Annotate`, an extendable and configurable browser extension, to assist annotation and collection of online data. In this project we aim to develop a tool that can easily adapt to different tasks and extend to most online platforms. `Social-Annotate` allows collection of data directly on the online platform as a user sees and interacts with it as they normally would by injecting surveys into webpages on the browser, and annotations can easily be exported as files or sent to API endpoints for collaborative data collection. We aim with this tool to promote and expedite annotation of online datasets and reduce the data collection overhead so that researchers can focus on research.
 
-# Introduction
+# Statement of need
 
 Machine learning applications rely on high-quality annotated data to build supervised models. This is especially true in social media analysis, and models trained on account behavior and content have been used to detect automated activities and to study conversations in the past [@mitra2015credbank; @potthast2017stylometric; @shu2018fakenewsnet; @varol2017online; @yang2019arming]. 
 
@@ -35,16 +35,18 @@ Researchers are often faced with inefficient tasks of inspection and labeling to
 
 While the data collection approaches described so far appear feasible, they often require a constant back-and-forth between the browser and forms, or display data that have been previously extracted alongside forms on a separate platform, isolated from the original online source of the content. Both of these approaches introduce significant overhead in collection, preparation, and access of content to be annotated. Furthermore, these approaches isolate content annotation task from the natural use of the online platform which may user experience and introduce or remove biases compared to regular users. Recommendation algorithms, the sequence content is loaded, and content layout on the page are some examples of these sources of influence inherent to each platform.
 
-Aspects of this task that can be automated or augmented to help annotators and reduce overhead.
-However, these automated approaches often require implementing custom data pipelines or tools. This introduces a cost of entry that excludes researchers with limited technical know-how or financial resources and makes studies of smaller scope less feasible in terms of effort or financial cost.  
+Aspects of annotation task that can be automated or augmented to help annotators and reduce overhead.
+However, these automated approaches often require implementing custom data pipelines or tools. This introduces a cost of entry that excludes researchers with limited technical know-how or financial resources and makes studies of smaller scope less feasible in terms of effort or financial cost. We propose a customizable data annotation solution that works on a web browser with an easy interface to configure in this work. 
+This tool is designed considering the needs of our target audience, social science scholars and crowd-sourcing workers in academic and industry setting.
 
-Here we build `Social-Annotate`, an extendable and configurable browser extension for data collection, to achieve following goals:
+# Introduction
+
+In this work, we introduce an extendable and configurable browser extension for data collection, called `Social-Annotate`, to achieve following goals:
 
 - Bringing online data sources and data collection platform together to speed-up the annotation process.
 - Survey forms that are easy to customize for non-technical users, and extendable for other websites. 
 - Datasets collected for a study can be exported to JSON or CSV files, or submitted to an API endpoint automatically.
 - Browser extension can inject survey question directly into websites so that annotation can be collected while interacting with the source platform naturally, or manipulate the displayed content for controlled studies.
-
 
 
 # System design
