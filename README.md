@@ -1,4 +1,5 @@
-# social-annotator
+# Social Annotate
+
 Helps annotating social media content and users by bringing everything in a single screen and keeping records straight.
 
 ## Getting started
