@@ -55,27 +55,27 @@ var config = {
             "studyID": "kokone",
             "surveyFormSchema" : {
                 "schema": {
-                    "smart": {
+                    "english": {
                         "type": "string",
-                        "title": "Is this tweet smart?",
+                        "title": "Is this tweet writted in English?",
                         "enum": [ "yes", "no"],
                         "required": true
                     },
-                    "pointless": {
+                    "conversation": {
                         "type": "string",
-                        "title": "Is this tweet pointless?",
+                        "title": "Is this a part of conversation?",
                         "enum": [ "yes", "no"],
                         "required": true
                     }
                 },
                 "form": [
                     {
-                        "key": "smart",
+                        "key": "english",
                         "type": "radiobuttons",
                         "activeClass": "btn-success"
                     },
                     {
-                        "key": "pointless",
+                        "key": "conversation",
                         "type": "radiobuttons",
                         "activeClass": "btn-success"
                     },
@@ -95,19 +95,23 @@ var config = {
               "index": 0
             },
             "studyID": "maruko",
-            "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
+            "screenNameList": [],
             "surveyFormSchema" : {
               "schema": {
                 "bot": {
                   "type": "string",
                   "title": "Do you believe this user to be a bot?",
-                  "enum": [ "bot", "NOTbot"],
+                  "enum": [ "Yes", "No"],
                   "required": true
                 },
-                "cool": {
-                  "type": "string",
-                  "title": "Is this user cool?",
-                  "enum": [ "cool", "NOTcool"],
+                "confidence": {
+                  "type": "integer",
+                  "title": "How confident with your response to bot question?",
+                  "description": "0 for least and 5 for the most confident",
+                  "default": 3,
+                  "minimum": 0,
+                  "maximum": 5,
+                  "exclusiveMinimum": true,
                   "required": true
                 }
               },
@@ -118,8 +122,8 @@ var config = {
                   "activeClass": "btn-success"
                 },
                 {
-                  "key": "cool",
-                  "type": "radiobuttons",
+                  "key": "confidence",
+                  "type": "range",
                   "activeClass": "btn-success"
                 },
                 {
@@ -138,19 +142,19 @@ var config = {
                 "index": 0
             },
             "studyID": "maruko",
-            "screenNameList": ["strictlynofun", "onurvarol", "realdonaldtrump", "ContraPoints", "Kanopy"],
+            "screenNameList": [],
             "surveyFormSchema" : {
                 "schema": {
                     "bot": {
                         "type": "string",
                         "title": "Do you believe this user to be a bot?",
-                        "enum": [ "bot", "NOTbot"],
+                        "enum": [ "Yes", "No"],
                         "required": true
                     },
-                    "cool": {
+                    "celebrity": {
                         "type": "string",
-                        "title": "Is this user cool?",
-                        "enum": [ "cool", "NOTcool"],
+                        "title": "Is this a celebrity user?",
+                        "enum": [ "Yes", "No"],
                         "required": true
                     }
                 },
@@ -161,7 +165,7 @@ var config = {
                         "activeClass": "btn-success"
                     },
                     {
-                        "key": "cool",
+                        "key": "celebrity",
                         "type": "radiobuttons",
                         "activeClass": "btn-success"
                     },
