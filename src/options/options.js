@@ -89,6 +89,7 @@ function saveOptionsPage(){
   chrome.storage.local.get(['config'], function(result) {
     var configData = result.config;
 
+    configData.apiEndpoint = document.getElementById('api-endpoint').value;
     for(var key in configData.surveys){
       var survey = configData.surveys[key];
       if(survey.hasOwnProperty('injectElement')){

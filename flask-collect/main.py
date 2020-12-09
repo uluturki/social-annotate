@@ -27,6 +27,7 @@ DS = DataStorage()
 @cross_origin(origin='*',headers=['access-control-allow-origin','Content-Type'])
 def collect_response():
     resp = json.loads(request.data)
+    print('[New data] => {}'.format(json.dumps(resp)))
     DS.appendResponse(resp)
     return Response(status=200)
 
