@@ -17,6 +17,8 @@ https://developer.chrome.com/extensions/getstarted
 
 Please see our short demo for setting up the system and using for data annotation.
 
+[![Youtube Video](https://github.com/uluturki/twitter_annotate/blob/master/docs/img/youtube-thumbnail.png)](https://www.youtube.com/watch?v=rSJiVwJzM2k)
+
 
 # We released v1.0!
 
