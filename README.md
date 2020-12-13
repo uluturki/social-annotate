@@ -38,6 +38,16 @@ We are looking for potential user scenarios/stories so we can support them prope
 
 If you would like to contribute, check out the issues and please provide your changes through pull-requests. We are looking for additional use cases to incorporate with our system.
 
+## Customizing annotation forms
+
+Surveys forms can have an arbitrary number of questions of various types, according to the needs of the study. We rely on JSON schemas as templates for easy configuration and sharing custom survey forms. These surveys are then injected into the page when the URL matches with the target domain. It is possible to have different types of surveys for each platform, which will also effect which elements the surveys are injected to. For example, it is possible to annotate users or tweets on Twitter. Please check out our visual demo above.
+
+## Extending to other platforms
+
+social-annotate is designed with easy deployment to different social media platforms in mind. In order to extend the extension for different platforms, all that is necessary to be done is to implement the content script that will be injected to the page, and update configuration, initialization, and manifest files. 
+
+You can find a complete example of extending to Instagram in our accompanying [manuscript](https://github.com/uluturki/social-annotate/blob/master/manuscript/manuscipt-preview.pdf).
+
 ## Report issues or problems with the software
 
 If you notice any problem with this tool, please submit an issue on this repository. If you have any question, you can also reach us through our public profiles: @onurvarol and @uluturki
