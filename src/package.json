@@ -1,0 +1,19 @@
+{
+  "name": "social-annotate",
+  "version": "1.0.0",
+  "description": "Tool for manually annotating social media data",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uluturki/social-annotate.git"
+  },
+  "author": "Onur Varol & Ismail Uluturk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uluturki/social-annotate/issues"
+  },
+  "homepage": "https://github.com/uluturki/social-annotate#readme"
+}
